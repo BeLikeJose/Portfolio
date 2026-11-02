@@ -157,7 +157,7 @@ export function createTrap(container, opts = {}) {
 
   const resize = () => {
     const [w, h] = size(); renderer.setSize(w, h);
-    const a = w / h, halfH = Math.max(2.55, 1.2 / a), halfW = halfH * a;   // keep the whole trap in frame
+    const a = w / h, halfH = Math.max(opts.frame || 2.55, 1.2 / a), halfW = halfH * a;   // keep the whole trap in frame
     Object.assign(camera, { left: -halfW, right: halfW, top: halfH, bottom: -halfH }); camera.updateProjectionMatrix();
   };
   new ResizeObserver(resize).observe(container); resize();

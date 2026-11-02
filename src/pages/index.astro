@@ -6,21 +6,51 @@ import Toaster from '../components/Toaster.astro';
 <Base>
 <main>
 <section class="hero" id="inicio">
-  <div class="hero-grid">
-    <div class="hero-l">
-      <div class="kicker mono"><span>be like josé</span><span>director creativo · filmmaker · editor</span></div>
-      <h1 class="giant"><span class="m"><span>josé.</span></span></h1>
-      <dl class="who" data-r>
-        <div><dt>qué hago</dt><dd>Dirección creativa, film y edición. Integro cuatro ejes en los negocios para que lo que amas hacer se vuelva aquello de lo que vives.</dd></div>
-        <div><dt>quién soy</dt><dd>Estudié música, ventas y programación. Dejé la universidad tres veces para no ahogar lo que quería crear.</dd></div>
-        <div><dt>de dónde</dt><dd>De una casa con tres formas de ver el mundo, a Bogotá con una maleta llena de sueños.</dd></div>
-      </dl>
-      <div class="hero-cta"><a class="wbtn" href="#marca">marca un número ↓</a><span class="mono">o no toques la trampa →</span></div>
+  <div class="hero-meta">
+    <div><b>be like josé</b><p>director creativo, filmmaker y editor. cuatro ejes para negocios con algo que decir.</p></div>
+  </div>
+  <div class="hero-l">
+    <h1 class="giant"><span class="m"><span>josé.</span></span></h1>
+    <dl class="who" data-r>
+      <div><dt>qué hago</dt><dd>Dirección creativa, film y edición para que lo que amas hacer se vuelva aquello de lo que vives.</dd></div>
+      <div><dt>quién soy</dt><dd>Estudié música, ventas y programación. Dejé la universidad tres veces para no ahogar lo que quería crear.</dd></div>
+      <div><dt>de dónde</dt><dd>De una casa con tres formas de ver el mundo, a Bogotá con una maleta llena de sueños.</dd></div>
+    </dl>
+  </div>
+  <div class="film hero-film" data-scene="bokeh" data-seed="4" data-video><div class="rec"><span class="tc-dot"></span><span class="tc"></span></div><div class="lab">reel 2026 — 35mm</div></div>
+  <a class="sq" href="#marca" aria-label="ir al teléfono">↓</a>
+  <Trap />
+  <div class="vert">be like josé<br>materiales de<br>creación 2026</div>
+  <div class="n001">001</div>
+</section>
+
+<section class="dial-sec" id="marca">
+  <div class="film" data-scene="lamp" data-seed="3" data-video></div>
+  <div class="dial-grid">
+    <div class="dial-l">
+      <div class="mono" style="opacity:.6;margin-bottom:20px">índice — ¿a dónde quieres ir? gira la rueda o toca un número</div>
+      <h2 class="disp" data-r>marca un<br><em>número</em></h2>
+      <div class="book" data-r>
+        <h4>Guía de la página</h4>
+        <div class="cols">
+          <div data-n="1"><span>Portfolio · Filmmaker</span><i></i><b>1</b></div>
+          <div data-n="2"><span>Portfolio · Editor</span><i></i><b>2</b></div>
+          <div data-n="3"><span>Portfolio · Estratega</span><i></i><b>3</b></div>
+          <div data-n="4"><span>Cuatro ejes</span><i></i><b>4</b></div>
+          <div data-n="5"><span>El tostador</span><i></i><b>5</b></div>
+          <div data-n="6"><span>Sobre mí</span><i></i><b>6</b></div>
+          <div data-n="7"><span>Rollo 01</span><i></i><b>7</b></div>
+          <div data-n="8"><span>Manifiesto</span><i></i><b>8</b></div>
+          <div data-n="9"><span>Volver a la trampa</span><i></i><b>9</b></div>
+          <div data-n="0"><span>Operadora — hablemos</span><i></i><b>0</b></div>
+        </div>
+      </div>
     </div>
-    <div class="hero-c">
-      <div class="film hero-film" data-scene="bokeh" data-seed="4" data-video><div class="rec"><span class="tc-dot"></span><span class="tc"></span></div><div class="lab">reel 2026 — 35mm</div></div>
+    <div class="obj dial-obj">
+      <div class="dial-display mono" id="dialDisplay">línea libre — marca un número</div>
+      <div class="obj-stage"><div class="dial-wrap" id="dial"></div></div>
+      <p class="ficha"><span class="n">fig. 002</span><br><b>Teléfono de disco</b>, 2026.<br>Baquelita, resorte y paciencia.<br>— Colección be like josé</p>
     </div>
-    <Trap />
   </div>
 </section>
 
@@ -46,7 +76,7 @@ import Toaster from '../components/Toaster.astro';
   </div>
 </section>
 
-<section class="state">
+<section class="state" id="manifiesto">
   <div class="film" data-scene="park" data-seed="7" data-video></div>
   <div class="txt">
     <h2 class="disp just" data-r>los sueños no se pierden por falta de acción, sino de <u>dirección.</u></h2>
@@ -55,29 +85,7 @@ import Toaster from '../components/Toaster.astro';
   <div class="swipe">( sigue bajando )</div>
 </section>
 
-<section class="dial-sec" id="marca">
-  <div class="film" data-scene="lamp" data-seed="3" data-video></div>
-  <div class="dial-grid">
-    <div class="dial-l">
-      <div class="mono" style="opacity:.6;margin-bottom:20px">índice — gira la rueda o toca un número</div>
-      <h2 class="disp" data-r>marca un<br><em>número</em></h2>
-      <div class="book" data-r>
-        <h4>Guía de servicios</h4>
-        <div data-n="1"><span>Filmmaker</span><i></i><b>1</b></div>
-        <div data-n="2"><span>Editor</span><i></i><b>2</b></div>
-        <div data-n="3"><span>Estratega creativo</span><i></i><b>3</b></div>
-        <div data-n="4"><span>Cuatro ejes</span><i></i><b>4</b></div>
-        <div data-n="5"><span>Sobre mí</span><i></i><b>5</b></div>
-        <div data-n="0"><span>Operadora — hablemos</span><i></i><b>0</b></div>
-      </div>
-    </div>
-    <div class="obj dial-obj">
-      <div class="dial-display mono" id="dialDisplay">línea libre — marca un número</div>
-      <div class="obj-stage"><div class="dial-wrap" id="dial"></div></div>
-      <p class="ficha"><span class="n">fig. 002</span><br><b>Teléfono de disco</b>, 2026.<br>Baquelita, resorte y paciencia.<br>— Colección be like josé</p>
-    </div>
-  </div>
-</section>
+
 
 <section class="mag" id="portfolio" data-tabs>
   <div class="mag-head"><h2 class="disp">Portfolio</h2><div class="seeall"><span>ver todo</span><b>→</b></div></div>
@@ -121,7 +129,7 @@ import Toaster from '../components/Toaster.astro';
   </div>
 </section>
 
-<section class="strip">
+<section class="strip" id="rollo">
   <div class="strip-head"><h3>rollo 01 —<br><span class="it">lo cotidiano también es obra</span></h3><div class="mono" style="opacity:.6;align-self:end">36 exp · iso 800 · revelado a mano</div></div>
   <div class="reel" id="reel"></div>
 </section>
@@ -185,13 +193,13 @@ import Toaster from '../components/Toaster.astro';
   $$('.wave').forEach(w => { w.innerHTML = Array.from({length: 14}, (_, i) => '<i style="animation-delay:' + ((i * 0.07) % 1) + 's;animation-duration:' + (.5 + (i % 5) * .12) + 's"></i>').join(''); });
   $('#calMini').innerHTML = Array.from({length: 28}, (_, i) => '<i class="' + ([1,3,4,8,10,12,15,17,18,22,24,26].includes(i) ? 'f' : '') + '"></i>').join('');
   requestAnimationFrame(() => setTimeout(() => document.body.classList.add('ready'), 250));
-  const SECT = {1: ['#portfolio', 'film', 'filmmaker'], 2: ['#portfolio', 'edit', 'editor'], 3: ['#portfolio', 'strat', 'estratega creativo'], 4: ['#ejes', null, 'cuatro ejes'], 5: ['#sobre-mi', null, 'sobre mí'], 0: ['#contacto', null, 'la operadora']};
+  const SECT = {1: ['#portfolio', 'film', 'filmmaker'], 2: ['#portfolio', 'edit', 'editor'], 3: ['#portfolio', 'strat', 'estratega creativo'], 4: ['#ejes', null, 'cuatro ejes'], 5: ['#toaster', null, 'el tostador'], 6: ['#sobre-mi', null, 'sobre mí'], 7: ['#rollo', null, 'rollo 01'], 8: ['#manifiesto', null, 'el manifiesto'], 9: ['#inicio', null, 'la trampa'], 0: ['#contacto', null, 'la operadora']};
   const CENTER = 'es hora de<br>contar una<br>mejor historia<small>gira y suelta</small>';
   const display = $('#dialDisplay');
   const say = t => { display.textContent = t; };
   const phone = buildDial($('#dial'), {
     center: CENTER, centerFill: '#fafafa', holeFill: '#f2f2f0', numFont: "'Instrument Serif', serif",
-    onStart: d => { $$('.book div[data-n]').forEach(x => x.classList.toggle('hit', x.dataset.n == d)); say('marcando ' + d + '…'); },
+    onStart: d => { $$('.book [data-n]').forEach(x => x.classList.toggle('hit', x.dataset.n == d)); say('marcando ' + d + '…'); },
     onDial: (d, c) => {
       const s = SECT[d];
       if (!s) { say('número equivocado — prueba 0 a 5'); c.innerHTML = 'número<br>equivocado<small>prueba del 0 al 5</small>'; setTimeout(() => { c.innerHTML = CENTER; say('línea libre — marca un número'); }, 2200); return; }
@@ -200,7 +208,7 @@ import Toaster from '../components/Toaster.astro';
       setTimeout(async () => { if (s[1]) setTab('#portfolio', s[1]); await smoothTo(s[0], 1500); c.innerHTML = CENTER; say('línea libre — marca un número'); }, 1500);
     }
   });
-  $$('.book div[data-n]').forEach(r => r.addEventListener('click', () => phone.dial(+r.dataset.n)));
+  $$('.book [data-n]').forEach(r => r.addEventListener('click', () => phone.dial(+r.dataset.n)));
   addEventListener('load', () => setTimeout(() => window.renderFilms && renderFilms(), 50));
   window.SCROLL_OFFSET = 0;
 })();

@@ -1,14 +1,11 @@
 ---
-// Mousetrap as a collection piece: 3D trap seen from above, a paper card and a museum label.
+// Mousetrap floating over the hero video: 3D trap seen from above, a paper card and a museum label.
 ---
-<div class="obj trap-obj">
-  <div class="obj-stage">
-    <div class="trap3d" id="trap3d"></div>
-    <div class="obj-card" id="trapCard" style="right:4%;bottom:14%"><b>No hagas clic.</b></div>
-  </div>
-  <p class="ficha"><span class="n">fig. 001</span><br /><b>Cursor común</b>, 2026.<br />Pino, acero y una mala decisión.<br />— Colección be like josé</p>
-  <button class="obj-reset" id="trapReset" hidden>↺ armar de nuevo</button>
+<div class="trap-float">
+  <div class="trap3d" id="trap3d"></div>
+  <div class="obj-card" id="trapCard"><b>No hagas clic.</b></div>
 </div>
+<p class="ficha hero-ficha"><span class="n">fig. 001</span><br /><b>Cursor común</b>, 2026.<br />Pino, acero y una mala decisión.<br />— Colección be like josé<br /><button class="obj-reset" id="trapReset" hidden>↺ armar de nuevo</button></p>
 
 <script>
   import { createTrap } from '../scripts/trap3d.js';
@@ -18,6 +15,7 @@
   await document.fonts.ready;
   const trap = createTrap(document.getElementById('trap3d')!, {
     delay: 300,
+    frame: 3.2,
     onSnap() {
       setTimeout(() => (window as any).doFlash?.(), 60);
       setTimeout(() => swap('<b>Caíste.</b><i>así se engancha una buena idea.</i>'), 350);
