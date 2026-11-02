@@ -19,12 +19,12 @@ function woodTextures() {
   const W = 512, H = 1200, r = rng(11);
   const c = document.createElement('canvas'); c.width = W; c.height = H; const x = c.getContext('2d');
   const g = x.createLinearGradient(0, 0, W, 0);
-  g.addColorStop(0, '#b98a55'); g.addColorStop(.45, '#c99d66'); g.addColorStop(1, '#b07f4c');
+  g.addColorStop(0, '#cfccc6'); g.addColorStop(.45, '#dddad5'); g.addColorStop(1, '#ccc8c1');
   x.fillStyle = g; x.fillRect(0, 0, W, H);
   // long growth rings running along the board
   for (let i = 0; i < 170; i++) {
     const x0 = r() * W, amp = 3 + r() * 14, f = .002 + r() * .006, ph = r() * 6.28, dark = r() * .97;
-    x.strokeStyle = dark > .8 ? `rgba(105,58,22,${.3 + r() * .4})` : `rgba(125,78,38,${.07 + r() * .2})`;
+    x.strokeStyle = dark > .8 ? `rgba(92,86,78,${.16 + r() * .22})` : `rgba(110,104,96,${.04 + r() * .1})`;
     x.lineWidth = dark > .82 ? 1.5 + r() * 3.5 : .5 + r() * 1.6;
     x.beginPath();
     for (let y = -10; y <= H + 10; y += 8) { const xx = x0 + Math.sin(y * f + ph) * amp + Math.sin(y * .03 + ph) * 1.2; y < 0 ? x.moveTo(xx, y) : x.lineTo(xx, y); }
@@ -32,31 +32,15 @@ function woodTextures() {
   }
   // a knot, with rings bending around it
   const kx = W * .7, ky = H * .2;
-  for (let k = 0; k < 14; k++) { x.strokeStyle = `rgba(105,62,28,${.5 - k * .03})`; x.lineWidth = 2; x.beginPath(); x.ellipse(kx, ky, 6 + k * 5, 14 + k * 11, 0, 0, 7); x.stroke(); }
-  x.fillStyle = 'rgba(80,45,20,.75)'; x.beginPath(); x.ellipse(kx, ky, 7, 13, 0, 0, 7); x.fill();
+  for (let k = 0; k < 14; k++) { x.strokeStyle = `rgba(95,88,80,${.22 - k * .014})`; x.lineWidth = 2; x.beginPath(); x.ellipse(kx, ky, 6 + k * 5, 14 + k * 11, 0, 0, 7); x.stroke(); }
+  x.fillStyle = 'rgba(85,78,70,.35)'; x.beginPath(); x.ellipse(kx, ky, 7, 13, 0, 0, 7); x.fill();
   // fine fibres + pores
   const img = x.getImageData(0, 0, W, H), d = img.data;
-  for (let y = 0; y < H; y++) { const row = (r() - .5) * 10; for (let xx = 0; xx < W; xx++) { const i = (y * W + xx) * 4, n = (r() - .5) * 14 + row * .4; d[i] += n; d[i + 1] += n * .9; d[i + 2] += n * .7; } }
+  for (let y = 0; y < H; y++) { const row = (r() - .5) * 10; for (let xx = 0; xx < W; xx++) { const i = (y * W + xx) * 4, n = (r() - .5) * 14 + row * .4; d[i] += n * .7; d[i + 1] += n * .7; d[i + 2] += n * .7; } }
   x.putImageData(img, 0, 0);
   const map = new THREE.CanvasTexture(c); map.colorSpace = THREE.SRGBColorSpace; map.anisotropy = 8;
   const bump = new THREE.CanvasTexture(c); bump.anisotropy = 8;
   return { map, bump };
-}
-
-function printTexture() {
-  const c = document.createElement('canvas'); c.width = 1024; c.height = 1024; const x = c.getContext('2d'), r = rng(5);
-  x.translate(512, 512); x.rotate(-Math.PI / 2); x.translate(-512, -512); // text runs along the board
-  x.fillStyle = '#a3241c'; x.textAlign = 'center';
-  x.font = '700 150px "Inter Tight", Helvetica, Arial, sans-serif'; x.fillText('BE LIKE', 512, 395);
-  x.font = '700 200px "Inter Tight", Helvetica, Arial, sans-serif'; x.fillText('JOSÉ', 512, 640);
-  x.font = '500 54px "IBM Plex Mono", monospace'; x.fillText('NO TOQUES AQUÍ', 512, 735);
-  x.font = 'italic 46px "Instrument Serif", Georgia, serif'; x.fillText('atrapa ideas desde 2026 · hecho en casa', 512, 800);
-  x.lineWidth = 8; x.strokeStyle = '#a3241c'; x.strokeRect(150, 250, 724, 600);
-  // worn ink: knock out random specks so the wood shows through
-  const img = x.getImageData(0, 0, 1024, 1024), d = img.data;
-  for (let i = 3; i < d.length; i += 4) if (d[i]) d[i] = Math.max(0, d[i] * (.55 + r() * .45) - (r() > .93 ? 255 : 0));
-  x.putImageData(img, 0, 0);
-  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
 }
 
 function handTexture() {
@@ -107,18 +91,18 @@ export function createTrap(container, opts = {}) {
   scene.environment = pmrem.fromScene(new RoomEnvironment(), .04).texture;
   scene.environmentIntensity = .5;
 
-  const camera = new THREE.PerspectiveCamera(opts.fov || 24, 1, .1, 100);
-  const camBase = V(0, 9.6, 6.6);
-  camera.position.copy(camBase); camera.lookAt(0, 0, .3);
+  // flat, top-down view: the trap photographed on the table
+  const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, .1, 50);
+  camera.up.set(0, 0, -1); camera.position.set(0, 12, 0); camera.lookAt(0, 0, 0);
 
-  const sun = new THREE.DirectionalLight(0xfff1df, 3.1);
-  sun.position.set(-4.2, 7, -4.6); sun.castShadow = true;
-  sun.shadow.mapSize.set(2048, 2048); sun.shadow.radius = 9; sun.shadow.blurSamples = 20; sun.shadow.bias = -.0004;
+  const sun = new THREE.DirectionalLight(0xffffff, 2.6);
+  sun.position.set(-2.2, 9, -2.6); sun.castShadow = true;
+  sun.shadow.mapSize.set(2048, 2048); sun.shadow.radius = 14; sun.shadow.blurSamples = 24; sun.shadow.bias = -.0004;
   Object.assign(sun.shadow.camera, { left: -5, right: 5, top: 5, bottom: -5, near: 1, far: 25 });
   scene.add(sun);
-  scene.add(new THREE.HemisphereLight(0xffffff, 0xd8d0c4, .35));
+  scene.add(new THREE.HemisphereLight(0xffffff, 0xd9d9d6, .55));
 
-  const catcher = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), new THREE.ShadowMaterial({ opacity: .4 }));
+  const catcher = new THREE.Mesh(new THREE.PlaneGeometry(30, 30), new THREE.ShadowMaterial({ opacity: .3 }));
   catcher.rotation.x = -Math.PI / 2; catcher.receiveShadow = true; scene.add(catcher);
 
   const trap = new THREE.Group(); scene.add(trap);
@@ -127,13 +111,9 @@ export function createTrap(container, opts = {}) {
 
   // board
   const wood = woodTextures();
-  const woodMat = new THREE.MeshStandardMaterial({ map: wood.map, bumpMap: wood.bump, bumpScale: 2.2, roughness: .72 });
+  const woodMat = new THREE.MeshStandardMaterial({ map: wood.map, bumpMap: wood.bump, bumpScale: 1.6, roughness: .8 });
   const board = new THREE.Mesh(new RoundedBoxGeometry(BOARD.w, BOARD.h, BOARD.l, 4, .035), woodMat);
   board.position.y = BOARD.h / 2; board.castShadow = board.receiveShadow = true; trap.add(board);
-
-  // printed brand (worn red ink)
-  const print = new THREE.Mesh(new THREE.PlaneGeometry(1.7, 1.7), new THREE.MeshStandardMaterial({ map: printTexture(), transparent: true, roughness: .85, polygonOffset: true, polygonOffsetFactor: -2 }));
-  print.rotation.x = -Math.PI / 2; print.position.set(0, TOP + .001, -1.05); print.receiveShadow = true; trap.add(print);
 
   // axle, staples, spring
   trap.add(tube(path([V(-.86, AXIS.y, AXIS.z), V(.86, AXIS.y, AXIS.z)]), .014, zinc, 4));
@@ -141,11 +121,16 @@ export function createTrap(container, opts = {}) {
     const st = new THREE.CatmullRomCurve3([V(sx, TOP - .02, AXIS.z - .07), V(sx, AXIS.y + .03, AXIS.z - .05), V(sx, AXIS.y + .045, AXIS.z), V(sx, AXIS.y + .03, AXIS.z + .05), V(sx, TOP - .02, AXIS.z + .07)]);
     trap.add(tube(st, .016, zinc, 30));
   }
-  const coilR = .088, turns = 13;
-  class Helix extends THREE.Curve { getPoint(t, o = new THREE.Vector3()) { const a = t * turns * Math.PI * 2; return o.set(-.58 + 1.16 * t, AXIS.y + Math.sin(a) * coilR, AXIS.z + Math.cos(a) * coilR); } }
-  trap.add(tube(new Helix(), .019, metal, 900));
-  trap.add(tube(path([V(-.58, AXIS.y - coilR, AXIS.z), V(-.6, TOP + .02, AXIS.z + .7)]), .018, metal, 8));
-  trap.add(tube(path([V(.58, AXIS.y - coilR, AXIS.z), V(.6, TOP + .02, AXIS.z + .7)]), .018, metal, 8));
+  // two springs, like a real Victor trap
+  const coilR = .085, turns = 8;
+  class Helix extends THREE.Curve {
+    constructor(x0, x1) { super(); this.x0 = x0; this.x1 = x1; }
+    getPoint(t, o = new THREE.Vector3()) { const a = t * turns * Math.PI * 2; return o.set(this.x0 + (this.x1 - this.x0) * t, AXIS.y + Math.sin(a) * coilR, AXIS.z + Math.cos(a) * coilR); }
+  }
+  trap.add(tube(new Helix(-.66, -.1), .018, metal, 500));
+  trap.add(tube(new Helix(.1, .66), .018, metal, 500));
+  trap.add(tube(path([V(-.66, AXIS.y - coilR, AXIS.z), V(-.72, TOP + .02, AXIS.z + .8)]), .017, metal, 8));
+  trap.add(tube(path([V(.66, AXIS.y - coilR, AXIS.z), V(.72, TOP + .02, AXIS.z + .8)]), .017, metal, 8));
 
   // trigger pedal + bait (the pixel cursor, printed on card)
   const pedal = new THREE.Group(); pedal.position.set(0, TOP + .02, .82); trap.add(pedal);
@@ -170,7 +155,11 @@ export function createTrap(container, opts = {}) {
   const applyPose = () => { hammer.rotation.x = S.angle; bar.rotation.set(S.barX, S.barY, 0); };
   applyPose();
 
-  const resize = () => { const [w, h] = size(); renderer.setSize(w, h); camera.aspect = w / h; camera.updateProjectionMatrix(); };
+  const resize = () => {
+    const [w, h] = size(); renderer.setSize(w, h);
+    const a = w / h, halfH = Math.max(2.55, 1.2 / a), halfW = halfH * a;   // keep the whole trap in frame
+    Object.assign(camera, { left: -halfW, right: halfW, top: halfH, bottom: -halfH }); camera.updateProjectionMatrix();
+  };
   new ResizeObserver(resize).observe(container); resize();
 
   const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
@@ -188,10 +177,13 @@ export function createTrap(container, opts = {}) {
   const easeIn = t => t * t * t, easeOut = t => 1 - Math.pow(1 - t, 3);
   const t0 = performance.now();
   function frame(now) {
-    // slide in from the right on load
-    const ti = Math.min(1, (now - t0 - (opts.delay || 0)) / 1300);
+    // set down on the table on load
+    const ti = Math.min(1, (now - t0 - (opts.delay || 0)) / 900);
     const k = ti <= 0 ? 0 : easeOut(ti);
-    trap.position.x = (1 - k) * 7; trap.rotation.y = -.17 + (1 - k) * -.5;
+    const hover = container.classList.contains('hot') && S.set ? 1 : 0;
+    S.lift = (S.lift || 0) + (hover - (S.lift || 0)) * .15;
+    trap.scale.setScalar(1 + (1 - k) * .18 + S.lift * .02);
+    trap.rotation.y = -.06 + (1 - k) * .25;
     let jump = 0, shake = 0;
     if (S.anim) {
       const t = now - S.anim.t0;
@@ -212,14 +204,14 @@ export function createTrap(container, opts = {}) {
       applyPose();
     }
     trap.position.y = jump;
-    trap.rotation.z = shake * Math.sin(now * .09) * .05;
-    trap.rotation.x = -S.py * .12 + shake * Math.sin(now * .07) * .03;
-    trap.rotation.y += S.px * .22;
-    camera.position.set(camBase.x + shake * Math.sin(now * .13) * .06, camBase.y, camBase.z + shake * Math.cos(now * .11) * .06);
-    camera.lookAt(0, 0, .3);
+    trap.rotation.y += shake * Math.sin(now * .09) * .035;          // small jolt on the table
+    trap.position.x = shake * Math.sin(now * .13) * .05;
     renderer.render(scene, camera);
-    requestAnimationFrame(frame);
+    if (visible) requestAnimationFrame(frame); else running = false;
   }
+  // only draw while the trap is on screen
+  let visible = true, running = true;
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible && !running) { running = true; requestAnimationFrame(frame); } }).observe(container);
   requestAnimationFrame(frame);
   return { snap, reset, renderer };
 }

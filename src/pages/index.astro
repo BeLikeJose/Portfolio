@@ -1,24 +1,27 @@
 ---
 import Base from '../layouts/Base.astro';
 import Trap from '../components/Trap.astro';
+import Toaster from '../components/Toaster.astro';
 ---
 <Base>
 <main>
 <section class="hero" id="inicio">
-  <div class="hero-meta">
-    <div><b>be like josé</b><p>dirección creativa, film y edición para marcas que tienen algo que decir</p></div>
-    <div><b>estado: abierto</b><p>tomando proyectos para el primer trimestre de 2027</p></div>
+  <div class="hero-grid">
+    <div class="hero-l">
+      <div class="kicker mono"><span>be like josé</span><span>director creativo · filmmaker · editor</span></div>
+      <h1 class="giant"><span class="m"><span>josé.</span></span></h1>
+      <dl class="who" data-r>
+        <div><dt>qué hago</dt><dd>Dirección creativa, film y edición. Integro cuatro ejes en los negocios para que lo que amas hacer se vuelva aquello de lo que vives.</dd></div>
+        <div><dt>quién soy</dt><dd>Estudié música, ventas y programación. Dejé la universidad tres veces para no ahogar lo que quería crear.</dd></div>
+        <div><dt>de dónde</dt><dd>De una casa con tres formas de ver el mundo, a Bogotá con una maleta llena de sueños.</dd></div>
+      </dl>
+      <div class="hero-cta"><a class="wbtn" href="#marca">marca un número ↓</a><span class="mono">o no toques la trampa →</span></div>
+    </div>
+    <div class="hero-c">
+      <div class="film hero-film" data-scene="bokeh" data-seed="4" data-video><div class="rec"><span class="tc-dot"></span><span class="tc"></span></div><div class="lab">reel 2026 — 35mm</div></div>
+    </div>
+    <Trap />
   </div>
-  <h1 class="giant"><span class="m"><span>josé.</span></span></h1>
-  <div class="hero-sub" data-r>
-    <b>Director creativo, filmmaker y editor.</b> Le doy dirección a marcas, empresas y creadores para que <u>lo que aman hacer</u> se convierta en aquello de lo que viven.
-    <div class="it" style="margin-top:18px">desde el fuego que enciende y la tierra que aterriza.</div>
-  </div>
-  <div class="film hero-film" data-scene="bokeh" data-seed="4" data-video><div class="rec"><span class="tc-dot"></span><span class="tc"></span></div><div class="lab">reel 2026 — 35mm</div></div>
-  <a class="sq" href="#marca">→</a>
-  <Trap />
-  <div class="vert">be like josé<br>materiales de<br>creación 2026</div>
-  <div class="n001">001</div>
 </section>
 
 <section class="logos">
@@ -38,7 +41,7 @@ import Trap from '../components/Trap.astro';
     <div class="mono">hola, soy</div>
     <div class="script sig">José</div>
     <p style="font-family:'Instrument Serif';font-size:34px;line-height:1.08">Hago que lo que creas se vea como la campaña de una marca grande, sin perder tu voz.</p>
-    <p style="font-size:15px;line-height:1.6;margin-top:20px;max-width:470px;color:#444">Cuatro áreas que casi nunca hablan entre sí: operaciones, proyección estratégica, dirección creativa y creación de contenidos. Cuando se conectan, tu marca deja de ser catálogo y empieza a ser cultura.</p>
+    <p style="font-size:15px;line-height:1.6;margin-top:20px;max-width:470px;color:#444">Integro cuatro ejes que casi nunca hablan entre sí: dirección creativa, operaciones y oferta de valor, proyección empresarial y creación de contenidos. Cuando se conectan, tu marca deja de ser catálogo y empieza a ser cultura.</p>
     <a class="wbtn" href="#sobre-mi">conóceme</a>
   </div>
 </section>
@@ -54,17 +57,24 @@ import Trap from '../components/Trap.astro';
 
 <section class="dial-sec" id="marca">
   <div class="film" data-scene="lamp" data-seed="3" data-video></div>
-  <div class="dial-wrap" id="dial"></div>
-  <div>
-    <div class="mono" style="opacity:.6;margin-bottom:20px">directorio — gira para entrar</div>
-    <h2 class="disp" data-r>marca un<br><em>número</em></h2>
-    <div class="book" data-r>
-      <h4>Guía de servicios</h4>
-      <div data-n="1"><span>Filmmaker</span><i></i><b>1</b></div>
-      <div data-n="2"><span>Editor</span><i></i><b>2</b></div>
-      <div data-n="3"><span>Estratega creativo</span><i></i><b>3</b></div>
-      <div data-n="4"><span>Sobre mí</span><i></i><b>4</b></div>
-      <div data-n="0"><span>Operadora — hablemos</span><i></i><b>0</b></div>
+  <div class="dial-grid">
+    <div class="dial-l">
+      <div class="mono" style="opacity:.6;margin-bottom:20px">índice — gira la rueda o toca un número</div>
+      <h2 class="disp" data-r>marca un<br><em>número</em></h2>
+      <div class="book" data-r>
+        <h4>Guía de servicios</h4>
+        <div data-n="1"><span>Filmmaker</span><i></i><b>1</b></div>
+        <div data-n="2"><span>Editor</span><i></i><b>2</b></div>
+        <div data-n="3"><span>Estratega creativo</span><i></i><b>3</b></div>
+        <div data-n="4"><span>Cuatro ejes</span><i></i><b>4</b></div>
+        <div data-n="5"><span>Sobre mí</span><i></i><b>5</b></div>
+        <div data-n="0"><span>Operadora — hablemos</span><i></i><b>0</b></div>
+      </div>
+    </div>
+    <div class="obj dial-obj">
+      <div class="dial-display mono" id="dialDisplay">línea libre — marca un número</div>
+      <div class="obj-stage"><div class="dial-wrap" id="dial"></div></div>
+      <p class="ficha"><span class="n">fig. 002</span><br><b>Teléfono de disco</b>, 2026.<br>Baquelita, resorte y paciencia.<br>— Colección be like josé</p>
     </div>
   </div>
 </section>
@@ -116,15 +126,26 @@ import Trap from '../components/Trap.astro';
   <div class="reel" id="reel"></div>
 </section>
 
-<section class="stats" id="estratega">
-  <div><div class="mono" style="color:#777;margin-bottom:20px">el método</div><h2 data-r>Nada se<br>improvisa</h2><p class="l" data-r>Doy dirección desde cuatro áreas. Números reales en vez de adjetivos: así se ve una dirección que se sostiene.</p>
-    <div class="road" data-r><div><h5>mes 1</h5><h4>Esencia</h4><p>Quién eres y a quién le hablas.</p></div><div><h5>mes 2</h5><h4>Sistema</h4><p>Oferta, pilares y operación.</p></div><div><h5>mes 3</h5><h4>Movimiento</h4><p>Conceptos y campañas.</p></div></div></div>
-  <div><div class="stbl" data-r>
-    <div><b data-count="4" data-pad="2">00</b><span>áreas conectadas: operaciones, proyección estratégica, dirección creativa y contenidos.</span></div>
-    <div><b data-count="90">0</b><span>días de roadmap, mes a mes, para pasar de ideas sueltas a dirección.</span></div>
-    <div><b data-count="1" data-pad="2">00</b><span>mirada: la tuya. Mi trabajo es encontrarla, no ponerte la mía encima.</span></div>
+<section class="ejes" id="ejes">
+  <div class="ejes-head">
+    <div class="mono" style="color:#777">cuatro ejes</div>
+    <h2 class="disp" data-r>Integro cuatro<br>cuestiones en<br><em>los negocios</em></h2>
+    <p data-r>Desde esa visión de cuatro ejes construyo todo: lo que tu marca dice, lo que vende, hacia dónde va y cómo se sostiene sin quemarte.</p>
   </div>
-  <div class="film" data-scene="hands" data-seed="12" data-video><div class="lab">sesión de dirección — pared de posits</div></div></div>
+  <div class="ejes-grid" data-r>
+    <article id="eje-01"><span class="n">01</span><h3>Dirección creativa</h3><p>La mirada. Conceptos, campañas y una estética que se reconoce sin ver el logo.</p><div class="mono tags">concepto · campaña · identidad</div></article>
+    <article id="eje-02"><span class="n">02</span><h3>Operaciones y oferta de valor</h3><p>Qué vendes, a quién y el sistema que lo sostiene. Para que el negocio no dependa de que trabajes sin parar.</p><div class="mono tags">oferta · procesos · precios</div></article>
+    <article id="eje-03"><span class="n">03</span><h3>Proyección empresarial</h3><p>Hacia dónde va el negocio. Metas claras, números reales y un roadmap de 90 días.</p><div class="mono tags">metas · roadmap · métricas</div></article>
+    <article id="eje-04"><span class="n">04</span><h3>Creación de contenidos</h3><p>Piezas que se guardan y se comparten. Film, edición y un calendario editorial con mirada propia.</p><div class="mono tags">film · edición · calendario</div></article>
+  </div>
+  <div class="ejes-row">
+    <Toaster />
+    <div class="ejes-road">
+      <div class="mono" style="color:#777">cómo se trabaja — 90 días</div>
+      <div class="road" data-r><div><h5>mes 1</h5><h4>Esencia</h4><p>Quién eres, a quién le hablas y qué vendes.</p></div><div><h5>mes 2</h5><h4>Sistema</h4><p>Oferta, procesos y calendario que te sostienen.</p></div><div><h5>mes 3</h5><h4>Movimiento</h4><p>Conceptos, piezas y campañas en la calle.</p></div></div>
+      <div class="film" data-scene="hands" data-seed="12" data-video><div class="lab">sesión de dirección — pared de posits</div></div>
+    </div>
+  </div>
 </section>
 
 <section class="about" id="sobre-mi">
@@ -134,8 +155,15 @@ import Trap from '../components/Trap.astro';
   </div>
   <div>
     <div class="mono" style="color:#777">sobre mí</div>
-    <h2 class="disp" data-r>El que <em>mira</em></h2>
-    <div class="body" data-r><p>Durante cuatro años tuve una visión que no sabía sentir ni poner en palabras. Atravesar ese vacío me enseñó a mirar.</p><p>Hoy miro desde el arte: una escena, una idea, una marca.</p></div>
+    <h2 class="disp" data-r>Romper la<br><em>cáscara</em></h2>
+    <div class="story" data-r>
+      <p class="lead">Soy José. Crecí entre una madre valiente, un padre sobreprotector y un hermano que nunca dudó de que todo saldría bien. Tres formas de ver el mundo.</p>
+      <p>Estudié música, ventas y programación. Dejé la universidad tres veces: ingeniería de sistemas, matemáticas, marketing y publicidad. Como a muchos, se me ahogaba el espíritu creativo.</p>
+      <p>Así que rompí la cáscara. Llegué a Bogotá con una maleta llena de sueños y la frágil certeza de quien renuncia a todo para empezar de cero. Compré cámaras. Llegaron clientes, eventos y escenarios que me exigieron crecer.</p>
+      <p>Desde entonces no he vuelto a compartir con mi familia cercana. Duele. A veces es necesario.</p>
+    </div>
+    <div class="facts" data-r><div><b>3</b><span>veces dejé la universidad</span></div><div><b>1</b><span>maleta llena de sueños</span></div><div><b>Bogotá</b><span>el punto de partida</span></div></div>
+    <blockquote data-r>Lo imposible no es un destino: es un punto de partida para los que se atreven. <span>Hay que ser cara dura.</span></blockquote>
     <div class="arch" data-r><div><h5>Mago</h5><p>La lógica detrás de una marca, convertida en imagen.</p></div><div><h5>Bufón</h5><p>Humor con sentido. Siempre deja una idea.</p></div><div><h5>Explorador</h5><p>Observar, cuestionar y crear movimiento.</p></div></div>
   </div>
 </section>
@@ -157,18 +185,22 @@ import Trap from '../components/Trap.astro';
   $$('.wave').forEach(w => { w.innerHTML = Array.from({length: 14}, (_, i) => '<i style="animation-delay:' + ((i * 0.07) % 1) + 's;animation-duration:' + (.5 + (i % 5) * .12) + 's"></i>').join(''); });
   $('#calMini').innerHTML = Array.from({length: 28}, (_, i) => '<i class="' + ([1,3,4,8,10,12,15,17,18,22,24,26].includes(i) ? 'f' : '') + '"></i>').join('');
   requestAnimationFrame(() => setTimeout(() => document.body.classList.add('ready'), 250));
-  const SECT = {1: ['#portfolio', 'film', 'filmmaker'], 2: ['#portfolio', 'edit', 'editor'], 3: ['#portfolio', 'strat', 'estratega'], 4: ['#sobre-mi', null, 'sobre mí'], 0: ['#contacto', null, 'la operadora']};
+  const SECT = {1: ['#portfolio', 'film', 'filmmaker'], 2: ['#portfolio', 'edit', 'editor'], 3: ['#portfolio', 'strat', 'estratega creativo'], 4: ['#ejes', null, 'cuatro ejes'], 5: ['#sobre-mi', null, 'sobre mí'], 0: ['#contacto', null, 'la operadora']};
   const CENTER = 'es hora de<br>contar una<br>mejor historia<small>gira y suelta</small>';
-  buildDial($('#dial'), {
+  const display = $('#dialDisplay');
+  const say = t => { display.textContent = t; };
+  const phone = buildDial($('#dial'), {
     center: CENTER, centerFill: '#fafafa', holeFill: '#f2f2f0', numFont: "'Instrument Serif', serif",
-    onStart: d => { $$('.book div').forEach(x => x.classList.toggle('hit', x.dataset.n == d)); },
+    onStart: d => { $$('.book div[data-n]').forEach(x => x.classList.toggle('hit', x.dataset.n == d)); say('marcando ' + d + '…'); },
     onDial: (d, c) => {
       const s = SECT[d];
-      if (!s) { c.innerHTML = 'número<br>equivocado<small>prueba del 0 al 4</small>'; return; }
-      c.innerHTML = 'conectando<br>con<br>' + s[2] + '<small>un momento…</small>';
-      setTimeout(async () => { if (s[1]) setTab('#portfolio', s[1]); await smoothTo(s[0], 1500); c.innerHTML = CENTER; }, 900);
+      if (!s) { say('número equivocado — prueba 0 a 5'); c.innerHTML = 'número<br>equivocado<small>prueba del 0 al 5</small>'; setTimeout(() => { c.innerHTML = CENTER; say('línea libre — marca un número'); }, 2200); return; }
+      say('ring… ring…'); c.innerHTML = 'conectando<br>con<br>' + s[2] + '<small>un momento…</small>';
+      setTimeout(() => say('conectado — ' + s[2]), 900);
+      setTimeout(async () => { if (s[1]) setTab('#portfolio', s[1]); await smoothTo(s[0], 1500); c.innerHTML = CENTER; say('línea libre — marca un número'); }, 1500);
     }
   });
+  $$('.book div[data-n]').forEach(r => r.addEventListener('click', () => phone.dial(+r.dataset.n)));
   addEventListener('load', () => setTimeout(() => window.renderFilms && renderFilms(), 50));
   window.SCROLL_OFFSET = 0;
 })();

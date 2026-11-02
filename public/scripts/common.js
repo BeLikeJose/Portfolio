@@ -228,27 +228,49 @@
       <path d="M${C + 250 * Math.cos(sa)} ${C + 250 * Math.sin(sa)} L${C + 318 * Math.cos(sa + .05)} ${C + 318 * Math.sin(sa + .05)} L${C + 300 * Math.cos(sa - .13)} ${C + 300 * Math.sin(sa - .13)} Z" fill="url(#rim)" stroke="#555" stroke-width="1"/>
     </svg>`;
     const svg = $('svg', host), wheel = $('#wheel', svg), center = $('.dial-center', svg);
-    let rot = 0, drag = null, anim;
+    let rot = 0, drag = null, anim, busy = false;
     const setRot = r => { rot = r; wheel.setAttribute('transform', `rotate(${r} ${C} ${C})`); };
     const pAng = e => { const b = svg.getBoundingClientRect(); return Math.atan2(e.clientY - (b.top + b.height / 2), e.clientX - (b.left + b.width / 2)) * 180 / Math.PI; };
+    // sounds: ratchet ticks on the way back, a soft thunk at the finger stop
+    const ac = () => (window.__ac ||= new (window.AudioContext || window.webkitAudioContext)());
+    const click = (f = 2600, v = .07, d = .018) => { try { const A = ac(), t = A.currentTime, o2 = A.createOscillator(), g = A.createGain(); o2.type = 'square'; o2.frequency.value = f; g.gain.setValueAtTime(v, t); g.gain.exponentialRampToValueAtTime(.0001, t + d); o2.connect(g).connect(A.destination); o2.start(t); o2.stop(t + d + .01); } catch (e) {} };
+    const ease = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    const back = () => {                     // the wheel returns by itself, one tick per number
+      const r0 = rot, t0 = performance.now(), dur = Math.max(250, r0 / 260 * 1000); let step = Math.floor(r0 / 30);
+      (function f(n) {
+        const t = Math.min(1, (n - t0) / dur); setRot(r0 * (1 - t));
+        const s2 = Math.floor(rot / 30); if (s2 < step) { step = s2; click(); }
+        if (t < 1) anim = requestAnimationFrame(f); else busy = false;
+      })(t0);
+    };
+    const finish = (d, from) => {             // spin to the finger stop, connect, return
+      busy = true; cancelAnimationFrame(anim);
+      const max = maxRot(d), r0 = from, t0 = performance.now(), dur = 180 + (max - r0) * 2.4;
+      (function f(n) {
+        const t = Math.min(1, (n - t0) / dur); setRot(r0 + (max - r0) * ease(t));
+        if (t < 1) anim = requestAnimationFrame(f);
+        else { click(140, .25, .12); o.onDial && o.onDial(d, center); setTimeout(back, 260); }
+      })(t0);
+    };
+    const dial = d => { if (busy) return; o.onStart && o.onStart(d); finish(d, rot); };
     svg.addEventListener('pointerdown', e => {
-      const h = e.target.closest('.hole'); if (!h) return; cancelAnimationFrame(anim);
-      drag = { d: +h.dataset.d, last: pAng(e), max: maxRot(+h.dataset.d) }; svg.setPointerCapture(e.pointerId);
+      const h = e.target.closest('.hole'); if (!h || busy) return; e.preventDefault(); cancelAnimationFrame(anim);
+      drag = { d: +h.dataset.d, last: pAng(e), max: maxRot(+h.dataset.d), moved: 0 }; svg.setPointerCapture(e.pointerId);
       o.onStart && o.onStart(drag.d);
     });
     svg.addEventListener('pointermove', e => {
       if (!drag) return; const a = pAng(e); let dl = a - drag.last; if (dl > 180) dl -= 360; if (dl < -180) dl += 360; drag.last = a;
+      drag.moved += Math.abs(dl);
       setRot(Math.max(0, Math.min(drag.max, rot + dl)));
     });
     const release = () => {
-      if (!drag) return; const ok = rot >= drag.max - 8, d = drag.d; drag = null;
-      if (ok) o.onDial && o.onDial(d, center);
-      const back = () => { const t0 = performance.now(), r0 = rot; (function f(n) { const t = Math.min(1, (n - t0) / (r0 / 300 * 1000)); setRot(r0 * (1 - t)); if (t < 1) anim = requestAnimationFrame(f); })(t0); };
-      back();
+      if (!drag) return; const { d, max, moved } = drag; drag = null;
+      if (moved < 8 || rot >= max * .6) finish(d, rot);   // a tap dials by itself; a drag past 60% completes
+      else { busy = true; back(); }
     };
     svg.addEventListener('pointerup', release); svg.addEventListener('pointercancel', release);
     window.__dialGeom = d => { const b = svg.getBoundingClientRect(), s = b.width / 600; return { cx: b.left + b.width / 2, cy: b.top + b.height / 2, r: R * s, a: ang(d) + rot, max: maxRot(d) }; };
-    return { center };
+    return { center, dial };
   };
 
   /* boot */
