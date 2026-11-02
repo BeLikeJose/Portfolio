@@ -2,6 +2,9 @@
 import Base from '../layouts/Base.astro';
 import Trap from '../components/Trap.astro';
 import Toaster from '../components/Toaster.astro';
+import Compass from '../components/Compass.astro';
+import Suitcase from '../components/Suitcase.astro';
+import Egg from '../components/Egg.astro';
 ---
 <Base>
 <main>
@@ -138,7 +141,10 @@ import Toaster from '../components/Toaster.astro';
   <div class="ejes-head">
     <div class="mono" style="color:#777">cuatro ejes</div>
     <h2 class="disp" data-r>Integro cuatro<br>cuestiones en<br><em>los negocios</em></h2>
-    <p data-r>Desde esa visión de cuatro ejes construyo todo: lo que tu marca dice, lo que vende, hacia dónde va y cómo se sostiene sin quemarte.</p>
+    <div class="ejes-side">
+      <p data-r>Desde esa visión de cuatro ejes construyo todo: lo que tu marca dice, lo que vende, hacia dónde va y cómo se sostiene sin quemarte.</p>
+      <Compass />
+    </div>
   </div>
   <div class="ejes-grid" data-r>
     <article id="eje-01"><span class="n">01</span><h3>Dirección creativa</h3><p>La mirada. Conceptos, campañas y una estética que se reconoce sin ver el logo.</p><div class="mono tags">concepto · campaña · identidad</div></article>
@@ -173,6 +179,17 @@ import Toaster from '../components/Toaster.astro';
     <div class="facts" data-r><div><b>3</b><span>veces dejé la universidad</span></div><div><b>1</b><span>maleta llena de sueños</span></div><div><b>Bogotá</b><span>el punto de partida</span></div></div>
     <blockquote data-r>Lo imposible no es un destino: es un punto de partida para los que se atreven. <span>Hay que ser cara dura.</span></blockquote>
     <div class="arch" data-r><div><h5>Mago</h5><p>La lógica detrás de una marca, convertida en imagen.</p></div><div><h5>Bufón</h5><p>Humor con sentido. Siempre deja una idea.</p></div><div><h5>Explorador</h5><p>Observar, cuestionar y crear movimiento.</p></div></div>
+  </div>
+</section>
+
+<section class="objetos" id="objetos">
+  <div class="objetos-head">
+    <div class="mono" style="color:#777">colección — fig. 005 y 006</div>
+    <h2 class="disp" data-r>Con qué rompo<br>la <em>cáscara</em></h2>
+  </div>
+  <div class="objetos-grid">
+    <Suitcase />
+    <Egg />
   </div>
 </section>
 
