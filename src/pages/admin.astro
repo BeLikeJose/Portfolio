@@ -1,0 +1,103 @@
+---
+// Owner-only panel. The page itself is public but empty: data only loads after login,
+// and Supabase row-level security only lets the admin email read or write proposals.
+import Base from '../layouts/Base.astro';
+import { hasSupabase } from '../lib/supabase.js';
+---
+<Base title="Panel — Be like José" noindex>
+<main>
+<section class="adm">
+  <div class="adm-top"><div><div class="mono" style="color:#777;margin-bottom:10px">panel privado — solo tú</div><h1 class="disp">Propuestas</h1></div><span class="lock mono">● privado · noindex</span></div>
+
+  {!hasSupabase && <p class="mono" style="margin-top:20px;color:#a3241c">Supabase aún no está configurado: copia .env.example a .env con tus claves. Mientras tanto puedes ver el diseño en /p/demo.</p>}
+
+  <form id="login" class="adm-login" hidden>
+    <p style="font-family:'Instrument Serif';font-size:34px;margin:40px 0 10px">Entra con tu email. Te llega un link.</p>
+    <div class="field"><label>email</label><input id="email" type="email" required placeholder="tu@email.com" /></div>
+    <button class="wbtn" type="submit">mandarme el link</button>
+    <p class="mono" id="loginMsg" style="margin-top:14px"></p>
+  </form>
+
+  <div id="panel" hidden>
+    <div class="cards" id="cards"><div class="pcard new" id="newBtn"><div class="script">nueva</div><div class="mono">+ crear propuesta</div></div></div>
+    <button class="mono" id="logout" style="margin-top:30px;background:none;border:0;text-decoration:underline">cerrar sesión</button>
+  </div>
+</section>
+
+<form class="drawer" id="drawer" style="overflow:auto">
+  <div class="mono" style="color:#777;margin-bottom:12px">nueva propuesta</div>
+  <h3>Para quién<br />es esta <span class="it">idea</span></h3>
+  <div class="field"><label>cliente</label><input name="client" required /></div>
+  <div class="field"><label>título</label><input name="title" placeholder="Dirección creativa — Q1 2027" /></div>
+  <div class="field"><label>diagnóstico</label><input name="diagnosis" /></div>
+  <div class="field"><label>concepto (una frase)</label><input name="concept" /></div>
+  <div class="field"><label>entregables — uno por línea: entregable | cuándo</label><textarea name="deliverables" rows="4" style="width:100%;font-family:inherit;border:1px solid var(--line);padding:8px"></textarea></div>
+  <div class="field"><label>inversión — una opción por línea: nombre | precio | nota</label><textarea name="pricing" rows="3" style="width:100%;font-family:inherit;border:1px solid var(--line);padding:8px"></textarea></div>
+  <div class="field"><label>archivos (pdf, video, imágenes)</label><input name="files" type="file" multiple /></div>
+  <div class="field"><label>link de calendly</label><input name="calendly_url" placeholder="https://calendly.com/..." /></div>
+  <div class="field"><label>expira en (días)</label><input name="days" type="number" value="30" /></div>
+  <button class="wbtn" type="submit">crear y copiar link</button>
+  <div class="gen" id="gen" hidden></div>
+</form>
+</main>
+
+<script>
+  import { supabase } from '../lib/supabase.js';
+  const $ = (s: string) => document.querySelector(s) as HTMLElement;
+  const lines = (v: string, keys: string[]) => v.split('\n').map((l) => l.trim()).filter(Boolean).map((l) => Object.fromEntries(l.split('|').map((x, i) => [keys[i], x.trim()])));
+  const link = (slug: string) => `${location.origin}/p/${slug}`;
+
+  async function render() {
+    const { data, error } = await supabase!.from('proposals').select('*').order('created_at', { ascending: false });
+    if (error) { $('#cards').insertAdjacentHTML('afterbegin', `<p class="mono">${error.message}</p>`); return; }
+    $('#cards').querySelectorAll('.pcard:not(.new)').forEach((n) => n.remove());
+    for (const p of data!) {
+      const st = p.status === 'viewed' ? `vista ${p.views} ${p.views === 1 ? 'vez' : 'veces'}` : p.status === 'sent' ? 'enviada' : 'borrador';
+      $('#newBtn').insertAdjacentHTML('beforebegin', `<div class="pcard"><div class="film" data-scene="park" data-seed="${p.views + 3}"></div><div class="meta"><span class="st ${p.status === 'viewed' ? '' : 'o'}">${st}</span><span class="mono">${new Date(p.created_at).toLocaleDateString('es', { day: 'numeric', month: 'short' })}</span></div><h3></h3><div class="mono">/p/${p.slug}</div><div class="acts"><button class="w" data-link="${link(p.slug)}">copiar link</button><a href="/p/${p.slug}" target="_blank"><button>ver</button></a></div></div>`);
+      ($('#newBtn').previousElementSibling!.querySelector('h3') as HTMLElement).textContent = p.client;
+    }
+  }
+
+  if (supabase) {
+    const { data: { session } } = await supabase.auth.getSession();
+    $(session ? '#panel' : '#login').hidden = false;
+    if (session) render();
+    $('#login').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const { error } = await supabase.auth.signInWithOtp({ email: ($('#email') as HTMLInputElement).value, options: { emailRedirectTo: location.href } });
+      $('#loginMsg').textContent = error ? error.message : 'Listo. Revisa tu correo.';
+    });
+    $('#logout').addEventListener('click', async () => { await supabase.auth.signOut(); location.reload(); });
+    $('#newBtn').addEventListener('click', () => $('#drawer').classList.toggle('on'));
+    document.addEventListener('click', (e) => {
+      const b = (e.target as HTMLElement).closest('[data-link]') as HTMLElement | null;
+      if (b) { navigator.clipboard.writeText(b.dataset.link!); (window as any).showToast?.('link copiado — ' + b.dataset.link); }
+    });
+    $('#drawer').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const f = new FormData(e.target as HTMLFormElement);
+      const media = [];
+      for (const file of f.getAll('files') as File[]) {
+        if (!file.size) continue;
+        const path = `${crypto.randomUUID()}-${file.name}`;
+        const up = await supabase.storage.from('proposals').upload(path, file);
+        if (up.error) { alert(up.error.message); return; }
+        const { data } = await supabase.storage.from('proposals').createSignedUrl(path, 60 * 60 * 24 * 90);
+        media.push({ type: file.type.startsWith('video') ? 'video' : file.type === 'application/pdf' ? 'pdf' : 'image', url: data!.signedUrl });
+      }
+      const days = Number(f.get('days')) || 30;
+      const { data, error } = await supabase.from('proposals').insert({
+        client: f.get('client'), title: f.get('title'), diagnosis: f.get('diagnosis'), concept: f.get('concept'),
+        deliverables: lines(String(f.get('deliverables') || ''), ['item', 'when']),
+        pricing: lines(String(f.get('pricing') || ''), ['name', 'price', 'note']),
+        media, calendly_url: f.get('calendly_url') || null, status: 'sent',
+        expires_at: new Date(Date.now() + days * 864e5).toISOString(),
+      }).select().single();
+      if (error) { alert(error.message); return; }
+      await navigator.clipboard.writeText(link(data.slug)).catch(() => {});
+      $('#gen').hidden = false; $('#gen').textContent = `link copiado → ${link(data.slug)} · expira en ${days} días · no aparece en buscadores`;
+      render();
+    });
+  }
+</script>
+</Base>

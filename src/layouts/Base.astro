@@ -1,0 +1,31 @@
+---
+import '../styles/global.css';
+interface Props { title?: string; description?: string; noindex?: boolean }
+const { title = 'Be like José — dirección creativa, film y edición', description = 'José, director creativo, filmmaker y editor. Dirección para marcas, empresas y creadores.', noindex = false } = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex,nofollow,noarchive" />}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Mrs+Saint+Delafield&family=Bodoni+Moda:ital,opsz,wght@1,6..96,400&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <slot name="nav">
+      <nav>
+        <div class="l"><span class="burger"></span><a href="/#portfolio">Portfolio</a><a href="/#sobre-mi">Sobre mí</a></div>
+        <a class="logo" href="/">Be like José</a>
+        <div class="r"><a href="/#contacto">Contacto</a><a href="/#contacto">Agenda →</a></div>
+      </nav>
+    </slot>
+    <slot />
+    <script is:inline src="/scripts/common.js"></script>
+    <script is:inline src="/scripts/film.js"></script>
+    <slot name="scripts" />
+  </body>
+</html>

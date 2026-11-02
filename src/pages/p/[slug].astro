@@ -1,0 +1,64 @@
+---
+// Private client proposal. Rendered on request (Cloudflare), never listed, never indexed.
+import Base from '../../layouts/Base.astro';
+import { supabase, hasSupabase, DEMO_PROPOSAL } from '../../lib/supabase.js';
+export const prerender = false;
+
+const { slug } = Astro.params;
+let p = null;
+if (slug === 'demo' || !hasSupabase) p = { ...DEMO_PROPOSAL, slug };
+else {
+  const { data } = await supabase.rpc('get_proposal', { p_slug: slug });
+  p = data?.[0] ?? null;
+}
+Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
+Astro.response.headers.set('Cache-Control', 'private, no-store');
+if (!p) Astro.response.status = 404;
+
+const calendly = p?.calendly_url || import.meta.env.PUBLIC_CALENDLY_URL || '';
+const fmt = (d) => d ? new Date(d).toLocaleDateString('es', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+const days = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+---
+<Base title={p ? `Propuesta para ${p.client} — Be like José` : 'Link no disponible'} noindex>
+<main>
+{p ? (
+  <>
+  <section class="pv-hero">
+    <div class="film" data-scene="park" data-seed="7" data-video></div>
+    <span class="priv mono">link privado · solo para ti</span>
+    <div class="txt">
+      <div class="script" style="font-size:64px;line-height:.8">una propuesta para</div>
+      <h1 class="disp just">{p.client}.</h1>
+      <div class="row mono"><span>{p.title}</span><span>{fmt(p.created_at)}</span>{p.expires_at && <span>válida hasta {fmt(p.expires_at)}</span>}<span class="it" style="font-family:'Instrument Serif';text-transform:none;font-size:24px;letter-spacing:0">— por José</span></div>
+    </div>
+  </section>
+  {p.diagnosis && <section class="pv"><div class="idx">01<small>diagnóstico</small></div><div class="txt just" data-r>{p.diagnosis}</div></section>}
+  {p.concept && <section class="pv"><div class="idx">02<small>concepto</small></div><div class="concept" data-r><q>{p.concept}</q>
+    {p.cover_url ? <div class="film" style={`background:url(${p.cover_url}) center/cover`}></div> : <div class="film" data-scene="flash" data-seed="21" data-video><div class="lab">moodboard — concepto visual</div></div>}
+  </div></section>}
+  {p.media?.length > 0 && <section class="pv"><div class="idx">↳<small>material</small></div><div style="display:grid;gap:24px" data-r>
+    {p.media.map((m) => m.type === 'video' ? <video src={m.url} controls playsinline style="width:100%"></video> : m.type === 'pdf' ? <iframe src={m.url} style="width:100%;height:80vh;border:1px solid var(--line)"></iframe> : <img src={m.url} alt="" style="width:100%" />)}
+  </div></section>}
+  {p.deliverables?.length > 0 && <section class="pv"><div class="idx">03<small>entregables</small></div><div class="deliv" data-r>
+    {p.deliverables.map((d, i) => <div><span>{String(i + 1).padStart(2, '0')}</span><span>{d.item}</span><span>{d.when}</span></div>)}
+  </div></section>}
+  {p.pricing?.length > 0 && <section class="pv"><div class="idx">04<small>inversión</small></div><div class="inv" data-r>
+    {p.pricing.map((o) => <div><span class="mono">{o.name}</span><b>{o.price}</b><span>{o.note}</span></div>)}
+  </div></section>}
+  <section class="pv" id="agenda"><div class="idx">05<small>agendemos</small></div>
+    {calendly ? (
+      <div class="cal" style="display:block;min-height:700px" data-r><iframe title="Agendar con Calendly" src={`${calendly}${calendly.includes('?') ? '&' : '?'}hide_gdpr_banner=1&background_color=fafafa&text_color=0e0e0e&primary_color=0e0e0e`} style="width:100%;height:700px;border:0"></iframe></div>
+    ) : (
+      <div class="cal" data-r>
+        <div class="cal-l"><h4>Noviembre</h4><div class="cal-grid">{days.map((d) => <span>{d}</span>)}{Array.from({ length: 22 }, (_, i) => { const n = i - 5; const off = n < 3 || [7, 8, 14, 15].includes(n); return <div class={`cal-day${off ? ' off' : ''}`}>{n > 0 ? n : ''}</div>; })}</div></div>
+        <div class="cal-r"><div class="mono">llamada de 30 min · calendly (demo)</div>{['10:00', '11:30', '15:00', '17:30'].map((h) => <div class="slot" data-when={`jueves 5 · ${h}`}>{h}</div>)}<div class="cal-confirm">Listo. Nos vemos el <b></b>.</div></div>
+      </div>
+    )}
+  </section>
+  <section class="contact" style="padding-top:60px"><footer class="mono" style="margin-top:0"><span>be like josé © 2026</span><span>esta propuesta no aparece en buscadores</span><span>/p/{p.slug}</span></footer></section>
+  </>
+) : (
+  <section class="pv-hero"><div class="film" data-scene="lamp" data-seed="3"></div><div class="txt"><div class="script" style="font-size:64px;line-height:.8">ups…</div><h1 class="disp">Este link ya no está.</h1><div class="row"><span>Puede que la propuesta haya expirado. Escríbeme y te mando una nueva.</span><a class="hbtn" href="/#contacto">hablemos →</a></div></div></section>
+)}
+</main>
+</Base>

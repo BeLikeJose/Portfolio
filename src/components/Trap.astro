@@ -1,0 +1,44 @@
+---
+// Hyper-realistic 3D mousetrap. Clicking it snaps the trap and types the message.
+interface Props { label?: string; msg?: string }
+const {
+  label = 'no toques aquí',
+  msg = 'Tarde. Ya tocaste.\nAsí se ve una idea creativa: un objeto de todos los días que de pronto dice otra cosa. Eso le hago a tu marca.',
+} = Astro.props;
+---
+<div class="trap-slot" id="trap" data-msg={msg}>
+  <div class="trap3d" id="trap3d"></div>
+  <div class="trap-label">{label}</div>
+  <div class="trap-msg"><div class="msg-txt"></div><button class="trap-reset">armar de nuevo ↺</button></div>
+</div>
+
+<script>
+  import { createTrap } from '../scripts/trap3d.js';
+  const slot = document.getElementById('trap')!;
+  const msgBox = slot.querySelector('.trap-msg')!;
+  const txt = slot.querySelector('.msg-txt')!;
+  const full = slot.dataset.msg || '';
+  let typing: ReturnType<typeof setInterval>;
+  await document.fonts.ready;
+  const trap = createTrap(document.getElementById('trap3d')!, {
+    delay: 500,
+    capture: new URLSearchParams(location.search).has('capture'),
+    onSnap() {
+      slot.classList.add('snapped');
+      setTimeout(() => (window as any).doFlash?.(), 60);
+      setTimeout(() => {
+        msgBox.classList.add('on');
+        let i = 0; clearInterval(typing);
+        typing = setInterval(() => {
+          i++;
+          txt.innerHTML = full.slice(0, i).replace(/\n/g, '<br>') + '<span style="opacity:.5">▍</span>';
+          if (i >= full.length) { clearInterval(typing); txt.innerHTML = full.replace(/\n/g, '<br>'); }
+        }, 24);
+      }, 700);
+    },
+  });
+  slot.querySelector('.trap-reset')!.addEventListener('click', () => {
+    msgBox.classList.remove('on'); slot.classList.remove('snapped'); trap.reset();
+  });
+  (window as any).__trap = trap;
+</script>
