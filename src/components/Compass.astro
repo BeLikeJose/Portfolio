@@ -54,6 +54,12 @@ const ticks = Array.from({ length: 72 }, (_, i) => i * 5);
   .cpt.on .cn { fill: #b3261e; }
   .cpt.on .cname { fill: #b3261e; text-decoration: underline; }
   .compass-read { margin-top: 12px; padding: 8px 10px; border: 1px solid var(--ink); min-width: 260px; }
+
+  @media (max-width: 900px) {
+    .compass-obj { align-items: center; }
+    .compass { width: min(280px, 80vw); touch-action: manipulation; }
+    .compass-read { min-width: 0; width: 100%; text-align: center; }
+  }
 </style>
 
 <script>
@@ -65,6 +71,7 @@ const ticks = Array.from({ length: 72 }, (_, i) => i * 5);
   const NAMES = ['Dirección creativa', 'Operaciones y oferta de valor', 'Proyección empresarial', 'Creación de contenidos'];
   const arts = ['eje-01', 'eje-02', 'eje-03', 'eje-04'].map((id) => document.getElementById(id));
   let angle = 0, sel = -1;
+  if (matchMedia('(hover: none)').matches) read.textContent = 'toca un rumbo';
   const turn = (a: number) => { let d = a - (angle % 360); if (d > 180) d -= 360; if (d < -180) d += 360; angle += d; needle.style.transform = `rotate(${angle}deg)`; };
   const choose = (i: number) => {
     sel = i; root.classList.remove('follow'); turn(i * 90);

@@ -1,0 +1,228 @@
+/* =========================================================
+   Mobile & tablet layer. ≤900px stacks everything into one
+   column; ≤560px tunes sizes for phones.
+   ========================================================= */
+html,body{overflow-x:clip}
+img,video,svg,iframe{max-width:100%}
+.film canvas.f{max-width:none}
+
+@media (max-width:900px){
+  /* ---------- base ---------- */
+  .just{text-align:left;text-align-last:auto}
+  .disp{word-break:normal;overflow-wrap:break-word;hyphens:manual}
+  [data-r]{transform:translateY(24px)}
+
+  /* ---------- nav ---------- */
+  nav{height:58px;padding:0 18px;grid-template-columns:auto 1fr auto;gap:12px}
+  nav .l a,nav .r a:not(.agenda){display:none}
+  nav .logo{justify-self:center;font-size:17px;letter-spacing:.12em}
+  nav .agenda{font-size:9.5px!important;padding:7px 10px!important;letter-spacing:.06em!important}
+  .menu{padding:80px 22px 30px}
+  .menu-close{left:18px;top:18px}
+  .menu-list a{font-size:clamp(40px,11vw,64px);gap:14px}
+  .menu-list a small{padding-left:40px}
+  .menu-list a:hover{padding-left:0}
+  .menu-foot{flex-direction:column;gap:12px}
+
+  /* ---------- hero: flow instead of absolute ---------- */
+  .hero{height:auto;min-height:0;display:flex;flex-direction:column;padding:84px 20px 40px;overflow:visible}
+  .hero-meta,.hero-l,.hero-film,.sq,.trap-float{position:relative;left:auto;right:auto;top:auto;bottom:auto}
+  .hero-meta{order:1;max-width:none}
+  .hero-l{order:2;width:100%;margin-top:18px}
+  .giant{font-size:clamp(96px,28vw,170px)}
+  .hero-line{max-width:none;font-size:15px}
+  .trap-float{order:3;align-self:center;width:170px;height:304px;margin:34px auto 10px;translate:40px 0}
+  .trap-float .obj-card{left:-150px;top:34%}
+  .trap-reset{left:-140px!important;top:calc(34% + 74px)!important}
+  .hero-film{order:4;width:100%;height:56vw;min-height:220px;margin-top:20px}
+  .sq{order:5;margin-top:-50px;z-index:5}
+  .vert,.n001{display:none}
+
+  /* ---------- logos marquee ---------- */
+  .logos{grid-template-columns:96px 1fr;height:70px}
+  .logos .mono{padding-left:18px;font-size:9px}
+  .logos .marquee>div{gap:44px;padding-left:30px}
+  .logos .marquee span{font-size:19px}
+
+  /* ---------- generic section padding ---------- */
+  .about,.bog-sec,.reach,.hi,.obra-ex,.maleta,.metricas,.mag,.ejes,.sys-sec,.sys-hero,.agenda,.after,.paths,.objetos,.strip-head,.next-cta,.adm{padding-left:20px!important;padding-right:20px!important}
+  .about,.bog-sec,.hi,.obra-ex,.maleta,.metricas,.mag,.ejes,.sys-sec,.agenda,.objetos{padding-top:70px!important;padding-bottom:70px!important}
+
+  /* ---------- mi historia ---------- */
+  .about{grid-template-columns:1fr;gap:34px}
+  .about .pics{height:auto;position:relative;top:auto;padding-bottom:34px}
+  .about .pics .p1{position:relative;width:86%;height:110vw;max-height:520px}
+  .about .pics .p2{position:absolute;width:44%;height:52vw;max-height:260px;right:0;bottom:0}
+  .about h2,.bog-txt h2,.tend-txt h2{font-size:clamp(46px,12vw,72px)}
+  .story .lead{font-size:24px}
+  .story{font-size:16px}
+
+  .tendedero{grid-template-columns:1fr;gap:24px;padding:50px 20px 70px}
+  .tendedero .cl{max-width:none;justify-self:stretch}
+  .tend-hint{display:none}
+
+  .bog-sec{grid-template-columns:1fr;gap:34px}
+  .bog-media{grid-template-columns:1fr 1fr}
+  .bm1{grid-column:1/-1;grid-row:auto}.bm1 .film{height:60vw}
+  .bm2 .film,.bm3 .film{height:38vw}
+  .bog-txt blockquote,.about blockquote{font-size:23px}
+
+  .hi{grid-template-columns:1fr;gap:40px}
+  .hi .film{height:64vw}
+  .hi .copy{font-size:24px}
+  .qh-lead{font-size:28px}
+  .qh-btns{flex-wrap:wrap;gap:18px}
+
+  .state{height:auto;min-height:100svh}
+  .state .txt{bottom:10%;left:20px;right:20px}
+  .state h2{font-size:clamp(40px,11vw,70px);word-spacing:0}
+  .state .credit{flex-direction:column;gap:6px;font-size:14px}
+
+  .ex-head{flex-direction:column;align-items:flex-start;gap:16px}
+  .ex-head h2{font-size:clamp(46px,12vw,72px)}
+  .ex-grid{grid-template-columns:1fr;gap:34px}
+  .ex-grid .film{height:70vw}
+  .next-cta{flex-direction:column;align-items:flex-start;gap:16px;padding-top:30px;padding-bottom:70px}
+
+  /* ---------- footer ---------- */
+  .site-foot{padding:50px 20px 24px}
+  .sf-top{grid-template-columns:1fr 1fr;gap:28px}
+  .sf-logo{grid-column:1/-1;font-size:56px}
+  .sf-bot{flex-direction:column;gap:6px}
+
+  /* ---------- portfolio ---------- */
+  .mag-head{flex-direction:column;align-items:flex-start;gap:16px}
+  .mag-head h2{font-size:clamp(56px,15vw,90px)}
+  .chips{gap:8px;margin-bottom:28px}
+  .chips button{font-size:14px;padding:3px 14px 3px 3px}
+  .chips button .film{width:40px;height:26px}
+  .mpanels{min-height:0}
+  .mpanel{position:static;display:none}
+  .mpanel.on{display:block}
+  .mgrid{grid-template-columns:1fr;gap:28px}
+  .feature .film{height:70vw}
+  .feature .cap{grid-template-columns:1fr;gap:12px}
+  .side-item{grid-template-columns:110px 1fr}
+  .side-item .film{height:110px}
+  .row3{grid-template-columns:1fr;gap:28px}
+  .row3 .film{height:56vw}
+  .kin{font-size:44px;height:50px;line-height:50px}
+  @keyframes kin{0%,20%{transform:translateY(0)}25%,45%{transform:translateY(-50px)}50%,70%{transform:translateY(-100px)}75%,100%{transform:translateY(-150px)}}
+  .big-nums{grid-template-columns:1fr 1fr;margin-bottom:40px}
+  .big-nums div{padding:18px 12px 20px 0}
+  .big-nums div:nth-child(odd){padding-left:0;border-left:0}
+  .big-nums div:nth-child(even){padding-left:14px}
+  .big-nums div:nth-child(n+3){border-top:1px solid var(--line)}
+  .big-nums b{font-size:clamp(44px,13vw,70px)}
+  .phones{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;margin:0 -20px;padding:0 20px 10px;-webkit-overflow-scrolling:touch}
+  .phone{flex:0 0 62%;scroll-snap-align:start}
+  .ba{margin-top:50px}
+  .ba-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .ba-arrow{display:none}
+  .ba-data{grid-column:1/-1}
+  .wins{grid-template-columns:1fr;gap:40px;margin-top:50px}
+  .quotes blockquote{font-size:24px}
+  .strip{padding:50px 0 40px}
+  .strip-head{flex-direction:column;gap:12px}
+  .strip-head h3{font-size:34px}
+  .frame{width:230px}.frame .film{height:150px}
+
+  /* ---------- mi sistema ---------- */
+  .sys-hero{padding-top:96px!important;padding-bottom:50px!important}
+  .sys-hero h1{font-size:clamp(84px,24vw,150px)}
+  .sys-hero-row{grid-template-columns:1fr;gap:30px}
+  .sys-lead{font-size:24px}
+  .ejes-head{grid-template-columns:1fr;gap:20px}
+  .ejes-head h2{font-size:clamp(46px,12vw,72px)}
+  .ejes-side{grid-template-columns:1fr;gap:28px}
+  .ejes-grid{grid-template-columns:1fr 1fr}
+  .ejes-grid article{padding:18px 14px 22px}
+  .ejes-grid article+article{border-left:0}
+  .ejes-grid article:nth-child(even){border-left:1px solid var(--line)}
+  .ejes-grid article:nth-child(n+3){border-top:1px solid var(--line)}
+  .ejes-grid h3{font-size:15px;min-height:0}
+  .ejes-grid .n{font-size:48px}
+  .sys-head{grid-template-columns:1fr;gap:14px;margin-bottom:30px}
+  .sys-head h2,.sin h2{font-size:clamp(44px,11.5vw,72px)}
+  .steps{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -20px;padding:0 20px;-webkit-overflow-scrolling:touch}
+  .steps li{flex:0 0 72%;scroll-snap-align:start}
+  .week{margin-top:40px}
+  .week-row{display:flex;overflow-x:auto;gap:10px;margin:14px -20px 0;padding:6px 20px 16px}
+  .week-row div{flex:0 0 56%}
+  .tools{grid-template-columns:1fr;gap:24px}
+  .mesa{grid-template-columns:1fr;grid-template-areas:"notion" "cards" "meets" "shoots";gap:22px}
+  .m-notion .media .film{height:62vw}
+  .m-meets{grid-template-columns:1fr}
+  .m-meet .media .film{height:56vw}
+  .shoots{display:flex;overflow-x:auto;gap:10px;margin:10px -20px 0;padding:0 20px 10px}
+  .shoots>*{flex:0 0 60%}
+  .sin{grid-template-columns:1fr;gap:30px}
+  .modes{grid-template-columns:1fr}
+  .modes>*+*{border-left:0;border-top:1px solid var(--line)}
+  .modes h3{font-size:36px}
+
+  /* ---------- contacto ---------- */
+  .contact{padding:100px 20px 40px}
+  .contact h2{font-size:clamp(60px,17vw,110px);word-spacing:0}
+  .contact>div[style*="justify-content:space-between"]{flex-direction:column;gap:8px}
+  .cgrid{grid-template-columns:1fr;gap:26px;margin-top:50px}
+  .cgrid a{font-size:26px;word-break:break-all}
+  .agenda-head{grid-template-columns:1fr;gap:14px}
+  .agenda-head h2{font-size:clamp(46px,12vw,72px)}
+  .agenda-empty{flex-direction:column;align-items:flex-start;gap:24px}
+  .agenda-empty p{font-size:22px}
+  .agenda-cal iframe{height:900px}
+  .after-steps{grid-template-columns:1fr}
+  .after-steps li+li{border-left:0;padding-left:0;border-top:1px solid var(--line)}
+
+  /* ---------- propuesta del cliente ---------- */
+  .pv-hero{min-height:620px}
+  .pv-hero .txt{left:20px;right:20px}
+  .pv-hero h1{font-size:clamp(60px,17vw,120px)}
+  .pv-hero .row{flex-wrap:wrap;gap:8px 18px}
+  .pv-hero .priv{top:76px;right:20px}
+  .pv-hero .script{font-size:44px!important}
+  .pv{grid-template-columns:1fr;gap:18px;padding:56px 20px}
+  .pv .idx{font-size:60px}
+  .pv .txt{font-size:22px}
+  .concept{grid-template-columns:1fr}
+  .concept q{font-size:38px}
+  .concept .film{height:70vw}
+  .deliv div{grid-template-columns:36px 1fr;font-size:16px}
+  .deliv span:last-child{grid-column:2;text-align:left;margin-top:4px}
+  .inv{grid-template-columns:1fr}
+  .inv b{font-size:52px}
+  .cal{grid-template-columns:1fr}
+  .cal-l{border-right:0;border-bottom:1px solid var(--line)}
+
+  /* ---------- admin ---------- */
+  .adm{padding-top:90px!important}
+  .adm-top{flex-direction:column;align-items:flex-start;gap:14px}
+  .adm-top h1{font-size:64px}
+  .cards{grid-template-columns:1fr}
+  .drawer{width:100%;padding:60px 22px 30px}
+}
+
+@media (max-width:560px){
+  .hero{padding-top:78px}
+  .hero-meta p{font-size:9px}
+  .giant{font-size:31vw}
+  .trap-float{width:150px;height:268px;translate:56px 0}
+  .trap-float .obj-card{left:-138px}
+  .trap-float .obj-card b{font-size:12px}
+  .trap-float .obj-card i{font-size:14px}
+  .phone{flex-basis:72%}
+  .ejes-grid{grid-template-columns:1fr}
+  .ejes-grid article:nth-child(even){border-left:0}
+  .ejes-grid article+article{border-top:1px solid var(--line)}
+  .ba-grid{grid-template-columns:1fr}
+  .steps li{flex-basis:82%}
+  .week-row div{flex-basis:70%}
+  .sf-top{grid-template-columns:1fr}
+}
+
+/* touch devices: no hover-only states */
+@media (hover:none){
+  .ex-grid a:hover .film{transform:none}
+  .chapters a:hover,.book [data-n]:hover{padding-left:0}
+}

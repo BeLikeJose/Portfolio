@@ -78,6 +78,18 @@ const ITEMS = [
   .itag b { display: block; font-weight: 700; font-size: 11px; text-transform: uppercase; }
   .itag span { display: block; font-family: 'Instrument Serif', serif; font-size: 15px; line-height: 1.05; margin-top: 2px; }
   .suit-card { left: 50%; bottom: 40px; translate: 120px 0; }
+
+  @media (max-width: 900px) {
+    .suit-stage { height: auto; display: flex; flex-direction: column; align-items: center; gap: 20px; padding-bottom: 10px; }
+    .suit { width: min(300px, 86vw); }
+    .gear { position: relative; left: auto; top: auto; width: 100%; height: auto; order: 2; display: none; grid-template-columns: 1fr 1fr; gap: 16px 12px; }
+    .suit-obj.open .gear { display: grid; }
+    .item { position: relative; left: auto; top: auto; width: auto; transform: translateY(20px) scale(.9); }
+    .suit-obj.open .item { transform: none; }
+    .ico { width: 80px; }
+    .itag span { font-size: 14px; }
+    .suit-card { position: relative; left: auto; bottom: auto; translate: none; order: 3; align-self: flex-end; }
+  }
 </style>
 
 <script>
@@ -89,7 +101,7 @@ const ITEMS = [
   root.querySelector('.suit')!.addEventListener('click', () => {
     if (root.classList.contains('open')) return;
     latch(); root.classList.add('open'); reset.hidden = false;
-    setCard('<b>Con esto produzco.</b><i>pasa el cursor por cada cosa.</i>');
+    setCard(matchMedia('(hover: none)').matches ? '<b>Con esto produzco.</b><i>mi equipo, pieza por pieza.</i>' : '<b>Con esto produzco.</b><i>pasa el cursor por cada cosa.</i>');
   });
   reset.addEventListener('click', () => { root.classList.remove('open'); reset.hidden = true; setCard('<b>Ábreme.</b><i>es lo que llevo a cada rodaje.</i>'); });
 </script>

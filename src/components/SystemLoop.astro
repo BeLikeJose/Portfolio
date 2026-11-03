@@ -53,6 +53,12 @@ const arc = (a: typeof N[0], b: typeof N[0]) => { const mx = (a.x + b.x) / 2, my
   .loop-dots { display: flex; gap: 8px; margin-top: 18px; }
   .loop-dots button { width: 34px; height: 4px; border: 0; background: #ccc; padding: 0; cursor: pointer; }
   .loop-dots button.on { background: var(--ink); }
+
+  @media (max-width: 900px) {
+    .loop { grid-template-columns: 1fr; gap: 26px; }
+    svg { max-width: 420px; margin: 0 auto; display: block; }
+    .loop-read p { font-size: 24px; min-height: 110px; }
+  }
 </style>
 
 <script define:vars={{ LINKS }}>
@@ -68,7 +74,7 @@ const arc = (a: typeof N[0], b: typeof N[0]) => { const mx = (a.x + b.x) / 2, my
     document.getElementById('loopTxt').textContent = LINKS[i];
   };
   const auto = () => { clearInterval(timer); timer = setInterval(() => show((cur + 1) % 4), 4200); };
-  [...lks, ...nds, ...dots].forEach((el) => el.addEventListener('mouseenter', () => { show(+el.dataset.i); auto(); }));
+  [...lks, ...nds, ...dots].forEach((el) => ['mouseenter', 'click'].forEach((ev) => el.addEventListener(ev, () => { show(+el.dataset.i); auto(); })));
   dots.forEach((d) => d.addEventListener('click', () => { show(+d.dataset.i); auto(); }));
   show(0); auto();
 </script>

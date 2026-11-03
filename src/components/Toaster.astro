@@ -93,6 +93,11 @@ const slice = 'M0 30 C0 8 14 0 22 5 C30 -4 50 -4 58 5 C66 0 80 8 80 30 L78 104 L
   .toaster-obj.burnt .smoke circle { animation: smoke 2.6s ease-out infinite; }
   @keyframes smoke { 0% { opacity: 0; transform: translate(0, 30px) scale(.6); } 25% { opacity: .55; } 100% { opacity: 0; transform: translate(12px, -70px) scale(1.8); } }
   .obj-link { font-family: 'IBM Plex Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .05em; text-decoration: underline; text-underline-offset: 3px; margin-top: 8px; display: inline-block; color: #444; }
+
+  @media (max-width: 900px) {
+    .toaster { max-width: 300px; }
+    .klab { font-size: 10px; }
+  }
 </style>
 
 <script>

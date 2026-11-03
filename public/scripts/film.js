@@ -94,7 +94,7 @@
     let c = el.querySelector('canvas.f'); if (!c) { c = document.createElement('canvas'); c.className = 'f'; el.prepend(c); }
     c.width = w; c.height = h; const ctx = c.getContext('2d'); const r = rng(seed);
     (S[scene] || S.studio)(ctx, w, h, r); grade(ctx, w, h, r, el.dataset.tone);
-    el.dataset.done = 1;
+    el.dataset.done = 1; el._w = b.width; el._h = b.height;
   }
   const css = `
   .film{position:relative;overflow:hidden;background:#111}
@@ -114,5 +114,15 @@
   const go = () => document.querySelectorAll('.film').forEach(el => { if (!el.dataset.done) { try { render(el); } catch (e) { console.warn(e); } } });
   window.renderFilms = () => { document.querySelectorAll('.film').forEach(el => delete el.dataset.done); go(); };
   addEventListener('load', go);
+  // re-draw when a film's box changes size (layout settling, rotation, mobile breakpoints)
+  const ro = new ResizeObserver(es => es.forEach(e => {
+    const el = e.target, w = e.contentRect.width, h = e.contentRect.height;
+    if (w < 4 || h < 4) return;
+    if (!el.dataset.done || Math.abs(w - (el._w || 0)) > el._w * .15 || Math.abs(h - (el._h || 0)) > el._h * .15) {
+      clearTimeout(el._rt); el._rt = setTimeout(() => { delete el.dataset.done; try { render(el); } catch (err) {} }, 120);
+    }
+  }));
+  const observe = () => document.querySelectorAll('.film').forEach(el => { if (!el._ro) { el._ro = 1; ro.observe(el); } });
+  addEventListener('DOMContentLoaded', observe); addEventListener('load', observe);
   const mo = new MutationObserver(() => requestAnimationFrame(go)); addEventListener('load', () => mo.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['hidden'] }));
 })();

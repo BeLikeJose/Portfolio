@@ -28,7 +28,7 @@ const byDay = Object.fromEntries(PIECES.map((x) => [x.day, x]));
       {Object.entries(P).map(([k, v]) => <button data-f={k}><i class={`dot ${k}`}></i>{v}</button>)}
     </div>
   </div>
-  <div class="ecal-grid">
+  <div class="ecal-scroll"><div class="ecal-grid">
     {['lun', 'mar', 'mié', 'jue', 'vie', 'sáb', 'dom'].map((d) => <span class="mono wd">{d}</span>)}
     {cells.map((day) => {
       const x = day ? byDay[day] : null;
@@ -40,7 +40,8 @@ const byDay = Object.fromEntries(PIECES.map((x) => [x.day, x]));
       );
     })}
   </div>
-  <div class="ecal-brief mono" id="ecalBrief">pasa el cursor por una pieza para ver su brief</div>
+  </div>
+  <div class="ecal-brief mono" id="ecalBrief">toca o pasa el cursor por una pieza para ver su brief</div>
 </div>
 
 <style>
@@ -66,6 +67,13 @@ const byDay = Object.fromEntries(PIECES.map((x) => [x.day, x]));
   .d, .dot.d { border-color: #b98a2e; } .dot.d { background: #b98a2e; }
   .chip.dim { opacity: .12; }
   .ecal-brief { margin-top: 12px; padding: 9px 10px; background: var(--ink); color: #fafafa; min-height: 34px; }
+
+  @media (max-width: 900px) {
+    .ecal { padding: 16px; }
+    .ecal-grid { min-width: 620px; }
+    .ecal-scroll { overflow-x: auto; margin: 0 -16px; padding: 0 16px 6px; -webkit-overflow-scrolling: touch; }
+    h4 { font-size: 28px; }
+  }
 </style>
 
 <script>
@@ -76,5 +84,5 @@ const byDay = Object.fromEntries(PIECES.map((x) => [x.day, x]));
     root.querySelectorAll('.ecal-f button').forEach((x) => x.classList.toggle('on', x === b));
     chips.forEach((c) => c.classList.toggle('dim', b.dataset.f !== 'all' && c.dataset.p !== b.dataset.f));
   }));
-  chips.forEach((c) => c.addEventListener('mouseenter', () => (brief.textContent = c.dataset.brief!)));
+  chips.forEach((c) => ['mouseenter', 'click'].forEach((ev) => c.addEventListener(ev, () => (brief.textContent = c.dataset.brief!))));
 </script>
