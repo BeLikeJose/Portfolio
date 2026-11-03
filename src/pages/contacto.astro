@@ -9,7 +9,7 @@ const mail = `mailto:${CONTACT.email}?subject=${encodeURIComponent('Quiero agend
 <main class="page">
 <section class="contact" id="contacto">
   <div class="film" data-scene="street" data-seed="44" data-video></div>
-  <div class="mono" style="opacity:.7;margin-bottom:24px">05 — contacto</div>
+  <div class="mono" style="opacity:.7;margin-bottom:24px">04 — contacto</div>
   <h2 class="disp just" data-r>¿y si lo hablamos?</h2>
   <div style="display:flex;justify-content:space-between"><span>Una llamada de 30 minutos. Sin formularios eternos.</span><span class="it">— la operadora</span></div>
   <div class="cgrid">
@@ -26,6 +26,15 @@ const mail = `mailto:${CONTACT.email}?subject=${encodeURIComponent('Quiero agend
   ) : (
     <div class="agenda-cal agenda-empty"><p>La agenda en línea se activa en cuanto conectemos Calendly. Mientras tanto, pídeme la llamada por correo y te respondo con horarios.</p><a class="wbtn" href={mail}>pedir una llamada →</a></div>
   )}
+</section>
+<section class="after">
+  <div class="mono" style="color:#777">después de agendar</div>
+  <ol class="after-steps" data-r>
+    <li><span>01</span><b>Te llega la confirmación</b><i>con el link de la llamada y dos preguntas para llegar preparados.</i></li>
+    <li><span>02</span><b>Hablamos 30 minutos</b><i>de tu marca, tus metas y en qué eje está el nudo.</i></li>
+    <li><span>03</span><b>Recibes tu propuesta</b><i>en un link privado, con diagnóstico, concepto e inversión.</i></li>
+  </ol>
+  <a class="lnk mono" href="/mi-sistema#proceso">ver el proceso completo →</a>
 </section>
 </main>
 </Base>

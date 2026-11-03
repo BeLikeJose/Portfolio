@@ -7,4 +7,5 @@ export default defineConfig({
   site: 'https://belikejose.com',
   adapter: cloudflare(),
   devToolbar: { enabled: false },
+  redirects: { '/sobre-mi': '/', '/metodo': '/mi-sistema' },
 });

@@ -1,0 +1,60 @@
+---
+// 90-day roadmap: 12 weeks, one row per axis. Drag/hover the week marker to see what happens that week.
+const ROWS = [
+  { n: '01', t: 'Dirección creativa', bars: [{ s: 1, e: 3, l: 'diagnóstico y esencia' }, { s: 4, e: 6, l: 'concepto y territorio visual' }, { s: 9, e: 12, l: 'campaña' }] },
+  { n: '02', t: 'Operaciones y oferta', bars: [{ s: 2, e: 4, l: 'oferta de valor' }, { s: 5, e: 8, l: 'procesos y precios' }] },
+  { n: '03', t: 'Proyección empresarial', bars: [{ s: 1, e: 2, l: 'metas' }, { s: 6, e: 7, l: 'roadmap ajustado' }, { s: 11, e: 12, l: 'medición y próximos 90' }] },
+  { n: '04', t: 'Creación de contenidos', bars: [{ s: 4, e: 5, l: 'pilares y calendario' }, { s: 6, e: 12, l: 'producción y publicación' }] },
+];
+const WEEK = ['llamada y diagnóstico', 'metas y oferta en papel', 'esencia de marca', 'pilares y calendario', 'primer rodaje', 'concepto aprobado', 'procesos listos', 'precios y venta', 'campaña en preproducción', 'lanzamiento', 'medición', 'cierre y próximos 90 días'];
+---
+<div class="rmap" id="rmap">
+  <div class="rmap-top"><span class="mono">roadmap de 90 días — ejemplo</span><span class="mono rm-now" id="rmNow">semana 05 — primer rodaje</span></div>
+  <div class="rm-grid">
+    <div class="rm-h"></div>
+    {['mes 1 · esencia', 'mes 2 · sistema', 'mes 3 · movimiento'].map((m) => <div class="rm-m mono">{m}</div>)}
+    <div class="rm-h"></div>
+    {Array.from({ length: 12 }, (_, i) => <div class="rm-w mono" data-w={i + 1}>{String(i + 1).padStart(2, '0')}</div>)}
+    {ROWS.map((r) => (
+      <>
+        <div class="rm-l"><span>{r.n}</span>{r.t}</div>
+        <div class="rm-track">{r.bars.map((b) => <div class="rm-bar" style={`grid-column:${b.s} / ${b.e + 1}`} data-s={b.s} data-e={b.e}>{b.l}</div>)}</div>
+      </>
+    ))}
+    <div class="rm-cursor" id="rmCursor"><i></i></div>
+  </div>
+  <input type="range" min="1" max="12" value="5" id="rmRange" aria-label="semana" />
+</div>
+
+<style>
+  .rmap { background: #fff; border: 1px solid var(--line); padding: 22px; box-shadow: 0 30px 60px -40px rgba(0, 0, 0, .5); }
+  .rmap-top { display: flex; justify-content: space-between; margin-bottom: 16px; color: #777; }
+  .rm-now { color: var(--ink); background: var(--g1); padding: 3px 8px; }
+  .rm-grid { position: relative; display: grid; grid-template-columns: 170px repeat(12, 1fr); }
+  .rm-m { grid-column: span 4; padding: 6px 8px; border-left: 1px solid var(--ink); border-top: 1px solid var(--ink); }
+  .rm-w { padding: 4px 0; text-align: center; color: #999; border-bottom: 1px solid var(--line); }
+  .rm-w.on { color: var(--ink); font-weight: 700; }
+  .rm-l { font-size: 12px; font-weight: 600; text-transform: uppercase; padding: 12px 8px 12px 0; border-bottom: 1px solid var(--line); display: flex; gap: 8px; align-items: center; }
+  .rm-l span { font: 400 20px 'Instrument Serif', serif; }
+  .rm-track { grid-column: 2 / -1; display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 3px; align-items: center; border-bottom: 1px solid var(--line); background: repeating-linear-gradient(90deg, transparent 0 calc(100% / 12 - 1px), var(--line) calc(100% / 12 - 1px) calc(100% / 12)); }
+  .rm-bar { min-height: 30px; background: #e9e9e6; border: 1px solid #cfcfcb; font-size: 10.5px; line-height: 1.1; padding: 0 8px; display: flex; align-items: center; overflow: hidden; padding-top: 4px; padding-bottom: 4px; transition: background .3s, color .3s; }
+  .rm-bar.on { background: var(--ink); color: #fafafa; border-color: var(--ink); }
+  .rm-cursor { position: absolute; top: 0; bottom: 0; width: calc((100% - 170px) / 12); left: 170px; pointer-events: none; transition: transform .4s cubic-bezier(.3, 1.3, .5, 1); }
+  .rm-cursor i { position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1.5px dashed #b3261e; }
+  input[type=range] { width: calc(100% - 170px); margin: 14px 0 0 170px; accent-color: var(--ink); cursor: pointer; }
+</style>
+
+<script define:vars={{ WEEK }}>
+  const root = document.getElementById('rmap');
+  const range = document.getElementById('rmRange'), cursor = document.getElementById('rmCursor'), now = document.getElementById('rmNow');
+  const bars = [...root.querySelectorAll('.rm-bar')], weeks = [...root.querySelectorAll('.rm-w')];
+  const set = (w) => {
+    cursor.style.transform = `translateX(${(w - 1) * 100}%)`;
+    bars.forEach((b) => b.classList.toggle('on', w >= +b.dataset.s && w <= +b.dataset.e));
+    weeks.forEach((x) => x.classList.toggle('on', +x.dataset.w === w));
+    now.textContent = `semana ${String(w).padStart(2, '0')} — ${WEEK[w - 1]}`;
+  };
+  range.addEventListener('input', () => set(+range.value));
+  weeks.forEach((x) => x.addEventListener('mouseenter', () => { range.value = x.dataset.w; set(+x.dataset.w); }));
+  set(5);
+</script>

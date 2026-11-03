@@ -1,0 +1,80 @@
+---
+// A sample editorial month: pieces by pillar and format. Filter by pillar; hover a piece to read its brief.
+const P = { f: 'Filosofía', k: 'Knowledge', d: 'Documental' };
+type Piece = { day: number; p: 'f' | 'k' | 'd'; fmt: string; t: string; hook: string };
+const PIECES: Piece[] = [
+  { day: 3, p: 'f', fmt: 'reel', t: 'El tostador que quema', hook: 'más horas no es más dirección' },
+  { day: 5, p: 'k', fmt: 'carrusel', t: '3 errores de oferta', hook: 'qué vendes vs. qué entienden' },
+  { day: 7, p: 'd', fmt: 'reel', t: 'Backstage de rodaje', hook: 'un día sin guion' },
+  { day: 10, p: 'k', fmt: 'reel', t: 'Cómo armo un calendario', hook: 'show, don’t tell' },
+  { day: 12, p: 'f', fmt: 'carrusel', t: 'Romper la cáscara', hook: 'la historia de la marca' },
+  { day: 14, p: 'd', fmt: 'reel', t: 'El cliente por dentro', hook: 'su taller, sus manos' },
+  { day: 17, p: 'k', fmt: 'carrusel', t: 'Precio y valor', hook: 'por qué te comparan' },
+  { day: 19, p: 'f', fmt: 'reel', t: 'Objeto que habla', hook: 'la trampa de ratón' },
+  { day: 21, p: 'd', fmt: 'reel', t: 'Lanzamiento — día 1', hook: 'cuenta regresiva' },
+  { day: 24, p: 'k', fmt: 'reel', t: 'Métricas que importan', hook: 'guardados > likes' },
+  { day: 26, p: 'f', fmt: 'carrusel', t: 'Hay que ser cara dura', hook: 'manifiesto' },
+  { day: 28, p: 'd', fmt: 'reel', t: 'Cierre de mes', hook: 'lo que aprendimos' },
+];
+const start = 6; // November 2026 starts on Sunday → offset 6 in a Monday-first grid
+const cells = Array.from({ length: 35 }, (_, i) => { const day = i - start + 1; return day >= 1 && day <= 30 ? day : 0; });
+const byDay = Object.fromEntries(PIECES.map((x) => [x.day, x]));
+---
+<div class="ecal" id="ecal">
+  <div class="ecal-top">
+    <div><span class="mono">calendario editorial — ejemplo</span><h4>Noviembre <em>· 12 piezas</em></h4></div>
+    <div class="ecal-f">
+      <button data-f="all" class="on">todo</button>
+      {Object.entries(P).map(([k, v]) => <button data-f={k}><i class={`dot ${k}`}></i>{v}</button>)}
+    </div>
+  </div>
+  <div class="ecal-grid">
+    {['lun', 'mar', 'mié', 'jue', 'vie', 'sáb', 'dom'].map((d) => <span class="mono wd">{d}</span>)}
+    {cells.map((day) => {
+      const x = day ? byDay[day] : null;
+      return (
+        <div class:list={['cell', { empty: !day }]}>
+          {day > 0 && <span class="n">{day}</span>}
+          {x && <div class={`chip ${x.p}`} data-p={x.p} data-brief={`${P[x.p]} · ${x.fmt} — ${x.t}. Gancho: ${x.hook}.`}><b>{x.fmt}</b>{x.t}</div>}
+        </div>
+      );
+    })}
+  </div>
+  <div class="ecal-brief mono" id="ecalBrief">pasa el cursor por una pieza para ver su brief</div>
+</div>
+
+<style>
+  .ecal { background: #fff; border: 1px solid var(--line); padding: 22px; box-shadow: 0 30px 60px -40px rgba(0, 0, 0, .5); }
+  .ecal-top { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 16px; }
+  .ecal-top .mono { color: #777; }
+  h4 { font: 400 34px 'Instrument Serif', serif; text-transform: uppercase; margin-top: 4px; }
+  h4 em { font-style: italic; text-transform: none; font-size: 22px; color: #777; }
+  .ecal-f { display: flex; gap: 6px; flex-wrap: wrap; }
+  .ecal-f button { font: 500 10px 'IBM Plex Mono', monospace; text-transform: uppercase; border: 1px solid var(--ink); background: none; border-radius: 30px; padding: 6px 10px; display: flex; gap: 6px; align-items: center; cursor: pointer; }
+  .ecal-f button.on { background: var(--ink); color: #fafafa; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .ecal-grid { display: grid; grid-template-columns: repeat(7, 1fr); border-top: 1px solid var(--ink); border-left: 1px solid var(--line); }
+  .wd { padding: 6px; color: #777; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .cell { min-height: 78px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 5px; position: relative; }
+  .cell.empty { background: repeating-linear-gradient(45deg, transparent 0 6px, rgba(0, 0, 0, .03) 6px 7px); }
+  .n { font: 500 10px 'IBM Plex Mono', monospace; color: #888; }
+  .chip { margin-top: 4px; font-size: 11px; line-height: 1.2; padding: 5px 6px; border-left: 3px solid; background: #f4f4f2; cursor: default; transition: opacity .3s, transform .2s; }
+  .chip b { display: block; font: 500 8.5px 'IBM Plex Mono', monospace; text-transform: uppercase; opacity: .6; }
+  .chip:hover { transform: translateY(-2px); box-shadow: 0 8px 14px -8px rgba(0, 0, 0, .4); }
+  .f, .dot.f { border-color: #b3261e; } .dot.f { background: #b3261e; }
+  .k, .dot.k { border-color: #2c5d8a; } .dot.k { background: #2c5d8a; }
+  .d, .dot.d { border-color: #b98a2e; } .dot.d { background: #b98a2e; }
+  .chip.dim { opacity: .12; }
+  .ecal-brief { margin-top: 12px; padding: 9px 10px; background: var(--ink); color: #fafafa; min-height: 34px; }
+</style>
+
+<script>
+  const root = document.getElementById('ecal')!;
+  const chips = [...root.querySelectorAll<HTMLElement>('.chip')];
+  const brief = document.getElementById('ecalBrief')!;
+  root.querySelectorAll<HTMLButtonElement>('.ecal-f button').forEach((b) => b.addEventListener('click', () => {
+    root.querySelectorAll('.ecal-f button').forEach((x) => x.classList.toggle('on', x === b));
+    chips.forEach((c) => c.classList.toggle('dim', b.dataset.f !== 'all' && c.dataset.p !== b.dataset.f));
+  }));
+  chips.forEach((c) => c.addEventListener('mouseenter', () => (brief.textContent = c.dataset.brief!)));
+</script>

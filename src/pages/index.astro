@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Trap from '../components/Trap.astro';
+import Egg from '../components/Egg.astro';
 import { DIRECTORY } from '../lib/site.js';
 ---
 <Base>
@@ -18,10 +19,83 @@ import { DIRECTORY } from '../lib/site.js';
     </dl>
   </div>
   <div class="film hero-film" data-scene="bokeh" data-seed="4" data-video><div class="rec"><span class="tc-dot"></span><span class="tc"></span></div><div class="lab">reel 2026 — 35mm</div></div>
-  <a class="sq" href="#marca" aria-label="ir al teléfono">↓</a>
+  <a class="sq" href="#historia" aria-label="leer mi historia">↓</a>
   <Trap />
   <div class="vert">be like josé<br>materiales de<br>creación 2026</div>
   <div class="n001">001</div>
+</section>
+
+<section class="logos">
+  <div class="mono">han confiado</div>
+  <div class="marquee"><div>
+    <span style="font-family:'Instrument Serif';letter-spacing:.2em">ZENTAURUS</span><span style="font-weight:700">cliente 02</span><span style="font-family:'Mrs Saint Delafield';font-size:40px">Cliente 03</span><span style="font-family:'IBM Plex Mono'">CLIENTE_04</span><span style="font-family:'Bodoni Moda';font-style:italic">Cliente 05</span><span style="font-weight:300;letter-spacing:.3em">CLIENTE 06</span>
+    <span style="font-family:'Instrument Serif';letter-spacing:.2em">ZENTAURUS</span><span style="font-weight:700">cliente 02</span><span style="font-family:'Mrs Saint Delafield';font-size:40px">Cliente 03</span><span style="font-family:'IBM Plex Mono'">CLIENTE_04</span><span style="font-family:'Bodoni Moda';font-style:italic">Cliente 05</span><span style="font-weight:300;letter-spacing:.3em">CLIENTE 06</span>
+  </div></div>
+</section>
+
+<section class="about" id="historia">
+  <div class="pics" data-r>
+    <div class="film p1" data-scene="sofa" data-seed="9" data-video><div class="lab">picado sobre el sofá — plano de firma</div></div>
+    <div class="film p2" data-scene="flash" data-seed="14"><div class="lab">con flash</div></div>
+  </div>
+  <div>
+    <div class="mono" style="color:#777">mi historia</div>
+    <h2 class="disp" data-r>Romper la<br><em>cáscara</em></h2>
+    <div class="story" data-r>
+      <p class="lead">Soy José. Crecí entre una madre valiente, un padre sobreprotector y un hermano que nunca dudó de que todo saldría bien. Tres formas de ver el mundo.</p>
+      <p>Estudié música, ventas y programación. Dejé la universidad tres veces: ingeniería de sistemas, matemáticas, marketing y publicidad. Como a muchos, se me ahogaba el espíritu creativo.</p>
+      <p>Así que rompí la cáscara. Llegué a Bogotá con una maleta llena de sueños y la frágil certeza de quien renuncia a todo para empezar de cero. Compré cámaras. Llegaron clientes, eventos y escenarios que me exigieron crecer.</p>
+      <p>Desde entonces no he vuelto a compartir con mi familia cercana. Duele. A veces es necesario.</p>
+    </div>
+    <div class="facts" data-r><div><b>3</b><span>veces dejé la universidad</span></div><div><b>1</b><span>maleta llena de sueños</span></div><div><b>Bogotá</b><span>el punto de partida</span></div></div>
+    <blockquote data-r>Lo imposible no es un destino: es un punto de partida para los que se atreven. <span>Hay que ser cara dura.</span></blockquote>
+    <div class="arch" data-r><div><h5>Mago</h5><p>La lógica detrás de una marca, convertida en imagen.</p></div><div><h5>Bufón</h5><p>Humor con sentido. Siempre deja una idea.</p></div><div><h5>Explorador</h5><p>Observar, cuestionar y crear movimiento.</p></div></div>
+  </div>
+</section>
+
+<section class="cascara">
+  <div class="cascara-txt">
+    <div class="mono" style="color:#777">fig. 006 — la cáscara</div>
+    <h2 class="disp" data-r>Yo rompí <em>la mía</em></h2>
+    <p data-r>Me tomó cuatro años, tres carreras y una maleta. Lo que aprendí es que la cáscara no se rompe sola: hay que darle. Ahora le toca a tu marca.</p>
+  </div>
+  <Egg />
+</section>
+
+<section class="hi" id="que-hago">
+  <div data-r>
+    <div class="film" data-scene="bokeh" data-seed="11" data-tone="warm" data-video><div class="brand">J<sup>©</sup></div></div>
+    <p class="copy just"><b>Tenés una mirada, ideas y algo que amás hacer.</b> Pero lo que comunicás <u>no te refleja</u>, y cada pieza parece de otro. No te falta acción: <b>te falta dirección.</b></p>
+  </div>
+  <div data-r>
+    <div class="mono">lo que hago</div>
+    <p class="qh-lead">Hago que lo que creas se vea como la campaña de una marca grande, sin perder tu voz.</p>
+    <ol class="roles">
+      <li><span class="mono">01</span><b>Director creativo</b><i>la mirada, el concepto y la campaña</i></li>
+      <li><span class="mono">02</span><b>Filmmaker</b><i>eventos, marcas y cuentas que se ven como cine</i></li>
+      <li><span class="mono">03</span><b>Editor</b><i>ritmo, motion y estilos que retienen</i></li>
+    </ol>
+    <p class="qh-p">Y lo integro todo en un sistema de cuatro ejes: <b>dirección creativa, operaciones y oferta de valor, proyección empresarial y creación de contenidos.</b></p>
+    <div class="qh-btns"><a class="wbtn" href="/mi-sistema">ver mi sistema →</a><a class="lnk mono" href="/portfolio">ver la obra →</a></div>
+  </div>
+</section>
+
+<section class="state" id="manifiesto">
+  <div class="film" data-scene="park" data-seed="7" data-video></div>
+  <div class="txt">
+    <h2 class="disp just" data-r>los sueños no se pierden por falta de acción, sino de <u>dirección.</u></h2>
+    <div class="credit" data-r><span>Lo que aprendí en cuatro años de crear sin rumbo</span><span class="it">— be like josé</span></div>
+  </div>
+  
+</section>
+
+<section class="obra-ex">
+  <div class="ex-head"><div><div class="mono" style="color:#777">extracto — portfolio</div><h2 class="disp" data-r>Algo de la <em>obra</em></h2></div><a class="seeall" href="/portfolio"><span>todo el portfolio</span><b>→</b></a></div>
+  <div class="ex-grid" data-r>
+    <a href="/portfolio#film"><div class="film" data-scene="street" data-seed="9" data-video><div class="rec"><span class="tc-dot"></span><span class="tc"></span></div></div><span class="tag">filmmaker</span><h3>Zentaurus — el lanzamiento</h3><span class="by">alcance 000K</span></a>
+    <a href="/portfolio#edit"><div class="film" data-scene="studio" data-seed="14" data-tone="bw" data-video><div class="demo"><div class="kin"><span>mirar</span><span>cortar</span><span>sentir</span><span>mirar</span></div></div></div><span class="tag">editor</span><h3>Tipografía al ritmo de la idea</h3><span class="by">0:15 · 9:16</span></a>
+    <a href="/portfolio#strat"><div class="film" data-scene="window" data-seed="19"><div class="demo ex-concept">el tostador<br>que quema</div></div><span class="tag">estratega</span><h3>El objeto que habla</h3><span class="by">concepto creativo</span></a>
+  </div>
 </section>
 
 <section class="dial-sec" id="marca">
@@ -47,47 +121,6 @@ import { DIRECTORY } from '../lib/site.js';
       <div class="obj-stage"><div class="dial-wrap" id="dial"></div></div>
       <p class="ficha"><span class="n">fig. 002</span><br><b>Teléfono de disco</b>, 2026.<br>Baquelita, resorte y paciencia.<br>— Colección be like josé</p>
     </div>
-  </div>
-</section>
-
-<section class="logos">
-  <div class="mono">han confiado</div>
-  <div class="marquee"><div>
-    <span style="font-family:'Instrument Serif';letter-spacing:.2em">ZENTAURUS</span><span style="font-weight:700">cliente 02</span><span style="font-family:'Mrs Saint Delafield';font-size:40px">Cliente 03</span><span style="font-family:'IBM Plex Mono'">CLIENTE_04</span><span style="font-family:'Bodoni Moda';font-style:italic">Cliente 05</span><span style="font-weight:300;letter-spacing:.3em">CLIENTE 06</span>
-    <span style="font-family:'Instrument Serif';letter-spacing:.2em">ZENTAURUS</span><span style="font-weight:700">cliente 02</span><span style="font-family:'Mrs Saint Delafield';font-size:40px">Cliente 03</span><span style="font-family:'IBM Plex Mono'">CLIENTE_04</span><span style="font-family:'Bodoni Moda';font-style:italic">Cliente 05</span><span style="font-weight:300;letter-spacing:.3em">CLIENTE 06</span>
-  </div></div>
-</section>
-
-<section class="hi">
-  <div data-r>
-    <div class="film" data-scene="bokeh" data-seed="11" data-tone="warm" data-video><div class="brand">J<sup>©</sup></div></div>
-    <p class="copy just"><b>Tenés una mirada, ideas y algo que amás hacer.</b> Pero lo que comunicás <u>no te refleja</u>, y cada pieza parece de otro. No te falta acción: <b>te falta dirección.</b></p>
-  </div>
-  <div data-r>
-    <div class="mono">hola, soy</div>
-    <div class="script sig">José</div>
-    <p style="font-family:'Instrument Serif';font-size:34px;line-height:1.08">Hago que lo que creas se vea como la campaña de una marca grande, sin perder tu voz.</p>
-    <p style="font-size:15px;line-height:1.6;margin-top:20px;max-width:470px;color:#444">Integro cuatro ejes que casi nunca hablan entre sí: dirección creativa, operaciones y oferta de valor, proyección empresarial y creación de contenidos. Cuando se conectan, tu marca deja de ser catálogo y empieza a ser cultura.</p>
-    <a class="wbtn" href="/sobre-mi">conóceme</a>
-  </div>
-</section>
-
-<section class="state" id="manifiesto">
-  <div class="film" data-scene="park" data-seed="7" data-video></div>
-  <div class="txt">
-    <h2 class="disp just" data-r>los sueños no se pierden por falta de acción, sino de <u>dirección.</u></h2>
-    <div class="credit" data-r><span>Lo que aprendí en cuatro años de crear sin rumbo</span><span class="it">— be like josé</span></div>
-  </div>
-  
-</section>
-
-<section class="paths">
-  <div class="paths-head"><div class="mono" style="color:#777">la página</div><h2 class="disp" data-r>Por dónde <em>seguir</em></h2></div>
-  <div class="paths-grid" data-r>
-    <a href="/portfolio"><div class="film" data-scene="street" data-seed="9" data-video></div><span class="mono">02 — portfolio</span><h3>Filmmaker, editor y estratega</h3><p>Eventos, cuentas, motion y conceptos, cada uno con su ficha y su alcance.</p><em>ver obra →</em></a>
-    <a href="/metodo"><div class="film" data-scene="window" data-seed="19"></div><span class="mono">03 — cuatro ejes</span><h3>Cómo construyo un negocio</h3><p>Dirección creativa, operaciones, proyección y contenidos. Con brújula y tostador.</p><em>ver el método →</em></a>
-    <a href="/sobre-mi"><div class="film" data-scene="sofa" data-seed="9"></div><span class="mono">04 — sobre mí</span><h3>Romper la cáscara</h3><p>De tres carreras abandonadas a Bogotá con una maleta llena de sueños.</p><em>leer la historia →</em></a>
-    <a href="/contacto#agenda"><div class="film" data-scene="lamp" data-seed="3" data-video></div><span class="mono">05 — contacto</span><h3>Agenda una llamada</h3><p>Treinta minutos para ver si tu marca y yo tenemos algo que crear.</p><em>agendar →</em></a>
   </div>
 </section>
 </main>

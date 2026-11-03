@@ -1,0 +1,94 @@
+---
+import Base from '../layouts/Base.astro';
+import Compass from '../components/Compass.astro';
+import Toaster from '../components/Toaster.astro';
+import SystemLoop from '../components/SystemLoop.astro';
+import EditorialCalendar from '../components/EditorialCalendar.astro';
+import Roadmap from '../components/Roadmap.astro';
+const CH = [
+  ['01', 'Los cuatro ejes', '#ejes'], ['02', 'Cómo se integran', '#integracion'], ['03', 'El proceso por dentro', '#proceso'],
+  ['04', 'Calendarios y roadmaps', '#por-dentro'], ['05', 'Lo que pasa sin sistema', '#sin-sistema'], ['06', 'Trabajar conmigo', '#contigo'],
+];
+const STEPS = [
+  { n: '01', t: 'Llamada', d: '30 min', p: 'Me cuentas qué haces y qué te frena. Te digo con honestidad si puedo ayudarte.', g: 'una conversación, sin formularios' },
+  { n: '02', t: 'Inmersión', d: 'semana 1', p: 'Entro a tu negocio: cuentas, clientes, procesos, lo que dices y lo que vendes.', g: 'diagnóstico por eje' },
+  { n: '03', t: 'Propuesta', d: 'semana 1', p: 'Te llega un link privado con el diagnóstico, el concepto, los entregables y la inversión.', g: 'propuesta en un link único' },
+  { n: '04', t: 'Roadmap', d: 'semana 2', p: 'Ordenamos los 90 días: metas, oferta, pilares y calendario. Todo en papel antes de grabar.', g: 'roadmap y calendario' },
+  { n: '05', t: 'Producción', d: 'semanas 3 – 10', p: 'Rodaje, edición y publicación. Tú apruebas, yo dirijo. Cada semana sabes en qué vamos.', g: 'piezas listas y publicadas' },
+  { n: '06', t: 'Lectura', d: 'semanas 11 – 12', p: 'Leemos los números de verdad, ajustamos y dejamos listos los próximos 90 días.', g: 'reporte y siguiente ciclo' },
+];
+const WEEK = [['lun', 'Lectura de métricas', 'qué funcionó y por qué'], ['mar', 'Guiones', 'conceptos y ganchos de la semana'], ['mié', 'Rodaje', 'una jornada, varias piezas'], ['jue', 'Edición', 'ritmo, motion y subtítulos'], ['vie', 'Entrega', 'revisión, aprobación y programación']];
+---
+<Base title="Mi sistema — Be like José" description="Cuatro ejes integrados: dirección creativa, operaciones y oferta de valor, proyección empresarial y creación de contenidos. El proceso desde adentro.">
+<main class="page sys">
+
+<section class="sys-hero">
+  <div class="mono" style="color:#777">02 — mi sistema</div>
+  <h1 class="disp" data-r>Mi <em>sistema</em></h1>
+  <div class="sys-hero-row">
+    <p class="sys-lead" data-r>Cuatro roles que casi nunca trabajan juntos, integrados en uno solo. Esta página es la cocina: cómo pienso, cómo trabajamos y cómo se ve tu negocio por dentro mientras lo construimos.</p>
+    <ol class="chapters" data-r>{CH.map(([n, t, h]) => <li><a href={h}><span class="mono">{n}</span>{t}<em>↓</em></a></li>)}</ol>
+  </div>
+</section>
+
+<section class="ejes" id="ejes">
+  <div class="ejes-head">
+    <div class="mono" style="color:#777">capítulo 01 — los cuatro ejes</div>
+    <h2 class="disp" data-r>Integro cuatro<br>cuestiones en<br><em>los negocios</em></h2>
+    <div class="ejes-side">
+      <p data-r>Desde esa visión de cuatro ejes construyo todo: lo que tu marca dice, lo que vende, hacia dónde va y cómo se sostiene sin quemarte.</p>
+      <Compass />
+    </div>
+  </div>
+  <div class="ejes-grid" data-r>
+    <article id="eje-01"><span class="n">01</span><h3>Dirección creativa</h3><p>La mirada. Conceptos, campañas y una estética que se reconoce sin ver el logo.</p><div class="mono tags">concepto · campaña · identidad</div></article>
+    <article id="eje-02"><span class="n">02</span><h3>Operaciones y oferta de valor</h3><p>Qué vendes, a quién y el sistema que lo sostiene. Para que el negocio no dependa de que trabajes sin parar.</p><div class="mono tags">oferta · procesos · precios</div></article>
+    <article id="eje-03"><span class="n">03</span><h3>Proyección empresarial</h3><p>Hacia dónde va el negocio. Metas claras, números reales y un roadmap de 90 días.</p><div class="mono tags">metas · roadmap · métricas</div></article>
+    <article id="eje-04"><span class="n">04</span><h3>Creación de contenidos</h3><p>Piezas que se guardan y se comparten. Film, edición y un calendario editorial con mirada propia.</p><div class="mono tags">film · edición · calendario</div></article>
+  </div>
+</section>
+
+<section class="sys-sec" id="integracion">
+  <div class="sys-head"><div class="mono">capítulo 02 — cómo se integran</div><h2 class="disp" data-r>Un eje solo <em>no alcanza</em></h2><p data-r>Una marca linda sin oferta no vende. Una oferta sin contenido no se ve. Por eso trabajo los cuatro a la vez, y cada uno empuja al siguiente.</p></div>
+  <SystemLoop />
+</section>
+
+<section class="sys-sec dark" id="proceso">
+  <div class="film" data-scene="lamp" data-seed="22" data-video></div>
+  <div class="sys-head"><div class="mono">capítulo 03 — el proceso por dentro</div><h2 class="disp" data-r>Así se vive <em>desde adentro</em></h2><p data-r>Seis pasos, de la primera llamada al siguiente ciclo. Siempre sabes en qué vamos y qué viene.</p></div>
+  <ol class="steps" data-r>{STEPS.map((s) => <li><span class="sn">{s.n}</span><span class="mono sd">{s.d}</span><h3>{s.t}</h3><p>{s.p}</p><span class="mono sg">recibes → {s.g}</span></li>)}</ol>
+  <div class="week" data-r>
+    <div class="mono" style="opacity:.6">una semana tipo en producción</div>
+    <div class="week-row">{WEEK.map(([d, t, p]) => <div><span class="mono">{d}</span><b>{t}</b><i>{p}</i></div>)}</div>
+  </div>
+</section>
+
+<section class="sys-sec" id="por-dentro">
+  <div class="sys-head"><div class="mono">capítulo 04 — calendarios y roadmaps</div><h2 class="disp" data-r>Todo en papel <em>antes de grabar</em></h2><p data-r>Así se ven las herramientas con las que trabajamos. Filtra el calendario por pilar o mueve la semana del roadmap.</p></div>
+  <div class="tools">
+    <EditorialCalendar />
+    <Roadmap />
+  </div>
+</section>
+
+<section class="sys-sec" id="sin-sistema">
+  <div class="sin">
+    <div>
+      <div class="mono" style="color:#777">capítulo 05 — lo que pasa sin sistema</div>
+      <h2 class="disp" data-r>Más horas no es <em>más dirección</em></h2>
+      <p class="sys-p" data-r>La mayoría de creadores y negocios que llegan conmigo no tienen un problema de talento ni de ganas. Tienen un problema de sistema: hacen todo, todo el tiempo, y cada pieza sale distinta. Prueba el tostador: elige cuánto trabajar y mira qué sale.</p>
+    </div>
+    <Toaster />
+  </div>
+</section>
+
+<section class="sys-sec" id="contigo">
+  <div class="sys-head"><div class="mono">capítulo 06 — trabajar conmigo</div><h2 class="disp" data-r>Dos formas de <em>hacerlo</em></h2></div>
+  <div class="modes" data-r>
+    <article><span class="mono">modalidad 01</span><h3>Consultoría 1:1</h3><p>Te doy la dirección y tú ejecutas con tu equipo.</p><ul><li>Diagnóstico de los cuatro ejes</li><li>Roadmap de 90 días</li><li>Calendario editorial y pilares</li><li>Sesiones de seguimiento</li></ul></article>
+    <article class="mode-b"><span class="mono">modalidad 02</span><h3>Dirección con producción</h3><p>Dirijo y produzco contigo: de la estrategia al video publicado.</p><ul><li>Todo lo de la consultoría</li><li>Rodaje y edición</li><li>Campaña de lanzamiento</li><li>Lectura de métricas y ajuste</li></ul></article>
+    <aside><span class="mono">lo que te pido</span><p>Tiempo para la inmersión, decisiones a tiempo y ganas de ser cara dura. El resto lo construimos juntos.</p><a class="wbtn" href="/contacto#agenda">agenda la primera llamada →</a></aside>
+  </div>
+</section>
+</main>
+</Base>

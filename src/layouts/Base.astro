@@ -22,12 +22,12 @@ const on = (href: string) => (href === '/' ? path === '/' : path.startsWith(href
     <nav>
       <div class="l">
         <button class="burger" id="menuOpen" aria-label="abrir menú" aria-expanded="false"><span></span></button>
-        <a href="/portfolio" class:list={{ on: on('/portfolio') }}>Portfolio</a>
-        <a href="/metodo" class:list={{ on: on('/metodo') }}>Cuatro ejes</a>
+        <a href="/" class:list={{ on: on('/') }}>Inicio</a>
+        <a href="/mi-sistema" class:list={{ on: on('/mi-sistema') }}>Mi sistema</a>
       </div>
       <a class="logo" href="/">Be like José</a>
       <div class="r">
-        <a href="/sobre-mi" class:list={{ on: on('/sobre-mi') }}>Sobre mí</a>
+        <a href="/portfolio" class:list={{ on: on('/portfolio') }}>Portfolio</a>
         <a href="/contacto" class:list={{ on: on('/contacto') }}>Contacto</a>
         <a href="/contacto#agenda" class="agenda">Agenda →</a>
       </div>
@@ -36,7 +36,7 @@ const on = (href: string) => (href === '/' ? path === '/' : path.startsWith(href
     <div class="menu" id="menu" aria-hidden="true">
       <button class="menu-close" id="menuClose" aria-label="cerrar menú">cerrar ✕</button>
       <ol class="menu-list">
-        {PAGES.map((p) => <li><a href={p.href} class:list={{ on: on(p.href) }}><span class="mono">{p.n}</span>{p.label}</a></li>)}
+        {PAGES.map((p) => <li><a href={p.href} class:list={{ on: on(p.href) }}><span class="mono">{p.n}</span>{p.label}<small class="mono">{p.sub}</small></a></li>)}
       </ol>
       <div class="menu-foot mono">
         <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>

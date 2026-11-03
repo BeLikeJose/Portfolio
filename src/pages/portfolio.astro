@@ -1,10 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
+import Suitcase from '../components/Suitcase.astro';
 ---
 <Base title="Portfolio — Be like José" description="Filmmaker, editor y estratega creativo: eventos, cuentas, motion, conceptos, calendarios y roadmaps.">
 <main class="page">
 <section class="mag" id="portfolio" data-tabs>
-  <div class="mag-head"><div><div class="mono" style="color:#777;margin-bottom:14px">02 — portfolio</div><h2 class="disp">Portfolio</h2></div><a class="seeall" href="/contacto#agenda"><span>¿hacemos el tuyo?</span><b>→</b></a></div>
+  <div class="mag-head"><div><div class="mono" style="color:#777;margin-bottom:14px">03 — portfolio</div><h2 class="disp">Portfolio</h2></div><a class="seeall" href="/contacto#agenda"><span>¿hacemos el tuyo?</span><b>→</b></a></div>
   <div class="chips"><button data-tab="film" class="on"><span class="film" data-scene="street" data-seed="2"></span>Filmmaker</button><button data-tab="edit"><span class="film" data-scene="studio" data-seed="5" data-tone="bw"></span>Editor</button><button data-tab="strat"><span class="film" data-scene="window" data-seed="8"></span>Estratega creativo</button></div>
   <div class="mpanels">
     <div class="mpanel on" data-panel="film">
@@ -45,10 +46,16 @@ import Base from '../layouts/Base.astro';
   </div>
 </section>
 
+<section class="maleta" id="maleta">
+  <div class="ex-head"><div><div class="mono" style="color:#777">fig. 005 — la maleta</div><h2 class="disp" data-r>Con qué <em>produzco</em></h2></div><p class="maleta-p">Lo que llevo a cada rodaje. Ábrela.</p></div>
+  <Suitcase />
+</section>
+
 <section class="strip" id="rollo">
   <div class="strip-head"><h3>rollo 01 —<br><span class="it">lo cotidiano también es obra</span></h3><div class="mono" style="opacity:.6;align-self:end">36 exp · iso 800 · revelado a mano</div></div>
   <div class="reel" id="reel"></div>
 </section>
+<section class="next-cta"><span class="mono">¿quieres una pieza así para tu marca?</span><a class="wbtn" href="/contacto#agenda">agenda una llamada →</a></section>
 </main>
 <script slot="scripts" is:inline>
   const sc = ['bokeh', 'park', 'window', 'street', 'lamp', 'sky', 'studio', 'flash', 'sofa', 'hands'];
