@@ -38,7 +38,7 @@ const M = '/media/trampa';
   function fire() {
     if (state !== 'set') return;
     state = 'firing';
-    snap.currentTime = 0; snap.muted = false; snap.volume = 1;
+    snap.currentTime = 0; snap.muted = false; snap.volume = 0.6;
     snap.play().then(() => { show(snap); idle.pause(); }).catch(() => { show(done); done.play(); state = 'shut'; });
     setTimeout(() => { root.classList.add('jolt'); (window as any).doFlash?.(); }, SLAM_AT * 1000);
     setTimeout(() => root.classList.remove('jolt'), SLAM_AT * 1000 + 400);

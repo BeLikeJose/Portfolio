@@ -490,10 +490,25 @@ footer{display:flex;justify-content:space-between;margin-top:90px;opacity:.65}
 .big-nums b{font-weight:600;font-size:clamp(60px,6.4vw,104px);letter-spacing:-.06em;line-height:.9}
 .big-nums .mono{color:#666;max-width:220px}
 
-.tendedero{padding:30px 0 100px}
-.tend-txt{display:grid;grid-template-columns:1fr 1fr;gap:20px 60px;align-items:end;padding:0 9%}
-.tend-txt .mono{grid-column:1/-1}
-.tend-txt h2{font-size:clamp(60px,6vw,96px)}
-.tend-txt p{font-size:18px;line-height:1.55;color:#333;max-width:440px}
-.tendedero .cl{max-width:980px;margin:10px auto 0}
-.tend-txt{position:relative;z-index:2}
+.tendedero{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:center;padding:30px 6% 100px 9%}
+.tend-txt{display:flex;flex-direction:column;gap:20px;position:relative;z-index:2}
+.tend-txt h2{font-size:clamp(54px,5vw,84px)}
+.tend-txt p{font-size:18px;line-height:1.55;color:#333;max-width:420px}
+.tendedero .cl{width:100%;max-width:760px;justify-self:end}
+
+/* mi historia v2 */
+.hero-line{font-size:16px;line-height:1.55;max-width:430px;margin-top:30px;padding-top:18px;border-top:1px solid var(--ink)}
+.hero-line b{font-weight:600}
+.hero-more{display:inline-block;margin-top:20px}
+.about{padding:110px 9%}
+.about .pics{position:relative;top:auto;height:560px}
+.about .p1{height:520px}
+.tend-hint{color:#999}
+.bog-sec{display:grid;grid-template-columns:1fr 1.05fr;gap:70px;align-items:center;padding:110px 9%;border-top:1px solid var(--line)}
+.bog-txt h2{font-size:clamp(60px,6vw,96px);margin-top:14px}
+.bog-txt blockquote{margin-top:30px;font-family:'Instrument Serif';font-style:italic;font-size:28px;line-height:1.1;max-width:520px}
+.bog-txt blockquote span{display:block;font-style:normal;text-transform:uppercase;font-size:20px;margin-top:10px}
+.bog-media{display:grid;grid-template-columns:1.3fr 1fr;grid-template-rows:auto auto;gap:14px}
+.bog-media>*{min-width:0}
+.bm1{grid-row:span 2}.bm1 .film{height:520px}
+.bm2 .film,.bm3 .film{height:253px}
