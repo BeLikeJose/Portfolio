@@ -11,7 +11,7 @@ export default defineConfig({
   env: {
     schema: {
       // Google Calendar appointment page for the public 30-min call.
-      PUBLIC_BOOKING_URL: envField.string({ context: 'client', access: 'public', optional: true, default: 'https://calendar.app.google/z5E4ymY8x9CGMPeD6' }),
+      PUBLIC_BOOKING_URL: envField.string({ context: 'client', access: 'public', optional: true, default: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ28WTN_cATUHFkrF9jmYVupIeYlONRjEj8nr-JZpdLbpHE_-9zPSqTWJ9ilEs3Rf8naEstM9_8I' }),
       // Google Calendar appointment page for 2-hour client sessions. Secret: never sent to the public page.
       CLIENT_BOOKING_URL: envField.string({ context: 'server', access: 'secret', optional: true }),
       // Client codes, comma separated, e.g. "ZENTAURUS-2027,CLIENTE02". Case-insensitive.
