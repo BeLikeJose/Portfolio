@@ -6,3 +6,6 @@ dist/
 .env.*
 !.env.example
 .DS_Store
+
+# material original de trabajo (videos crudos de Higgsfield), no se publica
+media-src/
