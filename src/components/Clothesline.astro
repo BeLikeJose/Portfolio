@@ -1,0 +1,71 @@
+---
+// "Colgué la universidad": one real clip (Higgsfield / Kling) paused between drops.
+// Each click plays the next segment: one egg falls with its label.
+const M = '/media/tendedero';
+const TAGS = ['Ingeniería de sistemas', 'Matemáticas', 'Marketing y publicidad'];
+---
+<div class="cl" id="cl" role="button" tabindex="0" aria-label="tendedero: descuelga las carreras">
+  <video id="clVid" src={`${M}/tendedero.mp4`} poster={`${M}/poster.jpg`} playsinline preload="auto"></video>
+  {TAGS.map((t, i) => <span class="cl-tag" data-i={i} style={`--x:${[25, 50.3, 75.8][i]}%;--r:${[-5, 3, -2][i]}deg`}>{t}</span>)}
+  <span class="cl-bog">Bogotá<i>con una maleta llena de sueños</i></span>
+  <div class="obj-card cl-card" id="clCard"><b>Descuélgalas.</b><i>una por una.</i></div>
+  <button class="obj-reset cl-reset" id="clReset" hidden>↺ volver a colgarlas</button>
+</div>
+
+<style>
+  .cl { position: relative; width: 100%; aspect-ratio: 3 / 2; cursor: pointer; user-select: none; }
+  #clVid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none;
+    --fx: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent); --fy: linear-gradient(to bottom, transparent, #000 4%, #000 90%, transparent);
+    -webkit-mask-image: var(--fx), var(--fy); -webkit-mask-composite: source-in; mask-image: var(--fx), var(--fy); mask-composite: intersect; }
+  .cl-tag { position: absolute; left: var(--x); top: 79%; translate: -50% 0; rotate: var(--r); background: #f7f5f0; padding: 6px 10px; font: 500 10px 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: .05em; white-space: nowrap; box-shadow: 0 10px 18px -10px rgba(0, 0, 0, .45); transition: transform .9s cubic-bezier(.5, 0, .9, .4), opacity .9s; }
+  .cl-tag.gone { transform: translateY(260px) rotate(24deg); opacity: 0; }
+  .cl-bog { position: absolute; left: 50.3%; top: 36%; translate: -50% 0; transform-origin: 50% 0; background: #f7f5f0; padding: 10px 14px 12px; text-align: center; box-shadow: 0 14px 24px -12px rgba(0, 0, 0, .5); font: 400 30px 'Instrument Serif', serif; text-transform: uppercase; line-height: 1; opacity: 0; transform: translateY(-30px) rotate(0); pointer-events: none; }
+  .cl-bog i { display: block; font-size: 15px; text-transform: none; margin-top: 4px; }
+  .cl.done .cl-bog { opacity: 1; animation: swing 2.4s cubic-bezier(.3, 1.4, .5, 1) forwards; }
+  @keyframes swing { 0% { transform: translateY(-30px) rotate(0); } 30% { transform: translateY(0) rotate(7deg); } 55% { transform: rotate(-4deg); } 80% { transform: rotate(2deg); } 100% { transform: rotate(-1deg); } }
+  .cl-card { right: 3%; top: 14%; }
+  .cl-reset { position: absolute; left: 6%; bottom: 14%; }
+</style>
+
+<script>
+  const root = document.getElementById('cl')!;
+  const vid = document.getElementById('clVid') as HTMLVideoElement;
+  const card = document.getElementById('clCard')!;
+  const reset = document.getElementById('clReset')!;
+  const tags = [...root.querySelectorAll<HTMLElement>('.cl-tag')];
+  const START = 16 / 24;                     // just before the first clothespin opens
+  const STOPS = [55 / 24, 86 / 24, Infinity]; // end of each drop
+  const TAG_DELAY = [300, 180, 260];          // ms after click until the egg leaves the pin
+  const LINES = ['<b>Una menos.</b><i>ingeniería de sistemas: colgada.</i>', '<b>Otra.</b><i>matemáticas tampoco era.</i>', '<b>Las colgué las tres.</b><i>lo que quedó fue lo que amo hacer.</i>'];
+  let step = 0, playing = false;
+
+  const setCard = (h: string) => { card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap'); setTimeout(() => (card.innerHTML = h), 180); };
+  const prime = () => { try { vid.currentTime = START; } catch (e) { /* not loaded yet */ } };
+  vid.addEventListener('loadedmetadata', prime, { once: true });
+  if (vid.readyState >= 1) prime();
+
+  function watch() {
+    if (!playing) return;
+    if (vid.currentTime >= STOPS[step - 1] || vid.ended) { vid.pause(); playing = false; if (step === 3) finish(); return; }
+    requestAnimationFrame(watch);
+  }
+  function drop() {
+    if (playing || step >= 3) return;
+    const i = step++; playing = true;
+    vid.muted = false;
+    vid.play().then(() => requestAnimationFrame(watch)).catch(() => { playing = false; });
+    setTimeout(() => tags[i].classList.add('gone'), TAG_DELAY[i]);
+    setTimeout(() => setCard(LINES[i]), 500);
+    if (i === 2) vid.addEventListener('ended', () => { playing = false; finish(); }, { once: true });
+  }
+  function finish() { root.classList.add('done'); reset.hidden = false; }
+
+  root.addEventListener('click', (e) => { if ((e.target as Element).closest('#clReset')) return; drop(); });
+  root.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); drop(); } });
+  reset.addEventListener('click', () => {
+    vid.pause(); playing = false; step = 0; prime();
+    tags.forEach((t) => t.classList.remove('gone'));
+    root.classList.remove('done'); reset.hidden = true;
+    setCard('<b>Descuélgalas.</b><i>una por una.</i>');
+  });
+</script>
