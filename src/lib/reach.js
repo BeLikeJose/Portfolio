@@ -6,23 +6,17 @@ export const COUNTRIES = [
   { code: 'CO', name: 'Colombia', city: 'Bogotá · base', note: 'donde todo empezó' },
 ];
 
+// Resultados para marcas (van en Portfolio → Estratega creativo).
 export const NUMBERS = [
-  { value: 0, suffix: 'M', label: 'visualizaciones totales' },
-  { value: 0, suffix: 'K', label: 'seguidores ganados para clientes' },
-  { value: 0, suffix: '', label: 'cuentas manejadas' },
-  { value: 0, suffix: '', label: 'eventos filmados' },
+  { value: 1, prefix: '+', suffix: 'M', label: 'views totales para mis clientes' },
+  { value: 10, prefix: '+', suffix: 'K', label: 'seguidores nuevos para mis clientes' },
+  { value: 12, prefix: '+', suffix: '', label: 'cuentas y equipos creativos coordinados' },
+  { value: 8, prefix: '+', suffix: '', label: 'eventos nacionales e internacionales con marcas' },
 ];
 
-export const ACCOUNTS = [
-  { name: 'Zentaurus', what: 'dirección creativa y contenido', metric: '+0% alcance' },
-  { name: 'Cuenta 02', what: 'reels y estrategia', metric: '0K seguidores' },
-  { name: 'Cuenta 03', what: 'edición mensual', metric: '0M vistas' },
-  { name: 'Cuenta 04', what: 'lanzamiento', metric: '0K guardados' },
-];
-
-export const EVENTS = [
-  { name: 'Evento 01', place: 'Bogotá', year: 2026 },
-  { name: 'Evento 02', place: 'Ciudad de México', year: 2025 },
-  { name: 'Evento 03', place: 'Ciudad de Panamá', year: 2025 },
-  { name: 'Evento 04', place: 'São Paulo', year: 2024 },
+// Abrebocas en Mi historia: perfiles a los que han llegado los contenidos.
+export const REACHED = [
+  { name: 'Unión Europea en Colombia', where: 'Colombia' },
+  { name: 'Feria Internacional del Libro de Panamá', where: 'Panamá' },
+  { name: 'Sky Experience con Smartfit', where: 'experiencia de marca' },
 ];

@@ -164,7 +164,7 @@ export function createTrap(container, opts = {}) {
 
   const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
   const hit = e => { const b = renderer.domElement.getBoundingClientRect(); ndc.set(((e.clientX - b.left) / b.width) * 2 - 1, -((e.clientY - b.top) / b.height) * 2 + 1); ray.setFromCamera(ndc, camera); return ray.intersectObject(trap, true).length > 0; };
-  renderer.domElement.addEventListener('pointermove', e => { const b = renderer.domElement.getBoundingClientRect(); S.px = (e.clientX - b.left) / b.width - .5; S.py = (e.clientY - b.top) / b.height - .5; container.classList.toggle('hot', hit(e)); });
+  renderer.domElement.addEventListener('pointermove', e => { const b = renderer.domElement.getBoundingClientRect(); S.px = (e.clientX - b.left) / b.width - .5; S.py = (e.clientY - b.top) / b.height - .5; container.classList.toggle('hot', hit(e)); renderer.domElement.style.cursor = hit(e) ? 'pointer' : ''; });
   renderer.domElement.addEventListener('pointerleave', () => { S.px = S.py = 0; container.classList.remove('hot'); });
   renderer.domElement.addEventListener('click', e => { if (hit(e)) snap(); });
 

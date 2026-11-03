@@ -1,4 +1,4 @@
-/* Shared interactions for both mockup options: cursor, mousetrap, rotary dial, views, reveal. */
+/* Shared interactions: flash, toast, smooth scroll, reveal, counters, tabs, dial. Native cursor everywhere. */
 (function () {
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
@@ -9,7 +9,6 @@
   .cur{position:fixed;left:0;top:0;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:#fff;mix-blend-mode:difference;pointer-events:none;z-index:99999;transition:width .25s,height .25s,margin .25s}
   .cur.big{width:54px;height:54px;margin:-27px 0 0 -27px}
   .cur.down{width:10px;height:10px;margin:-5px 0 0 -5px}
-  *{cursor:none!important}
   .trap-wrap{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
   .trap{height:100%;width:auto;overflow:visible;filter:drop-shadow(18px 22px 18px rgba(0,0,0,.28));transform:translateX(140%) rotate(8deg);transition:transform 1.3s cubic-bezier(.16,1,.3,1)}
   .trap.in{transform:none}
@@ -45,15 +44,6 @@
   @keyframes mq{to{transform:translateX(-50%)}}
   `;
   const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
-
-  /* ---------- cursor ---------- */
-  const cur = document.createElement('div'); cur.className = 'cur'; document.body.appendChild(cur);
-  let cx = -100, cy = -100, tx = -100, ty = -100;
-  addEventListener('pointermove', e => { tx = e.clientX; ty = e.clientY; });
-  (function loop() { cx += (tx - cx) * .4; cy += (ty - cy) * .4; cur.style.transform = `translate(${cx}px,${cy}px)`; requestAnimationFrame(loop); })();
-  document.addEventListener('pointerover', e => cur.classList.toggle('big', !!e.target.closest('a,button,.hole,.trap,[data-hover],input,textarea,.slot')));
-  addEventListener('pointerdown', () => cur.classList.add('down'));
-  addEventListener('pointerup', () => cur.classList.remove('down'));
 
   /* ---------- helpers ---------- */
   const flash = document.createElement('div'); flash.className = 'flash'; document.body.appendChild(flash);

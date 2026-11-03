@@ -1,5 +1,5 @@
 ---
-import { COUNTRIES, NUMBERS, ACCOUNTS, EVENTS } from '../lib/reach.js';
+import { COUNTRIES, REACHED } from '../lib/reach.js';
 const rot = [-6, 4, -2, 6];
 ---
 <section class="reach" id="alcance">
@@ -19,23 +19,11 @@ const rot = [-6, 4, -2, 6];
     ))}
   </div>
 
-  <div class="reach-nums" data-r>
-    {NUMBERS.map((n) => (
-      <div><b>{n.value ? <><span data-count={n.value}>0</span>{n.suffix}</> : <span class="ph-num">00</span>}</b><span class="mono">{n.label}</span></div>
-    ))}
+  <div class="reached" data-r>
+    <span class="mono">mis contenidos han llegado a perfiles como</span>
+    <p>{REACHED.map((r, i) => <><b>{r.name}</b>{i < REACHED.length - 1 ? <span class="sep"> · </span> : null}</>)}<span class="etc"> y otros más.</span></p>
   </div>
-
-  <div class="reach-lists" data-r>
-    <div>
-      <div class="mono rl-h">cuentas</div>
-      {ACCOUNTS.map((a) => <div class="rl-row"><b>{a.name}</b><span>{a.what}</span><em class="mono">{a.metric}</em></div>)}
-    </div>
-    <div>
-      <div class="mono rl-h">eventos</div>
-      {EVENTS.map((e) => <div class="rl-row"><b>{e.name}</b><span>{e.place}</span><em class="mono">{e.year}</em></div>)}
-    </div>
-  </div>
-  <a class="lnk mono" href="/portfolio#metricas">ver métricas y capturas →</a>
+  <a class="lnk mono" href="/portfolio#metricas">ver lo que consigo para marcas →</a>
 </section>
 
 <style>
@@ -51,16 +39,10 @@ const rot = [-6, 4, -2, 6];
   .stamp b { font: 400 clamp(34px, 3.4vw, 52px) 'Instrument Serif', serif; text-transform: uppercase; line-height: .9; }
   .stamp .mono { margin-top: 6px; }
   .stamp i { font-family: 'Instrument Serif', serif; font-size: 17px; margin-top: 4px; }
-  .reach-nums { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); }
-  .reach-nums div { padding: 22px 20px 22px 0; }
-  .reach-nums div + div { border-left: 1px solid var(--line); padding-left: 20px; }
-  .reach-nums b { display: block; font-weight: 600; font-size: clamp(48px, 5vw, 76px); letter-spacing: -.05em; line-height: 1; }
-  .reach-nums .mono { color: #777; }
-  .ph-num { color: #cfcfcb; }
-  .reach-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin: 40px 0 26px; }
-  .rl-h { color: #777; padding-bottom: 8px; border-bottom: 1px solid var(--ink); }
-  .rl-row { display: grid; grid-template-columns: 1fr 1.2fr auto; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
-  .rl-row b { font-weight: 600; text-transform: uppercase; font-size: 15px; }
-  .rl-row span { font-family: 'Instrument Serif', serif; font-size: 19px; color: #444; }
-  .rl-row em { font-style: normal; }
+  .reached { border-top: 1px solid var(--ink); padding-top: 18px; margin-bottom: 24px; }
+  .reached .mono { color: #777; }
+  .reached p { font-family: 'Instrument Serif', serif; font-size: clamp(30px, 3.4vw, 50px); line-height: 1.08; margin-top: 10px; max-width: 1200px; }
+  .reached b { font-weight: 400; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 6px; }
+  .reached .sep { color: #bbb; }
+  .reached .etc { font-style: italic; color: #777; }
 </style>
