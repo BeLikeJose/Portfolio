@@ -4,15 +4,19 @@ const M = '/media/trampa';
 ---
 <div class="trap-float" id="trap" role="button" tabindex="0" aria-label="trampa de ratón: no hagas clic">
   <video class="tv on" id="tvIdle" src={`${M}/reposo.mp4`} poster={`${M}/poster-a.jpg`} autoplay muted loop playsinline preload="auto"></video>
-  <video class="tv" id="tvSnap" src={`${M}/accion.mp4`} muted playsinline preload="auto"></video>
+  <video class="tv" id="tvSnap" src={`${M}/accion.mp4`} playsinline preload="auto"></video>
   <video class="tv" id="tvDone" src={`${M}/despues.mp4`} poster={`${M}/poster-b.jpg`} muted loop playsinline preload="auto"></video>
   <div class="obj-card" id="trapCard"><b>No hagas clic.</b></div>
   <button class="obj-reset trap-reset" id="trapReset" hidden>↺ armar de nuevo</button>
 </div>
 
 <style>
-  .trap-float { cursor: pointer; }
-  .tv { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity .12s; pointer-events: none; }
+  .trap-float { cursor: pointer; animation: hover-float 5.5s ease-in-out infinite; }
+  .trap-float:hover { animation-play-state: paused; }
+  @keyframes hover-float { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-10px) rotate(-2.5deg); } }
+  .tv { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity .12s; pointer-events: none;
+    --fx: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent); --fy: linear-gradient(to bottom, transparent, #000 5%, #000 95%, transparent);
+    -webkit-mask-image: var(--fx), var(--fy); -webkit-mask-composite: source-in; mask-image: var(--fx), var(--fy); mask-composite: intersect; }
   .tv.on { opacity: 1; }
   .trap-float.jolt .tv { animation: tjolt .35s; }
   @keyframes tjolt { 20% { transform: translate(-3px, 2px); } 45% { transform: translate(2px, -1px); } 70% { transform: translate(-1px, 1px); } }
@@ -31,24 +35,12 @@ const M = '/media/trampa';
   const show = (v: HTMLVideoElement) => [idle, snap, done].forEach((x) => x.classList.toggle('on', x === v));
   const swap = (html: string) => { card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap'); setTimeout(() => (card.innerHTML = html), 180); };
 
-  function snapSound() {
-    try {
-      const A = ((window as any).__ac ||= new (window.AudioContext || (window as any).webkitAudioContext)());
-      const t = A.currentTime, out = A.createGain(); out.gain.value = .9; out.connect(A.destination);
-      const len = A.sampleRate * .09, buf = A.createBuffer(1, len, A.sampleRate), d = buf.getChannelData(0);
-      for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 6);
-      const n = A.createBufferSource(); n.buffer = buf; const bp = A.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 2600; bp.Q.value = .8; n.connect(bp).connect(out); n.start(t);
-      const o = A.createOscillator(), og = A.createGain(); o.frequency.setValueAtTime(140, t); o.frequency.exponentialRampToValueAtTime(48, t + .16); og.gain.setValueAtTime(.9, t); og.gain.exponentialRampToValueAtTime(.001, t + .2); o.connect(og).connect(out); o.start(t); o.stop(t + .22);
-      const m = A.createOscillator(), mg = A.createGain(); m.type = 'triangle'; m.frequency.value = 3400; mg.gain.setValueAtTime(.12, t + .01); mg.gain.exponentialRampToValueAtTime(.001, t + .35); m.connect(mg).connect(out); m.start(t + .01); m.stop(t + .36);
-    } catch (e) { /* audio is optional */ }
-  }
-
   function fire() {
     if (state !== 'set') return;
     state = 'firing';
-    snap.currentTime = 0;
+    snap.currentTime = 0; snap.muted = false; snap.volume = 1;
     snap.play().then(() => { show(snap); idle.pause(); }).catch(() => { show(done); done.play(); state = 'shut'; });
-    setTimeout(() => { snapSound(); root.classList.add('jolt'); (window as any).doFlash?.(); }, SLAM_AT * 1000);
+    setTimeout(() => { root.classList.add('jolt'); (window as any).doFlash?.(); }, SLAM_AT * 1000);
     setTimeout(() => root.classList.remove('jolt'), SLAM_AT * 1000 + 400);
     setTimeout(() => swap('<b>Caíste.</b><i>así se engancha una buena idea.</i>'), 450);
     resetBtn.hidden = false;
