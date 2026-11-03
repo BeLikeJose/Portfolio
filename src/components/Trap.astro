@@ -1,26 +1,64 @@
 ---
-// Mousetrap floating over the hero video: 3D trap seen from above and a paper card.
+// Mousetrap made of three real clips: idle loop → snap → snapped loop. Click to fire.
+const M = '/media/trampa';
 ---
-<div class="trap-float">
-  <div class="trap3d" id="trap3d"></div>
+<div class="trap-float" id="trap" role="button" tabindex="0" aria-label="trampa de ratón: no hagas clic">
+  <video class="tv on" id="tvIdle" src={`${M}/reposo.mp4`} poster={`${M}/poster-a.jpg`} autoplay muted loop playsinline preload="auto"></video>
+  <video class="tv" id="tvSnap" src={`${M}/accion.mp4`} muted playsinline preload="auto"></video>
+  <video class="tv" id="tvDone" src={`${M}/despues.mp4`} poster={`${M}/poster-b.jpg`} muted loop playsinline preload="auto"></video>
   <div class="obj-card" id="trapCard"><b>No hagas clic.</b></div>
   <button class="obj-reset trap-reset" id="trapReset" hidden>↺ armar de nuevo</button>
 </div>
 
+<style>
+  .trap-float { cursor: pointer; }
+  .tv { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity .12s; pointer-events: none; }
+  .tv.on { opacity: 1; }
+  .trap-float.jolt .tv { animation: tjolt .35s; }
+  @keyframes tjolt { 20% { transform: translate(-3px, 2px); } 45% { transform: translate(2px, -1px); } 70% { transform: translate(-1px, 1px); } }
+</style>
+
 <script>
-  import { createTrap } from '../scripts/trap3d.js';
+  const root = document.getElementById('trap')!;
+  const idle = document.getElementById('tvIdle') as HTMLVideoElement;
+  const snap = document.getElementById('tvSnap') as HTMLVideoElement;
+  const done = document.getElementById('tvDone') as HTMLVideoElement;
   const card = document.getElementById('trapCard')!;
   const resetBtn = document.getElementById('trapReset')!;
+  const SLAM_AT = 0.2; // seconds into accion.mp4 when the bar hits
+  let state: 'set' | 'firing' | 'shut' = 'set';
+
+  const show = (v: HTMLVideoElement) => [idle, snap, done].forEach((x) => x.classList.toggle('on', x === v));
   const swap = (html: string) => { card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap'); setTimeout(() => (card.innerHTML = html), 180); };
-  await document.fonts.ready;
-  const trap = createTrap(document.getElementById('trap3d')!, {
-    delay: 300,
-    frame: 3.2,
-    onSnap() {
-      setTimeout(() => (window as any).doFlash?.(), 60);
-      setTimeout(() => swap('<b>Caíste.</b><i>así se engancha una buena idea.</i>'), 350);
-      resetBtn.hidden = false;
-    },
+
+  function snapSound() {
+    try {
+      const A = ((window as any).__ac ||= new (window.AudioContext || (window as any).webkitAudioContext)());
+      const t = A.currentTime, out = A.createGain(); out.gain.value = .9; out.connect(A.destination);
+      const len = A.sampleRate * .09, buf = A.createBuffer(1, len, A.sampleRate), d = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 6);
+      const n = A.createBufferSource(); n.buffer = buf; const bp = A.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 2600; bp.Q.value = .8; n.connect(bp).connect(out); n.start(t);
+      const o = A.createOscillator(), og = A.createGain(); o.frequency.setValueAtTime(140, t); o.frequency.exponentialRampToValueAtTime(48, t + .16); og.gain.setValueAtTime(.9, t); og.gain.exponentialRampToValueAtTime(.001, t + .2); o.connect(og).connect(out); o.start(t); o.stop(t + .22);
+      const m = A.createOscillator(), mg = A.createGain(); m.type = 'triangle'; m.frequency.value = 3400; mg.gain.setValueAtTime(.12, t + .01); mg.gain.exponentialRampToValueAtTime(.001, t + .35); m.connect(mg).connect(out); m.start(t + .01); m.stop(t + .36);
+    } catch (e) { /* audio is optional */ }
+  }
+
+  function fire() {
+    if (state !== 'set') return;
+    state = 'firing';
+    snap.currentTime = 0;
+    snap.play().then(() => { show(snap); idle.pause(); }).catch(() => { show(done); done.play(); state = 'shut'; });
+    setTimeout(() => { snapSound(); root.classList.add('jolt'); (window as any).doFlash?.(); }, SLAM_AT * 1000);
+    setTimeout(() => root.classList.remove('jolt'), SLAM_AT * 1000 + 400);
+    setTimeout(() => swap('<b>Caíste.</b><i>así se engancha una buena idea.</i>'), 450);
+    resetBtn.hidden = false;
+  }
+  snap.addEventListener('ended', () => { done.currentTime = 0; done.play(); show(done); state = 'shut'; });
+
+  root.addEventListener('click', (e) => { if ((e.target as Element).closest('#trapReset')) return; fire(); });
+  root.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fire(); } });
+  resetBtn.addEventListener('click', () => {
+    idle.currentTime = 0; idle.play(); show(idle); done.pause();
+    state = 'set'; resetBtn.hidden = true; swap('<b>No hagas clic.</b>');
   });
-  resetBtn.addEventListener('click', () => { trap.reset(); resetBtn.hidden = true; swap('<b>No hagas clic.</b>'); });
 </script>
