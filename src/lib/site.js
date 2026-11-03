@@ -3,7 +3,6 @@ export const CONTACT = {
   email: 'hola@belikejose.com',            // TODO: confirmar email real
   instagram: 'https://instagram.com/belikejose', // TODO: confirmar usuario real
   instagramHandle: '@belikejose',
-  calendly: import.meta.env.PUBLIC_CALENDLY_URL || '',
 };
 
 export const PAGES = [

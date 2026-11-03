@@ -1,8 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
+import Booking from '../components/Booking.astro';
 import { CONTACT } from '../lib/site.js';
-const cal = CONTACT.calendly;
-const calSrc = cal ? `${cal}${cal.includes('?') ? '&' : '?'}hide_gdpr_banner=1&background_color=fafafa&text_color=0e0e0e&primary_color=0e0e0e` : '';
+import { PUBLIC_BOOKING_URL } from 'astro:env/client';
 const mail = `mailto:${CONTACT.email}?subject=${encodeURIComponent('Quiero agendar una llamada')}`;
 ---
 <Base title="Agenda una llamada — Be like José" description="Agenda una llamada de 30 minutos o escríbeme.">
@@ -20,12 +20,18 @@ const mail = `mailto:${CONTACT.email}?subject=${encodeURIComponent('Quiero agend
 </section>
 
 <section class="agenda" id="agenda">
-  <div class="agenda-head"><div class="mono" style="color:#777">agenda</div><h2 class="disp" data-r>Elige <em>día y hora</em></h2><p>Treinta minutos para conocer tu marca, ver en qué eje está el nudo y decirte con honestidad si puedo ayudarte.</p></div>
-  {cal ? (
-    <div class="agenda-cal"><iframe title="Agendar con Calendly" src={calSrc} loading="lazy"></iframe></div>
-  ) : (
-    <div class="agenda-cal agenda-empty"><p>La agenda en línea se activa en cuanto conectemos Calendly. Mientras tanto, pídeme la llamada por correo y te respondo con horarios.</p><a class="wbtn" href={mail}>pedir una llamada →</a></div>
-  )}
+  <div class="agenda-head"><div class="mono" style="color:#777">agenda</div><h2 class="disp" data-r>Elige <em>día y hora</em></h2><p>Treinta minutos para conocer tu marca, ver en qué eje está el nudo y decirte con honestidad si puedo ayudarte. La reunión es por Google Meet.</p></div>
+  <Booking url={PUBLIC_BOOKING_URL} length="Llamada de 30 minutos" />
+
+  <div class="code-box" id="codeBox">
+    <div class="code-l"><span class="mono">¿ya eres cliente?</span><h3>Sesión de trabajo <em>de 2 horas</em></h3><p>Escribe el código que te di y se abre mi agenda de sesiones para clientes.</p></div>
+    <form class="code-f" id="codeForm" autocomplete="off">
+      <input id="codeIn" name="code" placeholder="TU-CÓDIGO" aria-label="código de cliente" autocapitalize="characters" spellcheck="false" required />
+      <button class="wbtn" type="submit">abrir agenda →</button>
+      <span class="mono code-msg" id="codeMsg" role="status"></span>
+    </form>
+    <div class="code-ok" id="codeOk" hidden></div>
+  </div>
 </section>
 <section class="after">
   <div class="mono" style="color:#777">después de agendar</div>
@@ -37,4 +43,26 @@ const mail = `mailto:${CONTACT.email}?subject=${encodeURIComponent('Quiero agend
   <a class="lnk mono" href="/mi-sistema#proceso">ver el proceso completo →</a>
 </section>
 </main>
+<script>
+  const form = document.getElementById('codeForm') as HTMLFormElement;
+  const msg = document.getElementById('codeMsg')!;
+  const ok = document.getElementById('codeOk')!;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    msg.textContent = 'revisando…';
+    const code = (document.getElementById('codeIn') as HTMLInputElement).value;
+    try {
+      const r = await fetch('/api/cita', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ code }) });
+      const d = await r.json();
+      if (!d.ok) { msg.textContent = d.reason === 'not-configured' ? 'la agenda de clientes aún no está activa.' : 'ese código no existe. revísalo o escríbeme.'; return; }
+      msg.textContent = 'listo.';
+      const url: string = d.url;
+      const embed = url.includes('/appointments/schedules/') ? url + (url.includes('?') ? '&' : '?') + 'gv=true' : '';
+      ok.innerHTML = embed
+        ? `<iframe title="Agendar sesión de 2 horas" src="${embed}"></iframe>`
+        : `<a class="wbtn" href="${url}" target="_blank" rel="noopener">elegir día y hora de la sesión →</a>`;
+      ok.hidden = false; form.hidden = true;
+    } catch { msg.textContent = 'no se pudo revisar el código. intenta de nuevo.'; }
+  });
+</script>
 </Base>

@@ -2,6 +2,8 @@
 // Private client proposal. Rendered on request (Cloudflare), never listed, never indexed.
 import Base from '../../layouts/Base.astro';
 import { supabase, hasSupabase, DEMO_PROPOSAL } from '../../lib/supabase.js';
+import Booking from '../../components/Booking.astro';
+import { CLIENT_BOOKING_URL } from 'astro:env/server';
 export const prerender = false;
 
 const { slug } = Astro.params;
@@ -15,7 +17,7 @@ Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow, noarchive');
 Astro.response.headers.set('Cache-Control', 'private, no-store');
 if (!p) Astro.response.status = 404;
 
-const calendly = p?.calendly_url || import.meta.env.PUBLIC_CALENDLY_URL || '';
+const booking = p?.calendly_url || CLIENT_BOOKING_URL || '';
 const fmt = (d) => d ? new Date(d).toLocaleDateString('es', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
 const days = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 ---
@@ -46,14 +48,7 @@ const days = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
     {p.pricing.map((o) => <div><span class="mono">{o.name}</span><b>{o.price}</b><span>{o.note}</span></div>)}
   </div></section>}
   <section class="pv" id="agenda"><div class="idx">05<small>agendemos</small></div>
-    {calendly ? (
-      <div class="cal" style="display:block;min-height:700px" data-r><iframe title="Agendar con Calendly" src={`${calendly}${calendly.includes('?') ? '&' : '?'}hide_gdpr_banner=1&background_color=fafafa&text_color=0e0e0e&primary_color=0e0e0e`} style="width:100%;height:700px;border:0"></iframe></div>
-    ) : (
-      <div class="cal" data-r>
-        <div class="cal-l"><h4>Noviembre</h4><div class="cal-grid">{days.map((d) => <span>{d}</span>)}{Array.from({ length: 22 }, (_, i) => { const n = i - 5; const off = n < 3 || [7, 8, 14, 15].includes(n); return <div class={`cal-day${off ? ' off' : ''}`}>{n > 0 ? n : ''}</div>; })}</div></div>
-        <div class="cal-r"><div class="mono">llamada de 30 min · calendly (demo)</div>{['10:00', '11:30', '15:00', '17:30'].map((h) => <div class="slot" data-when={`jueves 5 · ${h}`}>{h}</div>)}<div class="cal-confirm">Listo. Nos vemos el <b></b>.</div></div>
-      </div>
-    )}
+    <div data-r><Booking url={booking} length="Sesión de 2 horas" note="Elige día y hora para nuestra sesión de trabajo. Queda en mi calendario y te llega la invitación con el link de Google Meet." /></div>
   </section>
   <section class="contact" style="padding-top:60px"><footer class="mono" style="margin-top:0"><span>be like josé © 2026</span><span>esta propuesta no aparece en buscadores</span><span>/p/{p.slug}</span></footer></section>
   </>
