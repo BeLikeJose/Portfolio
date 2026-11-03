@@ -11,7 +11,11 @@ a{color:inherit;text-decoration:none}
 .just{text-align:justify;text-align-last:justify}
 nav{position:fixed;top:0;left:0;right:0;z-index:60;height:66px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 34px;color:#fafafa;mix-blend-mode:difference}
 nav .l{display:flex;gap:30px;align-items:center}
-nav .burger{width:22px;height:9px;border-top:1px solid;border-bottom:1px solid}
+nav .burger{width:30px;height:24px;background:none;border:0;padding:0;color:inherit;display:grid;place-items:center;cursor:pointer}
+nav .burger span{display:block;width:22px;height:9px;border-top:1px solid;border-bottom:1px solid}
+nav a{position:relative}
+nav a.on:after{content:"";position:absolute;left:0;right:0;bottom:-5px;border-bottom:1px solid}
+nav .agenda{border:1px solid;padding:7px 12px;border-radius:30px}
 nav .logo{font-family:'Instrument Serif';font-size:22px;letter-spacing:.14em;text-transform:uppercase}
 nav .r{justify-self:end;display:flex;gap:30px;align-items:center}
 nav .l a,nav .r a{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
@@ -40,7 +44,7 @@ body.ready .giant .m span{transform:none}
 .trap-float .obj-card{left:-118px;top:40%;max-width:170px;padding:9px 12px}
 .trap-float .obj-card b{font-size:14px}
 .trap-float .obj-card i{font-size:16px}
-.hero-ficha{position:absolute;left:48%;top:104px;margin:0;max-width:240px;z-index:4}
+.trap-reset{position:absolute;left:-118px;top:calc(40% + 60px);white-space:nowrap}
 .vert{position:absolute;right:5.5%;top:104px;writing-mode:vertical-rl;font-weight:700;font-size:15px;line-height:1.05;text-transform:uppercase;border-left:2px solid var(--ink);padding-left:8px}
 .n001{position:absolute;left:5.5%;bottom:9%;font-weight:700;font-size:64px;letter-spacing:-.05em;transform:rotate(-90deg);transform-origin:left bottom;translate:64px 0;line-height:.8}
 
@@ -104,11 +108,15 @@ body.ready .giant .m span{transform:none}
 .book{margin-top:36px;background:var(--w);color:var(--ink);padding:24px 28px;rotate:-1.2deg;box-shadow:0 30px 60px -20px rgba(0,0,0,.8);max-width:620px;position:relative}
 .book:before{content:"";position:absolute;inset:0;background:var(--grain);opacity:.3;mix-blend-mode:multiply;pointer-events:none}
 .book h4{font-family:'Instrument Serif';font-weight:400;font-size:26px;text-transform:uppercase;border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:6px}
-.book .cols{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(5,auto);grid-auto-flow:column;column-gap:28px}
-.book [data-n]{display:flex;align-items:baseline;gap:8px;padding:8px 6px;font-size:15px;transition:.25s;cursor:pointer}
+.dir-cols{display:grid;grid-template-columns:1fr 1fr;column-gap:30px}
+.dir-group{margin-top:12px}
+.dir-h{color:#888;padding:0 6px 4px;border-bottom:1px solid var(--line)}
+.book [data-n]{display:flex;align-items:baseline;gap:10px;padding:7px 6px;font-size:15px;transition:.25s;cursor:pointer}
 .book [data-n]:hover{background:var(--g1)}
+.book [data-n] b{font-family:'IBM Plex Mono';font-weight:500;width:14px}
 .book [data-n] i{flex:1;border-bottom:1px dotted #888;translate:0 -4px}
-.book [data-n] b{font-family:'IBM Plex Mono';font-weight:500}
+.book [data-n] em{font-style:normal;opacity:0;transition:.25s}
+.book [data-n]:hover em,.book [data-n].hit em{opacity:1}
 .book [data-n].hit{font-weight:700;background:var(--g1)}
 
 /* MAG */
@@ -217,6 +225,53 @@ body.ready .giant .m span{transform:none}
 .objetos-grid{display:grid;grid-template-columns:1.6fr 1fr;border-top:1px solid var(--ink)}
 .objetos-grid>*{padding:30px 24px}
 .objetos-grid>*+*{border-left:1px solid var(--line)}
+
+/* MENÚ */
+.menu{position:fixed;inset:0;z-index:9000;background:var(--ink);color:#fafafa;padding:90px 6% 40px;display:flex;flex-direction:column;justify-content:space-between;clip-path:inset(0 0 100% 0);transition:clip-path .7s cubic-bezier(.76,0,.24,1);visibility:hidden}
+.menu.on{clip-path:inset(0);visibility:visible}
+.menu-close{position:absolute;top:22px;left:34px;background:none;border:0;color:inherit;font-family:'IBM Plex Mono';font-size:11px;text-transform:uppercase;letter-spacing:.08em;cursor:pointer}
+.menu-list{list-style:none}
+.menu-list a{display:flex;align-items:baseline;gap:24px;font-family:'Instrument Serif';font-size:clamp(54px,8vw,112px);line-height:1.02;text-transform:uppercase;transition:padding .3s,opacity .3s}
+.menu-list a .mono{font-size:12px;opacity:.55}
+.menu-list a:hover{padding-left:24px}
+.menu-list a.on{font-style:italic}
+.menu-list:hover a:not(:hover){opacity:.4}
+.menu-foot{display:flex;gap:40px;flex-wrap:wrap;opacity:.8}
+.menu-foot a{text-decoration:underline;text-underline-offset:3px}
+
+/* PÁGINAS */
+.page{padding-top:0}
+.cgrid a.hbtn{font-family:"Inter Tight",sans-serif;font-size:11px}
+.paths{padding:110px 34px}
+.paths-head{display:flex;flex-direction:column;gap:16px;margin-bottom:30px}
+.paths-head h2{font-size:clamp(60px,6vw,96px)}
+.paths-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink)}
+.paths-grid a{padding:24px 22px 28px;display:flex;flex-direction:column;gap:10px;transition:background .3s}
+.paths-grid a+a{border-left:1px solid var(--line)}
+.paths-grid a:hover{background:var(--g1)}
+.paths-grid .film{height:220px;margin-bottom:8px}
+.paths-grid .mono{color:#777}
+.paths-grid h3{font-weight:600;font-size:19px;line-height:1.15;text-transform:uppercase}
+.paths-grid p{font-size:14px;line-height:1.5;color:#444}
+.paths-grid em{margin-top:auto;font-family:'IBM Plex Mono';font-style:normal;font-size:10px;text-transform:uppercase;text-decoration:underline;text-underline-offset:3px}
+.next-cta{display:flex;justify-content:space-between;align-items:center;padding:40px 34px 100px}
+.next-cta .wbtn{margin:0}
+.agenda{padding:110px 34px}
+.agenda-head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:30px}
+.agenda-head .mono{grid-column:1/-1}
+.agenda-head h2{font-size:clamp(60px,6vw,96px)}
+.agenda-head p{font-size:17px;line-height:1.5;color:#333;max-width:460px}
+.agenda-cal{border-top:1px solid var(--ink)}
+.agenda-cal iframe{width:100%;height:760px;border:0;display:block}
+.agenda-empty{padding:40px 0;display:flex;justify-content:space-between;align-items:center;gap:40px}
+.agenda-empty p{font-family:'Instrument Serif';font-size:28px;line-height:1.15;max-width:640px}
+.agenda-empty .wbtn{margin:0}
+.site-foot{background:var(--ink);color:#fafafa;padding:70px 34px 30px;margin:0;display:block;opacity:1}
+.sf-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;padding-bottom:50px;border-bottom:1px solid rgba(250,250,250,.2)}
+.sf-logo{font-family:'Instrument Serif';font-size:clamp(50px,6vw,90px);text-transform:uppercase;line-height:.9}
+.sf-top ul{list-style:none;display:flex;flex-direction:column;gap:10px;font-size:14px}
+.sf-top ul a:hover{text-decoration:underline;text-underline-offset:3px}
+.sf-bot{display:flex;justify-content:space-between;padding-top:22px;opacity:.55}
 
 /* CONTACT over film */
 .contact{position:relative;color:#fafafa;padding:140px 5% 40px;overflow:hidden;background:#000}

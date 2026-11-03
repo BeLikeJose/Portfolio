@@ -1,7 +1,10 @@
 ---
 import '../styles/global.css';
-interface Props { title?: string; description?: string; noindex?: boolean }
-const { title = 'Be like José — dirección creativa, film y edición', description = 'José, director creativo, filmmaker y editor. Dirección para marcas, empresas y creadores.', noindex = false } = Astro.props;
+import { PAGES, CONTACT } from '../lib/site.js';
+interface Props { title?: string; description?: string; noindex?: boolean; footer?: boolean }
+const { title = 'Be like José — dirección creativa, film y edición', description = 'José, director creativo, filmmaker y editor. Integro dirección creativa, operaciones y oferta de valor, proyección empresarial y creación de contenidos.', noindex = false, footer = true } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const on = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 ---
 <!doctype html>
 <html lang="es">
@@ -16,16 +19,59 @@ const { title = 'Be like José — dirección creativa, film y edición', descri
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&family=Mrs+Saint+Delafield&family=Bodoni+Moda:ital,opsz,wght@1,6..96,400&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <slot name="nav">
-      <nav>
-        <div class="l"><span class="burger"></span><a href="/#portfolio">Portfolio</a><a href="/#sobre-mi">Sobre mí</a></div>
-        <a class="logo" href="/">Be like José</a>
-        <div class="r"><a href="/#contacto">Contacto</a><a href="/#contacto">Agenda →</a></div>
-      </nav>
-    </slot>
+    <nav>
+      <div class="l">
+        <button class="burger" id="menuOpen" aria-label="abrir menú" aria-expanded="false"><span></span></button>
+        <a href="/portfolio" class:list={{ on: on('/portfolio') }}>Portfolio</a>
+        <a href="/metodo" class:list={{ on: on('/metodo') }}>Cuatro ejes</a>
+      </div>
+      <a class="logo" href="/">Be like José</a>
+      <div class="r">
+        <a href="/sobre-mi" class:list={{ on: on('/sobre-mi') }}>Sobre mí</a>
+        <a href="/contacto" class:list={{ on: on('/contacto') }}>Contacto</a>
+        <a href="/contacto#agenda" class="agenda">Agenda →</a>
+      </div>
+    </nav>
+
+    <div class="menu" id="menu" aria-hidden="true">
+      <button class="menu-close" id="menuClose" aria-label="cerrar menú">cerrar ✕</button>
+      <ol class="menu-list">
+        {PAGES.map((p) => <li><a href={p.href} class:list={{ on: on(p.href) }}><span class="mono">{p.n}</span>{p.label}</a></li>)}
+      </ol>
+      <div class="menu-foot mono">
+        <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+        <a href={CONTACT.instagram} target="_blank" rel="noopener">{CONTACT.instagramHandle}</a>
+        <a href="/contacto#agenda">agenda una llamada →</a>
+      </div>
+    </div>
+
     <slot />
+
+    {footer && (
+      <footer class="site-foot">
+        <div class="sf-top">
+          <a class="sf-logo" href="/">Be like <em>José</em></a>
+          <ul>{PAGES.map((p) => <li><a href={p.href}>{p.label}</a></li>)}</ul>
+          <ul><li><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></li><li><a href={CONTACT.instagram} target="_blank" rel="noopener">Instagram</a></li><li><a href="/contacto#agenda">Agenda</a></li></ul>
+        </div>
+        <div class="sf-bot mono"><span>be like josé © 2026</span><span>crear es un acto colectivo</span><span>hecho a mano en Bogotá</span></div>
+      </footer>
+    )}
+
     <script is:inline src="/scripts/common.js"></script>
     <script is:inline src="/scripts/film.js"></script>
+    <script is:inline>
+      (function () {
+        const m = document.getElementById('menu'), b = document.getElementById('menuOpen');
+        const set = (open) => { m.classList.toggle('on', open); m.setAttribute('aria-hidden', !open); b.setAttribute('aria-expanded', open); document.documentElement.style.overflow = open ? 'hidden' : ''; };
+        b.addEventListener('click', () => set(true));
+        document.getElementById('menuClose').addEventListener('click', () => set(false));
+        m.addEventListener('click', (e) => { if (e.target.closest('a')) set(false); });
+        addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
+        requestAnimationFrame(() => setTimeout(() => document.body.classList.add('ready'), 250));
+        addEventListener('load', () => setTimeout(() => window.renderFilms && renderFilms(), 50));
+      })();
+    </script>
     <slot name="scripts" />
   </body>
 </html>

@@ -19,7 +19,7 @@ const calendly = p?.calendly_url || import.meta.env.PUBLIC_CALENDLY_URL || '';
 const fmt = (d) => d ? new Date(d).toLocaleDateString('es', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
 const days = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 ---
-<Base title={p ? `Propuesta para ${p.client} — Be like José` : 'Link no disponible'} noindex>
+<Base title={p ? `Propuesta para ${p.client} — Be like José` : 'Link no disponible'} noindex footer={false}>
 <main>
 {p ? (
   <>
@@ -58,7 +58,7 @@ const days = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
   <section class="contact" style="padding-top:60px"><footer class="mono" style="margin-top:0"><span>be like josé © 2026</span><span>esta propuesta no aparece en buscadores</span><span>/p/{p.slug}</span></footer></section>
   </>
 ) : (
-  <section class="pv-hero"><div class="film" data-scene="lamp" data-seed="3"></div><div class="txt"><div class="script" style="font-size:64px;line-height:.8">ups…</div><h1 class="disp">Este link ya no está.</h1><div class="row"><span>Puede que la propuesta haya expirado. Escríbeme y te mando una nueva.</span><a class="hbtn" href="/#contacto">hablemos →</a></div></div></section>
+  <section class="pv-hero"><div class="film" data-scene="lamp" data-seed="3"></div><div class="txt"><div class="script" style="font-size:64px;line-height:.8">ups…</div><h1 class="disp">Este link ya no está.</h1><div class="row"><span>Puede que la propuesta haya expirado. Escríbeme y te mando una nueva.</span><a class="hbtn" href="/contacto">hablemos →</a></div></div></section>
 )}
 </main>
 </Base>

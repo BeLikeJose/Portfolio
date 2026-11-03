@@ -1,11 +1,11 @@
 ---
-// Mousetrap floating over the hero video: 3D trap seen from above, a paper card and a museum label.
+// Mousetrap floating over the hero video: 3D trap seen from above and a paper card.
 ---
 <div class="trap-float">
   <div class="trap3d" id="trap3d"></div>
   <div class="obj-card" id="trapCard"><b>No hagas clic.</b></div>
+  <button class="obj-reset trap-reset" id="trapReset" hidden>↺ armar de nuevo</button>
 </div>
-<p class="ficha hero-ficha"><span class="n">fig. 001</span><br /><b>Cursor común</b>, 2026.<br />Pino, acero y una mala decisión.<br />— Colección be like josé<br /><button class="obj-reset" id="trapReset" hidden>↺ armar de nuevo</button></p>
 
 <script>
   import { createTrap } from '../scripts/trap3d.js';
@@ -23,5 +23,4 @@
     },
   });
   resetBtn.addEventListener('click', () => { trap.reset(); resetBtn.hidden = true; swap('<b>No hagas clic.</b>'); });
-  (window as any).__trap = trap;
 </script>

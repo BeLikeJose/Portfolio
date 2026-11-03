@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import Suitcase from '../components/Suitcase.astro';
+import Egg from '../components/Egg.astro';
+---
+<Base title="Sobre mí — Be like José" description="Soy José. De tres carreras abandonadas a Bogotá con una maleta llena de sueños.">
+<main class="page">
+<section class="about" id="sobre-mi">
+  <div class="pics" data-r>
+    <div class="film p1" data-scene="sofa" data-seed="9" data-video><div class="lab">picado sobre el sofá — plano de firma</div></div>
+    <div class="film p2" data-scene="flash" data-seed="14"><div class="lab">con flash</div></div>
+  </div>
+  <div>
+    <div class="mono" style="color:#777">04 — sobre mí</div>
+    <h2 class="disp" data-r>Romper la<br><em>cáscara</em></h2>
+    <div class="story" data-r>
+      <p class="lead">Soy José. Crecí entre una madre valiente, un padre sobreprotector y un hermano que nunca dudó de que todo saldría bien. Tres formas de ver el mundo.</p>
+      <p>Estudié música, ventas y programación. Dejé la universidad tres veces: ingeniería de sistemas, matemáticas, marketing y publicidad. Como a muchos, se me ahogaba el espíritu creativo.</p>
+      <p>Así que rompí la cáscara. Llegué a Bogotá con una maleta llena de sueños y la frágil certeza de quien renuncia a todo para empezar de cero. Compré cámaras. Llegaron clientes, eventos y escenarios que me exigieron crecer.</p>
+      <p>Desde entonces no he vuelto a compartir con mi familia cercana. Duele. A veces es necesario.</p>
+    </div>
+    <div class="facts" data-r><div><b>3</b><span>veces dejé la universidad</span></div><div><b>1</b><span>maleta llena de sueños</span></div><div><b>Bogotá</b><span>el punto de partida</span></div></div>
+    <blockquote data-r>Lo imposible no es un destino: es un punto de partida para los que se atreven. <span>Hay que ser cara dura.</span></blockquote>
+    <div class="arch" data-r><div><h5>Mago</h5><p>La lógica detrás de una marca, convertida en imagen.</p></div><div><h5>Bufón</h5><p>Humor con sentido. Siempre deja una idea.</p></div><div><h5>Explorador</h5><p>Observar, cuestionar y crear movimiento.</p></div></div>
+  </div>
+</section>
+
+<section class="objetos" id="objetos">
+  <div class="objetos-head">
+    <div class="mono" style="color:#777">colección — fig. 005 y 006</div>
+    <h2 class="disp" data-r>Con qué rompo<br>la <em>cáscara</em></h2>
+  </div>
+  <div class="objetos-grid">
+    <Suitcase />
+    <Egg />
+  </div>
+</section>
+</main>
+</Base>

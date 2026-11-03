@@ -1,0 +1,31 @@
+---
+import Base from '../layouts/Base.astro';
+import { CONTACT } from '../lib/site.js';
+const cal = CONTACT.calendly;
+const calSrc = cal ? `${cal}${cal.includes('?') ? '&' : '?'}hide_gdpr_banner=1&background_color=fafafa&text_color=0e0e0e&primary_color=0e0e0e` : '';
+const mail = `mailto:${CONTACT.email}?subject=${encodeURIComponent('Quiero agendar una llamada')}`;
+---
+<Base title="Contacto — Be like José" description="Agenda una llamada de 30 minutos o escríbeme.">
+<main class="page">
+<section class="contact" id="contacto">
+  <div class="film" data-scene="street" data-seed="44" data-video></div>
+  <div class="mono" style="opacity:.7;margin-bottom:24px">05 — contacto</div>
+  <h2 class="disp just" data-r>¿y si lo hablamos?</h2>
+  <div style="display:flex;justify-content:space-between"><span>Una llamada de 30 minutos. Sin formularios eternos.</span><span class="it">— la operadora</span></div>
+  <div class="cgrid">
+    <div><h6>escribe</h6><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></div>
+    <div><h6>mira</h6><a href={CONTACT.instagram} target="_blank" rel="noopener">{CONTACT.instagramHandle}</a></div>
+    <div><h6>agenda</h6><a class="hbtn" href="#agenda">llamada de 30 min ↓</a></div>
+  </div>
+</section>
+
+<section class="agenda" id="agenda">
+  <div class="agenda-head"><div class="mono" style="color:#777">agenda</div><h2 class="disp" data-r>Elige <em>día y hora</em></h2><p>Treinta minutos para conocer tu marca, ver en qué eje está el nudo y decirte con honestidad si puedo ayudarte.</p></div>
+  {cal ? (
+    <div class="agenda-cal"><iframe title="Agendar con Calendly" src={calSrc} loading="lazy"></iframe></div>
+  ) : (
+    <div class="agenda-cal agenda-empty"><p>La agenda en línea se activa en cuanto conectemos Calendly. Mientras tanto, pídeme la llamada por correo y te respondo con horarios.</p><a class="wbtn" href={mail}>pedir una llamada →</a></div>
+  )}
+</section>
+</main>
+</Base>
