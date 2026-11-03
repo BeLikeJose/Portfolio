@@ -1,11 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
 import Suitcase from '../components/Suitcase.astro';
+import Media from '../components/Media.astro';
+import { NUMBERS, COUNTRIES } from '../lib/reach.js';
 ---
 <Base title="Portfolio — Be like José" description="Filmmaker, editor y estratega creativo: eventos, cuentas, motion, conceptos, calendarios y roadmaps.">
 <main class="page">
 <section class="mag" id="portfolio" data-tabs>
-  <div class="mag-head"><div><div class="mono" style="color:#777;margin-bottom:14px">03 — portfolio</div><h2 class="disp">Portfolio</h2></div><a class="seeall" href="/contacto#agenda"><span>¿hacemos el tuyo?</span><b>→</b></a></div>
+  <div class="mag-head"><div><div class="mono" style="color:#777;margin-bottom:14px">02 — portfolio</div><h2 class="disp">Portfolio</h2></div><a class="seeall" href="/contacto#agenda"><span>¿hacemos el tuyo?</span><b>→</b></a></div>
   <div class="chips"><button data-tab="film" class="on"><span class="film" data-scene="street" data-seed="2"></span>Filmmaker</button><button data-tab="edit"><span class="film" data-scene="studio" data-seed="5" data-tone="bw"></span>Editor</button><button data-tab="strat"><span class="film" data-scene="window" data-seed="8"></span>Estratega creativo</button></div>
   <div class="mpanels">
     <div class="mpanel on" data-panel="film">
@@ -46,6 +48,43 @@ import Suitcase from '../components/Suitcase.astro';
   </div>
 </section>
 
+<section class="metricas" id="metricas">
+  <div class="ex-head"><div><div class="mono" style="color:#777">pruebas — no adjetivos</div><h2 class="disp" data-r>Números <em>que se ven</em></h2></div><p class="maleta-p">Capturas reales de las cuentas, sin filtro.</p></div>
+  <div class="reach-strip mono">{COUNTRIES.map((c) => <span>{c.code} · {c.name}</span>)}{NUMBERS.map((n) => <span>{n.value ? `${n.value}${n.suffix}` : '—'} {n.label}</span>)}</div>
+
+  <div class="phones" data-r>
+    {[['insights de Instagram — cuenta 01', 'alcance 30 días'], ['reel con más vistas', 'vistas · guardados'], ['crecimiento de seguidores', 'antes → después'], ['estadísticas de TikTok / YouTube', 'retención']].map(([l, c], i) => (
+      <div class="phone"><Media label={l} kind="screenshot" scene={['bokeh', 'street', 'window', 'lamp'][i]} seed={i + 3} cap={c} /></div>
+    ))}
+  </div>
+
+  <div class="ba" data-r>
+    <div class="ba-h"><span class="mono">caso — antes y después</span><h3>Cuenta 01 <em>· 90 días</em></h3></div>
+    <div class="ba-grid">
+      <Media label="perfil antes (captura)" kind="screenshot" scene="studio" seed="2" tone="bw" cap="antes" />
+      <div class="ba-arrow">→</div>
+      <Media label="perfil después (captura)" kind="screenshot" scene="bokeh" seed="5" cap="después" />
+      <ul class="ba-data">
+        <li><b>00</b><span>seguidores</span></li><li><b>00</b><span>alcance mensual</span></li><li><b>00</b><span>guardados por pieza</span></li><li><b>00</b><span>consultas por DM</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wins" data-r>
+    <div><span class="mono">logros</span>
+      <ol>
+        <li><b>Primer reel en 0M</b><i>para Zentaurus, en el lanzamiento.</i></li>
+        <li><b>4 países</b><i>Panamá, México, Brasil y Colombia.</i></li>
+        <li><b>Evento destacado</b><i>cobertura completa, del montaje al aftermovie.</i></li>
+      </ol>
+    </div>
+    <div class="quotes"><span class="mono">lo que dicen</span>
+      <blockquote>“Aquí va la frase de un cliente, en sus palabras.”<cite>— nombre, marca</cite></blockquote>
+      <blockquote>“Un segundo testimonio, corto y con un dato.”<cite>— nombre, marca</cite></blockquote>
+    </div>
+  </div>
+</section>
+
 <section class="maleta" id="maleta">
   <div class="ex-head"><div><div class="mono" style="color:#777">fig. 005 — la maleta</div><h2 class="disp" data-r>Con qué <em>produzco</em></h2></div><p class="maleta-p">Lo que llevo a cada rodaje. Ábrela.</p></div>
   <Suitcase />
@@ -55,7 +94,7 @@ import Suitcase from '../components/Suitcase.astro';
   <div class="strip-head"><h3>rollo 01 —<br><span class="it">lo cotidiano también es obra</span></h3><div class="mono" style="opacity:.6;align-self:end">36 exp · iso 800 · revelado a mano</div></div>
   <div class="reel" id="reel"></div>
 </section>
-<section class="next-cta"><span class="mono">¿quieres una pieza así para tu marca?</span><a class="wbtn" href="/contacto#agenda">agenda una llamada →</a></section>
+<section class="next-cta"><span class="mono">¿quieres una pieza así para tu marca?</span><a class="wbtn" href="/contacto">agenda una llamada →</a></section>
 </main>
 <script slot="scripts" is:inline>
   const sc = ['bokeh', 'park', 'window', 'street', 'lamp', 'sky', 'studio', 'flash', 'sofa', 'hands'];

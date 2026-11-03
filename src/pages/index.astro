@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Trap from '../components/Trap.astro';
 import Egg from '../components/Egg.astro';
-import { DIRECTORY } from '../lib/site.js';
+import Reach from '../components/Reach.astro';
 ---
 <Base>
 <main>
@@ -39,7 +39,7 @@ import { DIRECTORY } from '../lib/site.js';
     <div class="film p2" data-scene="flash" data-seed="14"><div class="lab">con flash</div></div>
   </div>
   <div>
-    <div class="mono" style="color:#777">mi historia</div>
+    <div class="mono" style="color:#777">01 — mi historia</div>
     <h2 class="disp" data-r>Romper la<br><em>cáscara</em></h2>
     <div class="story" data-r>
       <p class="lead">Soy José. Crecí entre una madre valiente, un padre sobreprotector y un hermano que nunca dudó de que todo saldría bien. Tres formas de ver el mundo.</p>
@@ -89,6 +89,8 @@ import { DIRECTORY } from '../lib/site.js';
   
 </section>
 
+<Reach />
+
 <section class="obra-ex">
   <div class="ex-head"><div><div class="mono" style="color:#777">extracto — portfolio</div><h2 class="disp" data-r>Algo de la <em>obra</em></h2></div><a class="seeall" href="/portfolio"><span>todo el portfolio</span><b>→</b></a></div>
   <div class="ex-grid" data-r>
@@ -98,49 +100,8 @@ import { DIRECTORY } from '../lib/site.js';
   </div>
 </section>
 
-<section class="dial-sec" id="marca">
-  <div class="film" data-scene="lamp" data-seed="3" data-video></div>
-  <div class="dial-grid">
-    <div class="dial-l">
-      <div class="mono" style="opacity:.6;margin-bottom:20px">índice — ¿a dónde quieres ir? marca un número o toca una línea</div>
-      <h2 class="disp" data-r>marca un<br><em>número</em></h2>
-      <div class="book" data-r>
-        <h4>Guía de la página</h4>
-        <div class="dir-cols">
-          {[DIRECTORY.slice(0, 2), DIRECTORY.slice(2)].map((col) => (
-            <div>{col.map((g) => (
-              <div class="dir-group"><div class="mono dir-h">{g.group}</div>
-                {g.items.map((it) => <a href={it.href} data-n={it.d}><b>{it.d}</b><span>{it.label}</span><i></i><em>→</em></a>)}
-              </div>))}
-            </div>))}
-        </div>
-      </div>
-    </div>
-    <div class="obj dial-obj">
-      <div class="dial-display mono" id="dialDisplay">línea libre — marca un número</div>
-      <div class="obj-stage"><div class="dial-wrap" id="dial"></div></div>
-      <p class="ficha"><span class="n">fig. 002</span><br><b>Teléfono de disco</b>, 2026.<br>Baquelita, resorte y paciencia.<br>— Colección be like josé</p>
-    </div>
-  </div>
-</section>
+
+<section class="next-cta"><span class="mono">¿y si la próxima historia es la de tu marca?</span><a class="wbtn" href="/contacto">agenda una llamada →</a></section>
 </main>
-<script slot="scripts" is:inline define:vars={{ dir: DIRECTORY.flatMap((g) => g.items) }}>
-  const D = Object.fromEntries(dir.map((it) => [it.d, it]));
-  const CENTER = 'es hora de<br>contar una<br>mejor historia<small>gira y suelta</small>';
-  const display = document.getElementById('dialDisplay');
-  const say = (t) => { display.textContent = t; };
-  const curtain = document.querySelector('.curtain');
-  const phone = buildDial(document.getElementById('dial'), {
-    center: CENTER, centerFill: '#fafafa', holeFill: '#f2f2f0', numFont: "'Instrument Serif', serif",
-    onStart: (d) => { document.querySelectorAll('.book [data-n]').forEach((x) => x.classList.toggle('hit', x.dataset.n == d)); say('marcando ' + d + '…'); },
-    onDial: (d, c) => {
-      const it = D[d];
-      say('ring… ring…'); c.innerHTML = 'conectando<br>con<br>' + it.say + '<small>un momento…</small>';
-      setTimeout(() => say('conectado — ' + it.say), 900);
-      setTimeout(() => { curtain.classList.remove('go'); void curtain.offsetWidth; curtain.classList.add('go'); setTimeout(() => { location.href = it.href; }, 520); }, 1400);
-    },
-  });
-  document.querySelectorAll('.book [data-n]').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); phone.dial(+a.dataset.n); }));
-  window.SCROLL_OFFSET = 0;
-</script>
+
 </Base>

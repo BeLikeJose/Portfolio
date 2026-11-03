@@ -1,0 +1,17 @@
+---
+// Real photo/video when `src` is set; otherwise a grainy placeholder that says what goes here.
+// Put files in /public/media/ and pass src="/media/archivo.mp4" (or .jpg/.png/.webp).
+interface Props { src?: string; label: string; kind?: 'video' | 'foto' | 'screenshot'; scene?: string; seed?: number; tone?: string; class?: string; style?: string; cap?: string }
+const { src, label, kind = 'foto', scene = 'studio', seed = 1, tone, class: cls, style, cap } = Astro.props;
+const isVideo = !!src && /\.(mp4|webm|mov)$/i.test(src);
+---
+<figure class:list={['media', cls]} style={style}>
+  {src ? (
+    <div class="film real">{isVideo ? <video src={src} autoplay muted loop playsinline></video> : <img src={src} alt={label} loading="lazy" />}</div>
+  ) : (
+    <div class="film" data-scene={scene} data-seed={seed} data-tone={tone} data-video={kind === 'video' ? '' : undefined}>
+      <span class="slot-tag mono">{kind === 'video' ? '▶ ' : kind === 'screenshot' ? '▢ ' : '◎ '}aquí va: {label}</span>
+    </div>
+  )}
+  {cap && <figcaption class="mono">{cap}</figcaption>}
+</figure>

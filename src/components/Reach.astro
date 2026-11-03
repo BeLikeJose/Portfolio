@@ -1,0 +1,66 @@
+---
+import { COUNTRIES, NUMBERS, ACCOUNTS, EVENTS } from '../lib/reach.js';
+const rot = [-6, 4, -2, 6];
+---
+<section class="reach" id="alcance">
+  <div class="reach-head">
+    <div class="mono" style="color:#777">hasta dónde ha llegado</div>
+    <h2 class="disp" data-r>Cuatro países, <em>una mirada</em></h2>
+  </div>
+
+  <div class="stamps" data-r>
+    {COUNTRIES.map((c, i) => (
+      <div class="stamp" style={`--r:${rot[i]}deg;--d:${i * 120}ms`}>
+        <span class="st-code">{c.code}</span>
+        <b>{c.name}</b>
+        <span class="mono">{c.city}</span>
+        <i>{c.note}</i>
+      </div>
+    ))}
+  </div>
+
+  <div class="reach-nums" data-r>
+    {NUMBERS.map((n) => (
+      <div><b>{n.value ? <><span data-count={n.value}>0</span>{n.suffix}</> : <span class="ph-num">00</span>}</b><span class="mono">{n.label}</span></div>
+    ))}
+  </div>
+
+  <div class="reach-lists" data-r>
+    <div>
+      <div class="mono rl-h">cuentas</div>
+      {ACCOUNTS.map((a) => <div class="rl-row"><b>{a.name}</b><span>{a.what}</span><em class="mono">{a.metric}</em></div>)}
+    </div>
+    <div>
+      <div class="mono rl-h">eventos</div>
+      {EVENTS.map((e) => <div class="rl-row"><b>{e.name}</b><span>{e.place}</span><em class="mono">{e.year}</em></div>)}
+    </div>
+  </div>
+  <a class="lnk mono" href="/portfolio#metricas">ver métricas y capturas →</a>
+</section>
+
+<style>
+  .reach { padding: 110px 34px; border-top: 1px solid var(--line); }
+  .reach-head { margin-bottom: 40px; }
+  .reach-head h2 { font-size: clamp(60px, 6vw, 96px); margin-top: 14px; }
+  .stamps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 40px; padding: 10px 24px; margin-bottom: 60px; }
+  .stamp { position: relative; aspect-ratio: 1.35; border: 3px double currentColor; border-radius: 14px; padding: 18px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: #2a3a5c; rotate: var(--r); opacity: 0; transform: scale(1.5); transition: opacity .25s var(--d), transform .45s cubic-bezier(.3, 1.6, .5, 1) var(--d); mix-blend-mode: multiply; }
+  .stamp:nth-child(2) { color: #8a2a1e; } .stamp:nth-child(3) { color: #2d5a3a; } .stamp:nth-child(4) { color: #111; }
+  .stamp:before { content: ""; position: absolute; inset: 0; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.3' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); mix-blend-mode: screen; opacity: .55; border-radius: 12px; pointer-events: none; }
+  .reach-head + .stamps.vis .stamp, .stamps.vis .stamp { opacity: .9; transform: none; }
+  .st-code { font: 700 13px 'IBM Plex Mono', monospace; letter-spacing: .3em; border-bottom: 1px solid; padding-bottom: 4px; margin-bottom: 8px; }
+  .stamp b { font: 400 clamp(34px, 3.4vw, 52px) 'Instrument Serif', serif; text-transform: uppercase; line-height: .9; }
+  .stamp .mono { margin-top: 6px; }
+  .stamp i { font-family: 'Instrument Serif', serif; font-size: 17px; margin-top: 4px; }
+  .reach-nums { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); }
+  .reach-nums div { padding: 22px 20px 22px 0; }
+  .reach-nums div + div { border-left: 1px solid var(--line); padding-left: 20px; }
+  .reach-nums b { display: block; font-weight: 600; font-size: clamp(48px, 5vw, 76px); letter-spacing: -.05em; line-height: 1; }
+  .reach-nums .mono { color: #777; }
+  .ph-num { color: #cfcfcb; }
+  .reach-lists { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin: 40px 0 26px; }
+  .rl-h { color: #777; padding-bottom: 8px; border-bottom: 1px solid var(--ink); }
+  .rl-row { display: grid; grid-template-columns: 1fr 1.2fr auto; gap: 14px; padding: 12px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+  .rl-row b { font-weight: 600; text-transform: uppercase; font-size: 15px; }
+  .rl-row span { font-family: 'Instrument Serif', serif; font-size: 19px; color: #444; }
+  .rl-row em { font-style: normal; }
+</style>

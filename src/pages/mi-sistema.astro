@@ -5,9 +5,10 @@ import Toaster from '../components/Toaster.astro';
 import SystemLoop from '../components/SystemLoop.astro';
 import EditorialCalendar from '../components/EditorialCalendar.astro';
 import Roadmap from '../components/Roadmap.astro';
+import Media from '../components/Media.astro';
 const CH = [
   ['01', 'Los cuatro ejes', '#ejes'], ['02', 'Cómo se integran', '#integracion'], ['03', 'El proceso por dentro', '#proceso'],
-  ['04', 'Calendarios y roadmaps', '#por-dentro'], ['05', 'Lo que pasa sin sistema', '#sin-sistema'], ['06', 'Trabajar conmigo', '#contigo'],
+  ['04', 'Calendarios y roadmaps', '#por-dentro'], ['05', 'La mesa de trabajo', '#mesa'], ['06', 'Lo que pasa sin sistema', '#sin-sistema'], ['07', 'Trabajar conmigo', '#contigo'],
 ];
 const STEPS = [
   { n: '01', t: 'Llamada', d: '30 min', p: 'Me cuentas qué haces y qué te frena. Te digo con honestidad si puedo ayudarte.', g: 'una conversación, sin formularios' },
@@ -23,7 +24,7 @@ const WEEK = [['lun', 'Lectura de métricas', 'qué funcionó y por qué'], ['ma
 <main class="page sys">
 
 <section class="sys-hero">
-  <div class="mono" style="color:#777">02 — mi sistema</div>
+  <div class="mono" style="color:#777">03 — mi sistema</div>
   <h1 class="disp" data-r>Mi <em>sistema</em></h1>
   <div class="sys-hero-row">
     <p class="sys-lead" data-r>Cuatro roles que casi nunca trabajan juntos, integrados en uno solo. Esta página es la cocina: cómo pienso, cómo trabajamos y cómo se ve tu negocio por dentro mientras lo construimos.</p>
@@ -71,10 +72,26 @@ const WEEK = [['lun', 'Lectura de métricas', 'qué funcionó y por qué'], ['ma
   </div>
 </section>
 
+<section class="sys-sec" id="mesa">
+  <div class="sys-head"><div class="mono">capítulo 05 — la mesa de trabajo</div><h2 class="disp" data-r>Lo que el cliente <em>ve por dentro</em></h2><p data-r>El Notion donde vive cada proyecto, las tarjetas terminadas, lo que se decide en las reuniones y los rodajes. Sin maquillaje.</p></div>
+  <div class="mesa" data-r>
+    <div class="m-notion"><Media label="video del Notion del cliente (recorrido)" kind="video" scene="hands" seed="31" cap="el tablero del proyecto — Notion" /></div>
+    <div class="m-cards">
+      <span class="mono">tarjetas terminadas</span>
+      <div class="cards-row">{[1, 2, 3].map((i) => <Media label={`tarjeta ${i} del calendario`} kind="screenshot" scene={['window', 'sofa', 'flash'][i - 1]} seed={i + 40} cap={['guion aprobado', 'pieza editada', 'publicada ✓'][i - 1]} />)}</div>
+    </div>
+    <div class="m-meets"><div class="m-meet"><Media label="highlight de reunión con cliente" kind="video" scene="lamp" seed="44" cap="reunión de dirección — 2 min" /></div>
+    <div class="m-meet"><Media label="highlight de sesión de estrategia" kind="video" scene="studio" seed="45" tone="bw" cap="pizarra y decisiones" /></div></div>
+    <div class="m-shoots"><span class="mono">fotos de rodaje</span>
+      <div class="shoots">{['street', 'park', 'bokeh', 'flash', 'sky'].map((sc, i) => <Media label={`foto de rodaje ${i + 1}`} scene={sc} seed={60 + i} />)}</div>
+    </div>
+  </div>
+</section>
+
 <section class="sys-sec" id="sin-sistema">
   <div class="sin">
     <div>
-      <div class="mono" style="color:#777">capítulo 05 — lo que pasa sin sistema</div>
+      <div class="mono" style="color:#777">capítulo 06 — lo que pasa sin sistema</div>
       <h2 class="disp" data-r>Más horas no es <em>más dirección</em></h2>
       <p class="sys-p" data-r>La mayoría de creadores y negocios que llegan conmigo no tienen un problema de talento ni de ganas. Tienen un problema de sistema: hacen todo, todo el tiempo, y cada pieza sale distinta. Prueba el tostador: elige cuánto trabajar y mira qué sale.</p>
     </div>
@@ -83,11 +100,11 @@ const WEEK = [['lun', 'Lectura de métricas', 'qué funcionó y por qué'], ['ma
 </section>
 
 <section class="sys-sec" id="contigo">
-  <div class="sys-head"><div class="mono">capítulo 06 — trabajar conmigo</div><h2 class="disp" data-r>Dos formas de <em>hacerlo</em></h2></div>
+  <div class="sys-head"><div class="mono">capítulo 07 — trabajar conmigo</div><h2 class="disp" data-r>Dos formas de <em>hacerlo</em></h2></div>
   <div class="modes" data-r>
     <article><span class="mono">modalidad 01</span><h3>Consultoría 1:1</h3><p>Te doy la dirección y tú ejecutas con tu equipo.</p><ul><li>Diagnóstico de los cuatro ejes</li><li>Roadmap de 90 días</li><li>Calendario editorial y pilares</li><li>Sesiones de seguimiento</li></ul></article>
     <article class="mode-b"><span class="mono">modalidad 02</span><h3>Dirección con producción</h3><p>Dirijo y produzco contigo: de la estrategia al video publicado.</p><ul><li>Todo lo de la consultoría</li><li>Rodaje y edición</li><li>Campaña de lanzamiento</li><li>Lectura de métricas y ajuste</li></ul></article>
-    <aside><span class="mono">lo que te pido</span><p>Tiempo para la inmersión, decisiones a tiempo y ganas de ser cara dura. El resto lo construimos juntos.</p><a class="wbtn" href="/contacto#agenda">agenda la primera llamada →</a></aside>
+    <aside><span class="mono">lo que te pido</span><p>Tiempo para la inmersión, decisiones a tiempo y ganas de ser cara dura. El resto lo construimos juntos.</p><a class="wbtn" href="/contacto">agenda la primera llamada →</a></aside>
   </div>
 </section>
 </main>

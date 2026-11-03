@@ -22,14 +22,13 @@ const on = (href: string) => (href === '/' ? path === '/' : path.startsWith(href
     <nav>
       <div class="l">
         <button class="burger" id="menuOpen" aria-label="abrir menú" aria-expanded="false"><span></span></button>
-        <a href="/" class:list={{ on: on('/') }}>Inicio</a>
-        <a href="/mi-sistema" class:list={{ on: on('/mi-sistema') }}>Mi sistema</a>
+        <a href="/" class:list={{ on: on('/') }}>Mi historia</a>
+        <a href="/portfolio" class:list={{ on: on('/portfolio') }}>Portfolio</a>
       </div>
       <a class="logo" href="/">Be like José</a>
       <div class="r">
-        <a href="/portfolio" class:list={{ on: on('/portfolio') }}>Portfolio</a>
-        <a href="/contacto" class:list={{ on: on('/contacto') }}>Contacto</a>
-        <a href="/contacto#agenda" class="agenda">Agenda →</a>
+        <a href="/mi-sistema" class:list={{ on: on('/mi-sistema') }}>Mi sistema</a>
+        <a href="/contacto" class:list={{ agenda: true, on: on('/contacto') }}>Agenda una llamada →</a>
       </div>
     </nav>
 
@@ -41,7 +40,7 @@ const on = (href: string) => (href === '/' ? path === '/' : path.startsWith(href
       <div class="menu-foot mono">
         <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
         <a href={CONTACT.instagram} target="_blank" rel="noopener">{CONTACT.instagramHandle}</a>
-        <a href="/contacto#agenda">agenda una llamada →</a>
+        
       </div>
     </div>
 
@@ -52,7 +51,7 @@ const on = (href: string) => (href === '/' ? path === '/' : path.startsWith(href
         <div class="sf-top">
           <a class="sf-logo" href="/">Be like <em>José</em></a>
           <ul>{PAGES.map((p) => <li><a href={p.href}>{p.label}</a></li>)}</ul>
-          <ul><li><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></li><li><a href={CONTACT.instagram} target="_blank" rel="noopener">Instagram</a></li><li><a href="/contacto#agenda">Agenda</a></li></ul>
+          <ul><li><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></li><li><a href={CONTACT.instagram} target="_blank" rel="noopener">Instagram</a></li></ul>
         </div>
         <div class="sf-bot mono"><span>be like josé © 2026</span><span>crear es un acto colectivo</span><span>hecho a mano en Bogotá</span></div>
       </footer>
