@@ -603,7 +603,7 @@ footer{display:flex;justify-content:space-between;margin-top:90px;opacity:.65}
 .suena b{display:block;font-weight:600;font-size:15px;text-transform:uppercase;margin:6px 0 8px}
 .suena ul{list-style:none;columns:2;column-gap:24px}
 .suena li{font-family:'Instrument Serif',serif;font-size:19px;line-height:1.2;padding:7px 0;border-bottom:1px solid var(--line);break-inside:avoid}
-.qh-sub{font-family:'Instrument Serif',serif;font-size:24px;line-height:1.15;color:var(--ink)}
+.qh-sub{font-size:17px;line-height:1.6;color:#333;max-width:520px}
 .qh .roles i{font-size:16px}
 .hist-head{padding:110px 9% 0}
 .hist-head h2{font-size:clamp(54px,6.4vw,104px);margin-top:14px;max-width:1100px}
