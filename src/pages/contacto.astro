@@ -5,16 +5,16 @@ import { CONTACT } from '../lib/site.js';
 import { PUBLIC_BOOKING_URL } from 'astro:env/client';
 const mail = `mailto:${CONTACT.email}?subject=${encodeURIComponent('Quiero agendar una llamada')}`;
 ---
-<Base title="Charlemos 30 minutos — Be like José" description="Una charla de 30 minutos, sin compromiso, para destrabar ideas y ver qué está frenando tu marca. Por Google Meet.">
+<Base title="Charlemos — Be like José" description="30 minutos para charlar, destrabar ideas y conocernos. Sin compromiso de compra.">
 <main class="page">
 <section class="contact" id="contacto">
   <div class="film" data-scene="street" data-seed="44" data-video></div>
   <div class="mono" style="opacity:.7;margin-bottom:24px">agenda</div>
-  <h2 class="disp" data-r>¿y si lo hablamos?</h2>
-  <p class="contact-promise" data-r>Treinta minutos para charlar, sin compromiso. Me cuentas en qué estás, destrabamos ideas y te vas con claridad sobre qué te está frenando.</p>
+  <h2 class="disp" data-r>¿y si charlamos?</h2>
+  <p class="contact-promise" data-r>Me gusta charlar y conectar con personas que están creciendo. Trae tus preguntas y te ayudo sin líos. Y si después quieres que trabajemos juntos, lo hablamos.</p>
   <div class="contact-cta" data-r>
     <a class="hbtn" href="#agenda">Elegir horario ↓</a>
-    <span class="mono">no es una llamada de ventas</span>
+    <span class="mono">30 min · gratis · sin compromiso</span>
   </div>
 </section>
 
@@ -24,14 +24,15 @@ const mail = `mailto:${CONTACT.email}?subject=${encodeURIComponent('Quiero agend
     <p class="charla-who"><span class="mono">ideal si</span>Tienes una marca, quieres destrabar ideas, ya creas contenido o quieres empezar a crear.</p>
   </div>
   <ol class="after-steps" data-r>
-    <li><span>01</span><b>Me cuentas</b><i>En qué estás, qué te gustaría lograr y qué no te deja avanzar. No necesitas tener nada listo.</i></li>
-    <li><span>02</span><b>Destrabamos</b><i>Ordenamos tus ideas juntos y te digo con claridad qué te está frenando.</i></li>
-    <li><span>03</span><b>Te llevas claridad</b><i>Sin compromiso de comprar. Si después quieres que trabajemos juntos, lo vemos; si no, la charla ya valió la pena.</i></li>
+    <li><span>01</span><b>Agendas</b><i>Te llega el link, entras a la llamada y listo. Nada más.</i></li>
+    <li><span>02</span><b>Charlamos</b><i>Tú cuentas, yo pregunto; tú preguntas, yo respondo. Sin presentación ni pitch: ideas sobre la mesa.</i></li>
+    <li><span>03</span><b>Sales con claridad</b><i>Con una o dos ideas para aplicar desde mañana. Si ambos vemos que tiene sentido trabajar juntos, lo hablamos ahí o después, sin afán. Si no, también valió la charla.</i></li>
   </ol>
+  <p class="charla-quote" data-r>Hoy puede que no me compres. En seis meses, con tu negocio más claro, quizá sí. Todos estamos aquí para crecer y, si nos ayudamos, nos potenciamos.</p>
 </section>
 
 <section class="agenda" id="agenda">
-  <div class="agenda-head"><div class="mono" style="color:#777">agenda</div><h2 class="disp" data-r>Elige <em>día y hora</em></h2><p>Trae tu café o un matecito. Nos vemos por Google Meet.</p></div>
+  <div class="agenda-head"><div class="mono" style="color:#777">agenda</div><h2 class="disp" data-r>Elige <em>día y hora</em></h2><p>Trae una idea trabada, una duda sobre tu marca o simplemente ganas de charlar. Pregúntame lo que quieras, que lo disfruto. Destrabamos lo que se pueda y sales con más claridad. No tienes que comprarme nada. Por Google Meet.</p></div>
   <Booking url={PUBLIC_BOOKING_URL} length="Charla de 30 minutos" />
 
   <div class="code-box" id="codeBox">

@@ -9,5 +9,5 @@ export const PAGES = [
   { n: '01', href: '/', label: 'Inicio', sub: 'qué hago y para quién' },
   { n: '02', href: '/portfolio', label: 'Obra', sub: 'estrategia, cámara y edición' },
   { n: '03', href: '/mi-sistema', label: 'Mi sistema', sub: 'cuatro sistemas, desde adentro' },
-  { n: '04', href: '/contacto', label: 'Charlemos', sub: 'un café de 30 minutos, sin compromiso' },
+  { n: '04', href: '/contacto', label: 'Charlemos', sub: '30 min, te ayudo a destrabar ideas o aclarar tus dudas' },
 ];
