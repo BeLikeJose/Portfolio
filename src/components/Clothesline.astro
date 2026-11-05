@@ -2,16 +2,16 @@
 // Clothesline of the three degrees: one real clip (Higgsfield / Kling) paused between drops.
 // Each click plays the next segment: one egg falls with its label.
 const M = '/media/tendedero';
-const TAGS = ['Ingeniería de sistemas', 'Matemáticas', 'Marketing y publicidad'];
+const TAGS = ['Matemáticas', 'Música', 'Ingeniería'];
 ---
 <div class="cl" id="cl" role="button" tabindex="0" aria-label="tendedero: haz clic para dejar caer cada carrera">
   <div class="cl-stage">
     <video id="clVid" src={`${M}/tendedero.mp4`} poster={`${M}/poster.jpg`} playsinline preload="auto"></video>
     {TAGS.map((t, i) => <span class="cl-tag" data-i={i} style={`--x:${[25, 50.3, 75.8][i]}%;--r:${[-5, 3, -2][i]}deg`}>{t}</span>)}
-    <span class="cl-bog">Bogotá<i>con una maleta llena de sueños</i></span>
+    <span class="cl-bog">Santa Marta<i>sin amigos, sin casa, sin familia</i></span>
   </div>
   <div class="cl-foot">
-    <div class="obj-card cl-card" id="clCard"><b>Haz clic.</b><i>tres carreras, una por una.</i></div>
+    <div class="obj-card cl-card" id="clCard"><b>Haz clic.</b><i>matemáticas, música, ingeniería.</i></div>
     <button class="obj-reset cl-reset" id="clReset" hidden>↺ volver a empezar</button>
   </div>
 </div>
@@ -50,7 +50,7 @@ const TAGS = ['Ingeniería de sistemas', 'Matemáticas', 'Marketing y publicidad
   const START = 16 / 24;                     // just before the first clothespin opens
   const STOPS = [55 / 24, 86 / 24, Infinity]; // end of each drop
   const TAG_DELAY = [300, 180, 260];          // ms after click until the egg leaves the pin
-  const LINES = ['<b>Ingeniería de sistemas.</b><i>la primera.</i>', '<b>Matemáticas.</b><i>la segunda.</i>', '<b>Marketing y publicidad.</b><i>la tercera, y la última.</i>'];
+  const LINES = ['<b>Matemáticas.</b><i>porque la ingeniería no se podía pagar.</i>', '<b>Música.</b><i>tres horas caminando al día.</i>', '<b>Ingeniería.</b><i>ninguna me alcanzaba sola.</i>'];
   let step = 0, playing = false;
 
   const setCard = (h: string) => { card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap'); setTimeout(() => (card.innerHTML = h), 180); };
@@ -80,6 +80,6 @@ const TAGS = ['Ingeniería de sistemas', 'Matemáticas', 'Marketing y publicidad
     vid.pause(); playing = false; step = 0; prime();
     tags.forEach((t) => t.classList.remove('gone'));
     root.classList.remove('done'); reset.hidden = true;
-    setCard('<b>Haz clic.</b><i>tres carreras, una por una.</i>');
+    setCard('<b>Haz clic.</b><i>matemáticas, música, ingeniería.</i>');
   });
 </script>
