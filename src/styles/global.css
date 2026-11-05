@@ -667,3 +667,5 @@ footer{display:flex;justify-content:space-between;margin-top:90px;opacity:.65}
 .charla-who .mono{display:block;color:#777;margin-bottom:8px;font-family:'IBM Plex Mono'}
 .charla .after-steps{margin-top:30px}
 @media (max-width:900px){.charla{padding:60px 20px 10px}.charla-head{grid-template-columns:1fr}}
+.hero-note{margin-top:14px;color:#777}
+.final-sub{font-size:18px;line-height:1.55;color:#333;max-width:560px;margin-top:18px}
