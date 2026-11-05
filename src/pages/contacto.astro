@@ -10,18 +10,18 @@ const mail = `mailto:${CONTACT.email}?subject=${encodeURIComponent('Quiero agend
 <main class="page">
 <section class="contact" id="contacto">
   <div class="film" data-scene="street" data-seed="44" data-video></div>
-  <div class="mono" style="opacity:.7;margin-bottom:24px">agenda 30 minutos</div>
+  <div class="mono" style="opacity:.7;margin-bottom:24px">agenda</div>
   <h2 class="disp just" data-r>¿y si lo hablamos?</h2>
-  <p class="contact-promise" data-r>30 minutos para encontrar en qué eje está el nudo de tu marca. Si no puedo ayudarte, te lo digo y te recomiendo a quién.</p>
+  <p class="contact-promise" data-r>Treinta minutos, sin formularios eternos.</p>
   <div class="cgrid">
     <div><h6>escribe</h6><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></div>
     <div><h6>mira</h6><a href={CONTACT.instagram} target="_blank" rel="noopener">{CONTACT.instagramHandle}</a></div>
-    <div><h6>agenda</h6><a class="hbtn" href="#agenda">Agenda 30 minutos ↓</a></div>
+    <div><h6>agenda</h6><a class="hbtn" href="#agenda">Elegir horario ↓</a></div>
   </div>
 </section>
 
 <section class="agenda" id="agenda">
-  <div class="agenda-head"><div class="mono" style="color:#777">agenda</div><h2 class="disp" data-r>Elige <em>día y hora</em></h2><p>Treinta minutos para conocer tu marca, ver en qué eje está el nudo y decirte con honestidad si puedo ayudarte. La reunión es por Google Meet.</p><p class="agenda-who"><span class="mono">ideal si</span>Tienes una marca personal, una empresa o eres creador y ya estás publicando.</p></div>
+  <div class="agenda-head"><div class="mono" style="color:#777">agenda</div><h2 class="disp" data-r>Elige <em>día y hora</em></h2><p>Charlamos un rato, con café o un matecito, para destrabar ideas. Nos vemos por Google Meet.</p><p class="agenda-who"><span class="mono">ideal si</span>Tienes una marca personal, una empresa o eres creador y ya estás publicando.</p></div>
   <Booking url={PUBLIC_BOOKING_URL} length="Llamada de 30 minutos" />
 
   <div class="code-box" id="codeBox">
@@ -35,11 +35,11 @@ const mail = `mailto:${CONTACT.email}?subject=${encodeURIComponent('Quiero agend
   </div>
 </section>
 <section class="after">
-  <div class="mono" style="color:#777">después de agendar</div>
+  <div class="mono" style="color:#777">qué pasa después</div>
   <ol class="after-steps" data-r>
-    <li><span>01</span><b>Te llega la confirmación</b><i>con el link de Google Meet y dos preguntas para llegar preparados: ¿qué vendes y a quién?, y ¿qué te gustaría que cambiara en 90 días?</i></li>
-    <li><span>02</span><b>Hablamos 30 minutos</b><i>de tu marca, tus metas y en qué eje está el nudo.</i></li>
-    <li><span>03</span><b>Recibes tu propuesta</b><i>en un link privado, con diagnóstico, concepto e inversión.</i></li>
+    <li><span>01</span><b>Confirmas</b><i>Te llega el link para nuestra reunión.</i></li>
+    <li><span>02</span><b>Hablamos</b><i>Revisamos lo que tienes, lo que te frena y lo que falta. Empecemos a trabajar o no, sales con claridad.</i></li>
+    <li><span>03</span><b>Definimos</b><i>Si hay encaje, elegimos la modalidad, el alcance y el tiempo en la misma llamada. Si prefieres verlo por escrito, la propuesta te llega al día siguiente.</i></li>
   </ol>
   <a class="lnk mono" href="/mi-sistema#proceso">ver el proceso completo →</a>
 </section>

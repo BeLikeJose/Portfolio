@@ -10,19 +10,19 @@ import LeadMagnet from '../components/LeadMagnet.astro';
 import Faq from '../components/Faq.astro';
 const CH = [
   ['01', 'Los cuatro ejes', '#ejes'], ['02', 'Cómo se integran', '#integracion'], ['03', 'El proceso por dentro', '#proceso'],
-  ['04', 'Calendarios y roadmaps', '#por-dentro'], ['05', 'Lo que pasa sin sistema', '#sin-sistema'], ['06', 'Trabajar conmigo', '#contigo'], ['07', 'Preguntas frecuentes', '#preguntas'],
+  ['04', 'Calendarios y roadmaps', '#por-dentro'], ['05', 'Lo que pasa sin sistema', '#sin-sistema'], ['06', 'Formas de trabajar', '#contigo'], ['07', 'Preguntas frecuentes', '#preguntas'],
 ];
 const STEPS = [
-  { n: '01', t: 'Llamada', d: '30 min', p: 'Me cuentas qué haces y qué te frena. Te digo con honestidad si puedo ayudarte.', g: 'una conversación, sin formularios' },
+  { n: '01', t: 'Llamada', d: 'día 1', p: 'Revisamos lo que tienes, lo que te frena y lo que falta. Si hay encaje, definimos modalidad y alcance.', g: 'claridad, trabajemos o no' },
   { n: '02', t: 'Inmersión', d: 'semana 1', p: 'Entro a tu negocio: cuentas, clientes, procesos, lo que dices y lo que vendes.', g: 'diagnóstico por eje' },
-  { n: '03', t: 'Propuesta', d: 'semana 1', p: 'Te llega un link privado con el diagnóstico, el concepto, los entregables y la inversión.', g: 'propuesta en un link único' },
-  { n: '04', t: 'Roadmap', d: 'semana 2', p: 'Ordenamos los 90 días: metas, oferta, pilares y calendario. Todo en papel antes de grabar.', g: 'roadmap y calendario' },
-  { n: '05', t: 'Producción', d: 'semanas 3 – 10', p: 'Rodaje, edición y publicación. Tú apruebas, yo dirijo. Cada semana sabes en qué vamos.', g: 'piezas listas y publicadas' },
-  { n: '06', t: 'Lectura', d: 'semanas 11 – 12', p: 'Leemos los números de verdad, ajustamos y dejamos listos los próximos 90 días.', g: 'reporte y siguiente ciclo' },
+  { n: '03', t: 'Dirección', d: 'semana 1', p: 'Diseño la dirección creativa, la oferta y la estructura: los cuatro sistemas, listos para ejecutar.', g: 'la dirección por escrito' },
+  { n: '04', t: 'Roadmap', d: 'semana 2', p: 'Ordenamos el roadmap de 90 días: metas, oferta, pilares y calendario. Todo en papel antes de grabar.', g: 'roadmap y calendario' },
+  { n: '05', t: 'Ejecución', d: 'semanas 3 – 10', p: 'Si sumas ejecución, la dirijo y la coordino, con mi equipo creativo o con el tuyo. Cada semana sabes en qué vamos.', g: 'piezas listas y publicadas' },
+  { n: '06', t: 'Lectura', d: 'semanas 11 – 12', p: 'Leemos los números de verdad, ajustamos y decidimos juntos cómo seguimos.', g: 'reporte y siguiente paso' },
 ];
 const WEEK = [['lun', 'Lectura de métricas', 'qué funcionó y por qué'], ['mar', 'Guiones', 'conceptos y ganchos de la semana'], ['mié', 'Rodaje', 'una jornada, varias piezas'], ['jue', 'Edición', 'ritmo, motion y subtítulos'], ['vie', 'Entrega', 'revisión, aprobación y programación']];
 ---
-<Base title="Cómo trabajo — Be like José" description="Cuatro ejes, 12 semanas y un roadmap de 90 días. Así se vive por dentro trabajar conmigo.">
+<Base title="Cómo trabajo — Be like José" description="Cuatro ejes, un primer ciclo de 90 días y después Plan mensual. Así se vive por dentro trabajar conmigo.">
 <main class="page sys">
 
 <section class="sys-hero">
@@ -58,7 +58,7 @@ const WEEK = [['lun', 'Lectura de métricas', 'qué funcionó y por qué'], ['ma
 
 <section class="sys-sec dark" id="proceso">
   <div class="film" data-scene="lamp" data-seed="22" data-video></div>
-  <div class="sys-head"><div class="mono">capítulo 03 — el proceso por dentro</div><h2 class="disp" data-r>Así se vive <em>desde adentro</em></h2><p data-r>12 semanas, de la llamada al siguiente ciclo. Siempre sabes en qué vamos y qué viene.</p></div>
+  <div class="sys-head"><div class="mono">capítulo 03 — el proceso por dentro</div><h2 class="disp" data-r>Así se vive <em>desde adentro</em></h2><p data-r>El primer ciclo: 12 semanas, de la llamada a decidir juntos cómo seguimos. Siempre sabes en qué vamos y qué viene.</p></div>
   <ol class="steps" data-r>{STEPS.map((s) => <li><span class="sn">{s.n}</span><span class="mono sd">{s.d}</span><h3>{s.t}</h3><p>{s.p}</p><span class="mono sg">recibes → {s.g}</span></li>)}</ol>
   <div class="week" data-r>
     <div class="mono" style="opacity:.6">una semana tipo en producción</div>
@@ -104,13 +104,37 @@ const WEEK = [['lun', 'Lectura de métricas', 'qué funcionó y por qué'], ['ma
 </section>
 
 <section class="sys-sec" id="contigo">
-  <div class="sys-head"><div class="mono">capítulo 06 — trabajar conmigo</div><h2 class="disp" data-r>Dos formas de <em>hacerlo</em></h2></div>
-  <div class="modes" data-r>
-    <article><span class="mono">modalidad 01 · 90 días</span><h3>Consultoría 1:1</h3><p class="for">Para ti si tienes equipo o editas tú, y te falta la dirección.</p><p>Te doy la dirección y tú ejecutas con tu equipo.</p><ul><li>Diagnóstico de los cuatro ejes</li><li>Roadmap de 90 días</li><li>Calendario editorial y pilares</li><li>Sesiones de seguimiento</li></ul></article>
-    <article class="mode-b"><span class="mono">modalidad 02 · 90 días</span><h3>Dirección con producción</h3><p class="for">Para ti si quieres que la estrategia llegue hasta el video publicado, sin coordinar a cinco proveedores.</p><p>Dirijo y produzco contigo: de la estrategia al video publicado.</p><ul><li>Todo lo de la consultoría</li><li>Rodaje y edición</li><li>Campaña de lanzamiento</li><li>Lectura de métricas y ajuste</li></ul></article>
-    <aside><span class="mono">lo que te pido</span><p>Tiempo para la inmersión, decisiones a tiempo y ganas de ser cara dura. El resto lo construimos juntos.</p><a class="wbtn" href="/contacto#agenda">Agenda 30 minutos →</a></aside>
+  <div class="sys-head"><div class="mono">capítulo 06 — formas de trabajar</div><h2 class="disp" data-r>Elige por dónde <em>empezamos</em></h2><p data-r>Un servicio principal, una extensión para llevarlo a la práctica y dos formas de resolver una sola pieza.</p></div>
+
+  <div class="svc-main" data-r>
+    <article class="svc-hero"><span class="mono">01 · el servicio principal</span><h3>Dirección y estrategia creativa</h3>
+      <p>Diseño la dirección creativa, la oferta y la estructura de negocio de tu marca: los cuatro sistemas, listos para ejecutar.</p>
+      <p class="for">Para ti si necesitas saber qué decir, qué vender y hacia dónde ir.</p>
+      <span class="mono svc-note">no incluye ejecución</span></article>
+    <article class="svc-plus"><span class="mono">+ ejecución · se suma a la dirección</span><h3>Ejecución</h3>
+      <p>Dirijo y coordino la ejecución de la estrategia, con mi equipo creativo o con el tuyo.</p>
+      <p class="for">Para ti si no quieres coordinar proveedores que no se hablan.</p></article>
   </div>
-  <p class="modes-note"><span class="mono">inversión</span>La inversión depende del alcance. Te la envío en la propuesta, en un link privado, después de la llamada.</p>
+
+  <div class="svc-time" data-r>
+    <div><span class="mono">el tiempo</span><p class="svc-time-h">Los primeros 90 días son para construir. Lo que venga después, lo decidimos juntos.</p></div>
+    <div><b>Primer ciclo · 90 días</b><p>Dirección (y ejecución, si la sumas) con roadmap, calendario y lectura de números al cierre.</p></div>
+    <div><b>Plan mensual</b><p>Si ambos estamos felices, seguimos mes a mes con tarifa fija: dirección y ejecución recurrentes, con lectura de números y ajuste del roadmap cada trimestre.</p></div>
+  </div>
+
+  <div class="svc-pieces" data-r>
+    <span class="mono">¿solo necesitas una pieza?</span>
+    <div class="svc-row">
+      <article><span class="mono">02 · sesión individual o paquete</span><h3>Consultorías</h3><p>Destrabamos lo que te frena: oferta, marca, contenido, números. Tú ejecutas.</p><p class="for">Para ti si ya sabes hacer, pero algo te frena.</p></article>
+      <article><span class="mono">03 · filmmaking y edición</span><h3>Producción audiovisual</h3><p>Filmmaking de eventos y edición de contenido, sin estrategia incluida.</p><p class="for">Para ti si ya sabes qué comunicar y necesitas quien lo grabe y lo edite bien.</p></article>
+    </div>
+  </div>
+
+  <div class="svc-foot" data-r>
+    <p><span class="mono">inversión</span>Dirección y ejecución arrancan con un primer ciclo de 90 días y siguen con Plan mensual. Consultorías y producción se cotizan por proyecto. La inversión la vemos en la llamada.</p>
+    <p><span class="mono">lo que te pido</span>Tiempo para la inmersión, decisiones a tiempo y ganas de ser cara dura.</p>
+    <a class="wbtn" href="/contacto#agenda">Agenda 30 minutos →</a>
+  </div>
 </section>
 <section class="sys-sec" id="preguntas">
   <div class="sys-head"><div class="mono">capítulo 07 — preguntas frecuentes</div><h2 class="disp" data-r>Antes de <em>la llamada</em></h2><p data-r>Lo que casi todos preguntan. Si tu duda no está aquí, la resolvemos en los 30 minutos.</p></div>
