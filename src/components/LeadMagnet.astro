@@ -1,0 +1,45 @@
+---
+// "¿Todavía no es momento?" — exit for people who are not ready to book.
+// TEMPORARY: there is no PDF or email list yet, so the form opens an email to José
+// with the person's address. Swap the submit handler for a real list (Supabase/Brevo/Kit) later.
+import { CONTACT } from '../lib/site.js';
+interface Props { dark?: boolean }
+const { dark = false } = Astro.props;
+---
+<div class:list={['lead', { dark }]} id="cuatro-cosas">
+  <div class="lead-txt">
+    <span class="mono">¿todavía no es momento?</span>
+    <h3>Las cuatro cosas que toda marca <em>debe tener</em></h3>
+    <p>Alma, diferencial, experiencia e historia. Un PDF corto para revisar la tuya hoy.</p>
+  </div>
+  <form class="lead-f" data-mail={CONTACT.email}>
+    <input type="email" name="email" required placeholder="tu@correo.com" aria-label="tu correo" autocomplete="email" />
+    <button class="wbtn" type="submit">Descarga las cuatro cosas →</button>
+    <span class="mono lead-msg" role="status"></span>
+  </form>
+</div>
+
+<style>
+  .lead { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 50px; align-items: end; border-top: 1px solid var(--ink); padding-top: 26px; }
+  .lead .mono { color: #777; }
+  .lead h3 { font: 400 clamp(34px, 3.6vw, 52px) 'Instrument Serif', serif; line-height: 1; margin: 10px 0; }
+  .lead p { font-size: 15px; line-height: 1.5; color: #444; max-width: 420px; }
+  .lead-f { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .lead-f input { flex: 1; min-width: 200px; background: none; border: 0; border-bottom: 1px solid currentColor; font: 400 17px 'Inter Tight', sans-serif; padding: 10px 0; outline: 0; color: inherit; }
+  .lead-f .wbtn { margin: 0; }
+  .lead-msg { flex-basis: 100%; min-height: 15px; }
+  .lead.dark { color: #fafafa; border-color: rgba(250, 250, 250, .35); }
+  .lead.dark .mono, .lead.dark p { color: rgba(250, 250, 250, .7); }
+  .lead.dark .wbtn { background: #fafafa; color: var(--ink); }
+  @media (max-width: 900px) { .lead { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('.lead-f').forEach((f) => f.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = (f.elements.namedItem('email') as HTMLInputElement).value;
+    const body = encodeURIComponent(`Hola José, quiero el PDF de las cuatro cosas que toda marca debe tener.\nMi correo: ${email}`);
+    location.href = `mailto:${f.dataset.mail}?subject=${encodeURIComponent('Quiero las cuatro cosas')}&body=${body}`;
+    f.querySelector('.lead-msg')!.textContent = 'se abrió tu correo: envíalo y te llega el pdf.';
+  }));
+</script>

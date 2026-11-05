@@ -8,9 +8,9 @@ const N = [
 ];
 const LINKS = [
   'La mirada define qué vendes y cómo se siente comprarlo.',
-  'La oferta pone números: a dónde vamos y cuánto cuesta llegar.',
-  'La meta ordena el calendario: qué se publica, cuándo y para qué.',
-  'Lo que la gente responde afina la mirada. Y el ciclo vuelve a empezar.',
+  'La oferta define a qué metas puedes apuntar.',
+  'Las metas deciden qué publicar y cuánto.',
+  'El contenido devuelve datos que afinan la mirada.',
 ];
 const arc = (a: typeof N[0], b: typeof N[0]) => { const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2; const cx = mx + (mx - 300) * .55, cy = my + (my - 300) * .55; return `M${a.x + (b.x - a.x) * .2} ${a.y + (b.y - a.y) * .2} Q${cx} ${cy} ${a.x + (b.x - a.x) * .8} ${a.y + (b.y - a.y) * .8}`; };
 ---

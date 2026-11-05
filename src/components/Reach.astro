@@ -5,7 +5,7 @@ const rot = [-6, 4, -2, 6];
 <section class="reach" id="alcance">
   <div class="reach-head">
     <div class="mono" style="color:#777">04 — hasta dónde ha llegado</div>
-    <h2 class="disp" data-r>Desde Bogotá, <em>a cuatro países</em></h2>
+    <h2 class="disp" data-r>Cuatro países, <em>una misma esencia</em></h2>
   </div>
 
   <div class="stamps" data-r>
@@ -20,10 +20,10 @@ const rot = [-6, 4, -2, 6];
   </div>
 
   <div class="reached" data-r>
-    <span class="mono">mis contenidos han llegado a perfiles como</span>
-    <p>{REACHED.map((r, i) => <><b>{r.name}</b>{i < REACHED.length - 1 ? <span class="sep"> · </span> : null}</>)}<span class="etc"> y otros más.</span></p>
+    <span class="mono">reconocimientos</span>
+    <p>Mi trabajo ha sido reconocido por entidades y eventos como <em>{REACHED.map((r, i) => <>{r.name}{i < REACHED.length - 2 ? ', ' : i === REACHED.length - 2 ? ' y ' : ''}</>)}</em>.</p>
   </div>
-  <a class="lnk mono" href="/portfolio#metricas">ver lo que consigo para marcas →</a>
+  <a class="lnk mono" href="/portfolio#metricas">ver lo que consigo para las marcas →</a>
 </section>
 
 <style>

@@ -4,31 +4,66 @@ import Trap from '../components/Trap.astro';
 import Clothesline from '../components/Clothesline.astro';
 import Media from '../components/Media.astro';
 import Reach from '../components/Reach.astro';
+import LeadMagnet from '../components/LeadMagnet.astro';
 ---
-<Base>
+<Base title="Be like José — estratega creativo, filmmaker y editor" description="Le doy dirección a lo que creas: dirección creativa, oferta, proyección y contenido en un solo sistema, del concepto al video publicado.">
 <main>
 <section class="hero" id="inicio">
   <div class="hero-meta">
-    <div><b>be like josé</b><p>director creativo · filmmaker · editor</p></div>
+    <div><b>be like josé</b><p>estratega creativo · Colombia</p></div>
   </div>
   <div class="hero-l">
-    <h1 class="giant"><span class="m"><span>josé.</span></span></h1>
-    <p class="hero-line" data-r>Director creativo, filmmaker y editor. Integro cuatro roles que casi nunca trabajan juntos: <b>dirección creativa, operaciones y oferta de valor, proyección empresarial y creación de contenidos.</b></p>
-    <a class="lnk mono hero-more" href="#de-donde">conoce mi historia ↓</a>
+    <div class="giant" aria-hidden="true"><span class="m"><span>josé.</span></span></div>
+    <h1 class="hero-h1" data-r>Le doy dirección a lo que creas.</h1>
+    <p class="hero-line" data-r>Conecto la dirección creativa, la oferta, la proyección y el contenido de tu marca en un solo sistema. Y lo llevo hasta la cámara: lo diseño, lo grabo y lo edito.</p>
+    <div class="hero-ctas" data-r><a class="wbtn" href="/contacto#agenda">Agenda 30 minutos →</a><a class="lnk mono" href="#obra">Mira la obra ↓</a></div>
   </div>
-  <div class="film hero-film" data-scene="bokeh" data-seed="4" data-video><div class="rec"><span class="tc-dot"></span><span class="tc"></span></div><div class="lab">reel 2026 — 35mm</div></div>
-  <a class="sq" href="#de-donde" aria-label="leer mi historia">↓</a>
+  <div class="film hero-film" data-scene="bokeh" data-seed="4" data-video><div class="rec"><span class="tc-dot"></span><span class="tc"></span></div><div class="lab">reel 2026 — 35mm f1.2</div></div>
+  <a class="sq" href="#problema" aria-label="seguir bajando">↓</a>
   <Trap />
   <div class="vert">be like josé<br>materiales de<br>creación 2026</div>
-  <div class="n001">001</div>
 </section>
 
-<section class="logos">
-  <div class="mono">han confiado</div>
-  <div class="marquee"><div>
-    <span style="font-family:'Instrument Serif';letter-spacing:.2em">ZENTAURUS</span><span style="font-weight:700">cliente 02</span><span style="font-family:'Mrs Saint Delafield';font-size:40px">Cliente 03</span><span style="font-family:'IBM Plex Mono'">CLIENTE_04</span><span style="font-family:'Bodoni Moda';font-style:italic">Cliente 05</span><span style="font-weight:300;letter-spacing:.3em">CLIENTE 06</span>
-    <span style="font-family:'Instrument Serif';letter-spacing:.2em">ZENTAURUS</span><span style="font-weight:700">cliente 02</span><span style="font-family:'Mrs Saint Delafield';font-size:40px">Cliente 03</span><span style="font-family:'IBM Plex Mono'">CLIENTE_04</span><span style="font-family:'Bodoni Moda';font-style:italic">Cliente 05</span><span style="font-weight:300;letter-spacing:.3em">CLIENTE 06</span>
-  </div></div>
+<section class="hi prob" id="problema">
+  <div data-r>
+    <div class="film" data-scene="bokeh" data-seed="11" data-tone="warm" data-video><div class="brand">J<sup>©</sup></div></div>
+  </div>
+  <div data-r>
+    <div class="mono">el problema</div>
+    <h2 class="prob-h">Tienes una mirada, ideas y algo que amas hacer.</h2>
+    <p class="qh-p">Pero lo que publicas no te refleja. Cada pieza parece de otra marca, creas mucho y avanzas poco, y todo depende de que tú no pares.</p>
+    <p class="prob-punch">No te falta acción. <em>Te falta dirección.</em></p>
+    <ul class="symptoms">
+      <li>Decenas de ideas, ninguna estrategia.</li>
+      <li>Contenido bonito que no vende.</li>
+      <li>Un negocio que solo funciona si trabajas sin parar.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="hi qh" id="que-hago">
+  <div data-r>
+    <div class="mono">lo que hago</div>
+    <h2 class="qh-lead">Hago que lo que creas se vea como la campaña de una marca grande, sin perder tu voz.</h2>
+    <p class="qh-p">Para eso trabajo integrando cuatro áreas que normalmente están separadas.</p>
+    <p class="qh-p qh-close">Cubro todos los ejes para que un negocio o proyecto crezca: el contenido por sí solo no garantiza ventas ni crecimiento. Y también lo grabo y lo edito.</p>
+    <div class="qh-btns"><a class="wbtn" href="/mi-sistema">Ver cómo funciona →</a><a class="lnk mono" href="/portfolio">Ver la obra →</a></div>
+  </div>
+  <ol class="roles" data-r>
+    <li><span class="mono">01</span><b>Dirección creativa</b><i>El concepto, la estrategia, las campañas y los lanzamientos.</i></li>
+    <li><span class="mono">02</span><b>Operaciones y oferta de valor</b><i>Qué vendes, a quién, cómo cobrarlo mejor y cómo se sostiene.</i></li>
+    <li><span class="mono">03</span><b>Proyección empresarial</b><i>Metas, rentabilidad, números y un roadmap de 90 días.</i></li>
+    <li><span class="mono">04</span><b>Creación de contenidos</b><i>Piezas que comunican tu oferta y tu producto o servicio de forma clara.</i></li>
+  </ol>
+</section>
+
+<section class="obra-ex" id="obra">
+  <div class="ex-head"><div><div class="mono" style="color:#777">la obra</div><h2 class="disp" data-r>Algo de la <em>obra</em></h2></div><a class="seeall" href="/portfolio"><span>ver la obra completa</span><b>→</b></a></div>
+  <div class="ex-grid" data-r>
+    <a href="/portfolio#strat"><div class="film" data-scene="window" data-seed="19"><div class="demo ex-concept">el tostador<br>que quema</div></div><span class="tag">estratega creativo</span><h3>El objeto que habla</h3><span class="by">concepto creativo</span></a>
+    <a href="/portfolio#film"><div class="film" data-scene="street" data-seed="9" data-video><div class="rec"><span class="tc-dot"></span><span class="tc"></span></div></div><span class="tag">filmmaker</span><h3>Zentaurus — el lanzamiento</h3><span class="by">VAOMystique · evento</span></a>
+    <a href="/portfolio#edit"><div class="film" data-scene="studio" data-seed="14" data-tone="bw" data-video><div class="demo"><div class="kin"><span>mirar</span><span>cortar</span><span>sentir</span><span>mirar</span></div></div></div><span class="tag">editor</span><h3>Tipografía al ritmo de la idea</h3><span class="by">0:15 · 9:16</span></a>
+  </div>
 </section>
 
 <section class="about" id="de-donde">
@@ -37,7 +72,7 @@ import Reach from '../components/Reach.astro';
     <div class="film p2" data-scene="flash" data-seed="14"><div class="lab">con flash</div></div>
   </div>
   <div>
-    <div class="mono" style="color:#777">01 — de dónde vengo</div>
+    <div class="mono" style="color:#777">mi historia · 01 — de dónde vengo</div>
     <h2 class="disp" data-r>Soy <em>José</em></h2>
     <div class="story" data-r>
       <p class="lead">Crecí entre una madre valiente, un padre sobreprotector y un hermano que nunca dudó de que todo saldría bien.</p>
@@ -49,8 +84,8 @@ import Reach from '../components/Reach.astro';
 <section class="tendedero" id="estudios">
   <div class="tend-txt">
     <div class="mono" style="color:#777">02 — lo que estudié</div>
-    <h2 class="disp" data-r>Dejé la universidad <em>tres veces</em></h2>
-    <p data-r>Estudié música, ventas y programación. Pasé por ingeniería de sistemas, matemáticas, y marketing y publicidad. Ninguna estaba mal, pero en ninguna cabía lo que quería crear.</p>
+    <h2 class="disp" data-r>Empecé tres carreras y <em>no terminé ninguna</em></h2>
+    <p data-r>Ingeniería de sistemas, matemáticas, y marketing y publicidad. Además, música, ventas y programación. Sin embargo, mi espíritu creativo se ahogaba, así que decidí empezar de cero.</p>
     <span class="mono tend-hint">haz clic en el tendedero →</span>
   </div>
   <Clothesline />
@@ -58,11 +93,11 @@ import Reach from '../components/Reach.astro';
 
 <section class="bog-sec" id="bogota">
   <div class="bog-txt">
-    <div class="mono" style="color:#777">03 — bogotá</div>
+    <div class="mono" style="color:#777">03 — empezar de cero</div>
     <h2 class="disp" data-r>Empezar <em>de cero</em></h2>
     <div class="story" data-r>
       <p class="lead">Llegué a Bogotá con una maleta llena de sueños y la frágil certeza de quien renuncia a todo para empezar de nuevo.</p>
-      <p>Compré cámaras. Llegaron clientes, eventos y escenarios que me exigieron crecer. Desde entonces no he vuelto a compartir con mi familia cercana; duele, y a veces es necesario.</p>
+      <p>Compré cámaras. Llegaron clientes, eventos y escenarios que me exigieron crecer. Empezar de cero también costó mudarme de ciudad dos veces y reinventar mi negocio tres veces.</p>
     </div>
     <blockquote data-r>Lo imposible no es un destino: es un punto de partida para los que se atreven. <span>Hay que ser cara dura.</span></blockquote>
   </div>
@@ -75,21 +110,12 @@ import Reach from '../components/Reach.astro';
 
 <Reach />
 
-<section class="hi" id="que-hago">
-  <div data-r>
-    <div class="film" data-scene="bokeh" data-seed="11" data-tone="warm" data-video><div class="brand">J<sup>©</sup></div></div>
-    <p class="copy just"><b>Tienes una mirada, ideas y algo que amas hacer.</b> Pero lo que comunicas <u>no te refleja</u>, y cada pieza parece de otro. No te falta acción: <b>te falta dirección.</b></p>
-  </div>
-  <div data-r>
-    <div class="mono">05 — lo que hago</div>
-    <p class="qh-lead">Hago que lo que creas se vea como la campaña de una marca grande, sin perder tu voz.</p>
-    <ol class="roles">
-      <li><span class="mono">01</span><b>Director creativo</b><i>la mirada, el concepto y la campaña</i></li>
-      <li><span class="mono">02</span><b>Filmmaker</b><i>eventos, marcas y cuentas que se ven como cine</i></li>
-      <li><span class="mono">03</span><b>Editor</b><i>ritmo, motion y estilos que retienen</i></li>
-    </ol>
-    <p class="qh-p">Detrás de todo hay un sistema de cuatro ejes que integra la parte creativa con la del negocio.</p>
-    <div class="qh-btns"><a class="wbtn" href="/mi-sistema">ver mi sistema →</a><a class="lnk mono" href="/portfolio">ver la obra →</a></div>
+<section class="learned" id="aprendi">
+  <div class="mono" style="color:#777">05 — lo que aprendí</div>
+  <h2 class="disp" data-r>Cuatro años de <em>crear sin rumbo</em></h2>
+  <div class="learned-row" data-r>
+    <p class="learned-lead">Durante cuatro años tuve una visión que no sabía sentir ni poner en palabras. Atravesar ese vacío me enseñó a mirar.</p>
+    <p class="learned-p">Hoy hago eso por otras marcas: les doy la dirección y la estructura que un negocio necesita para crecer a través de redes sociales, sin limitarse a las redes sociales.</p>
   </div>
 </section>
 
@@ -97,21 +123,13 @@ import Reach from '../components/Reach.astro';
   <div class="film" data-scene="park" data-seed="7" data-video></div>
   <div class="txt">
     <h2 class="disp just" data-r>los sueños no se pierden por falta de acción, sino de <u>dirección.</u></h2>
-    <div class="credit" data-r><span>Lo que aprendí en cuatro años de crear sin rumbo</span><span class="it">— be like josé</span></div>
-  </div>
-  
-</section>
-
-<section class="obra-ex">
-  <div class="ex-head"><div><div class="mono" style="color:#777">extracto — portfolio</div><h2 class="disp" data-r>Algo de la <em>obra</em></h2></div><a class="seeall" href="/portfolio"><span>todo el portfolio</span><b>→</b></a></div>
-  <div class="ex-grid" data-r>
-    <a href="/portfolio#film"><div class="film" data-scene="street" data-seed="9" data-video><div class="rec"><span class="tc-dot"></span><span class="tc"></span></div></div><span class="tag">filmmaker</span><h3>Zentaurus — el lanzamiento</h3><span class="by">lanzamiento · 3 días de rodaje</span></a>
-    <a href="/portfolio#edit"><div class="film" data-scene="studio" data-seed="14" data-tone="bw" data-video><div class="demo"><div class="kin"><span>mirar</span><span>cortar</span><span>sentir</span><span>mirar</span></div></div></div><span class="tag">editor</span><h3>Tipografía al ritmo de la idea</h3><span class="by">0:15 · 9:16</span></a>
-    <a href="/portfolio#strat"><div class="film" data-scene="window" data-seed="19"><div class="demo ex-concept">el tostador<br>que quema</div></div><span class="tag">estratega</span><h3>El objeto que habla</h3><span class="by">concepto creativo</span></a>
+    <div class="close-ctas" data-r>
+      <div><span class="mono">¿y si la próxima historia es la de tu marca?</span><a class="hbtn" href="/contacto#agenda">Agenda 30 minutos →</a></div>
+      <div><span class="mono">¿todavía no?</span><a class="lnk mono" href="#cuatro-cosas">Descarga las cuatro cosas →</a></div>
+    </div>
   </div>
 </section>
 
-<section class="next-cta"><span class="mono">¿y si la próxima historia es la de tu marca?</span><a class="wbtn" href="/contacto">agenda una llamada →</a></section>
+<section class="lead-sec"><LeadMagnet /></section>
 </main>
-
 </Base>

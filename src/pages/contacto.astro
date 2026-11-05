@@ -1,33 +1,34 @@
 ---
 import Base from '../layouts/Base.astro';
 import Booking from '../components/Booking.astro';
+import LeadMagnet from '../components/LeadMagnet.astro';
 import { CONTACT } from '../lib/site.js';
 import { PUBLIC_BOOKING_URL } from 'astro:env/client';
 const mail = `mailto:${CONTACT.email}?subject=${encodeURIComponent('Quiero agendar una llamada')}`;
 ---
-<Base title="Agenda una llamada — Be like José" description="Agenda una llamada de 30 minutos o escríbeme.">
+<Base title="Agenda 30 minutos — Be like José" description="Una llamada para encontrar en qué eje está el nudo de tu marca. Por Google Meet.">
 <main class="page">
 <section class="contact" id="contacto">
   <div class="film" data-scene="street" data-seed="44" data-video></div>
-  <div class="mono" style="opacity:.7;margin-bottom:24px">04 — agenda una llamada</div>
+  <div class="mono" style="opacity:.7;margin-bottom:24px">agenda 30 minutos</div>
   <h2 class="disp just" data-r>¿y si lo hablamos?</h2>
-  <div style="display:flex;justify-content:space-between"><span>Una llamada de 30 minutos. Sin formularios eternos.</span><span class="it">— la operadora</span></div>
+  <p class="contact-promise" data-r>30 minutos para encontrar en qué eje está el nudo de tu marca. Si no puedo ayudarte, te lo digo y te recomiendo a quién.</p>
   <div class="cgrid">
     <div><h6>escribe</h6><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></div>
     <div><h6>mira</h6><a href={CONTACT.instagram} target="_blank" rel="noopener">{CONTACT.instagramHandle}</a></div>
-    <div><h6>agenda</h6><a class="hbtn" href="#agenda">llamada de 30 min ↓</a></div>
+    <div><h6>agenda</h6><a class="hbtn" href="#agenda">Agenda 30 minutos ↓</a></div>
   </div>
 </section>
 
 <section class="agenda" id="agenda">
-  <div class="agenda-head"><div class="mono" style="color:#777">agenda</div><h2 class="disp" data-r>Elige <em>día y hora</em></h2><p>Treinta minutos para conocer tu marca, ver en qué eje está el nudo y decirte con honestidad si puedo ayudarte. La reunión es por Google Meet.</p></div>
+  <div class="agenda-head"><div class="mono" style="color:#777">agenda</div><h2 class="disp" data-r>Elige <em>día y hora</em></h2><p>Treinta minutos para conocer tu marca, ver en qué eje está el nudo y decirte con honestidad si puedo ayudarte. La reunión es por Google Meet.</p><p class="agenda-who"><span class="mono">ideal si</span>Tienes una marca personal, una empresa o eres creador y ya estás publicando.</p></div>
   <Booking url={PUBLIC_BOOKING_URL} length="Llamada de 30 minutos" />
 
   <div class="code-box" id="codeBox">
     <div class="code-l"><span class="mono">¿ya eres cliente?</span><h3>Sesión de trabajo <em>de 2 horas</em></h3><p>Escribe el código que te di y se abre mi agenda de sesiones para clientes.</p></div>
     <form class="code-f" id="codeForm" autocomplete="off">
       <input id="codeIn" name="code" placeholder="TU-CÓDIGO" aria-label="código de cliente" autocapitalize="characters" spellcheck="false" required />
-      <button class="wbtn" type="submit">abrir agenda →</button>
+      <button class="wbtn" type="submit" id="codeBtn" hidden>abrir agenda →</button>
       <span class="mono code-msg" id="codeMsg" role="status"></span>
     </form>
     <div class="code-ok" id="codeOk" hidden></div>
@@ -36,17 +37,22 @@ const mail = `mailto:${CONTACT.email}?subject=${encodeURIComponent('Quiero agend
 <section class="after">
   <div class="mono" style="color:#777">después de agendar</div>
   <ol class="after-steps" data-r>
-    <li><span>01</span><b>Te llega la confirmación</b><i>con el link de la llamada y dos preguntas para llegar preparados.</i></li>
+    <li><span>01</span><b>Te llega la confirmación</b><i>con el link de Google Meet y dos preguntas para llegar preparados: ¿qué vendes y a quién?, y ¿qué te gustaría que cambiara en 90 días?</i></li>
     <li><span>02</span><b>Hablamos 30 minutos</b><i>de tu marca, tus metas y en qué eje está el nudo.</i></li>
     <li><span>03</span><b>Recibes tu propuesta</b><i>en un link privado, con diagnóstico, concepto e inversión.</i></li>
   </ol>
   <a class="lnk mono" href="/mi-sistema#proceso">ver el proceso completo →</a>
 </section>
+
+<section class="lead-sec"><LeadMagnet /></section>
 </main>
 <script>
   const form = document.getElementById('codeForm') as HTMLFormElement;
   const msg = document.getElementById('codeMsg')!;
   const ok = document.getElementById('codeOk')!;
+  const codeIn = document.getElementById('codeIn') as HTMLInputElement;
+  const codeBtn = document.getElementById('codeBtn')!;
+  codeIn.addEventListener('input', () => { codeBtn.hidden = codeIn.value.trim().length < 3; });
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     msg.textContent = 'revisando…';

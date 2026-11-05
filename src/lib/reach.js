@@ -3,7 +3,7 @@ export const COUNTRIES = [
   { code: 'PA', name: 'Panamá', city: 'Ciudad de Panamá', note: 'contenido de marca' },
   { code: 'MX', name: 'México', city: 'CDMX', note: 'eventos y cuentas' },
   { code: 'BR', name: 'Brasil', city: 'São Paulo', note: 'rodaje' },
-  { code: 'CO', name: 'Colombia', city: 'Bogotá · base', note: 'donde todo empezó' },
+  { code: 'CO', name: 'Colombia', city: 'todo el país · base', note: 'donde todo empezó' },
 ];
 
 // Resultados para marcas (van en Portfolio → Estratega creativo).
@@ -17,6 +17,6 @@ export const NUMBERS = [
 // Abrebocas en Mi historia: perfiles a los que han llegado los contenidos.
 export const REACHED = [
   { name: 'Unión Europea en Colombia', where: 'Colombia' },
-  { name: 'Feria Internacional del Libro de Panamá', where: 'Panamá' },
+  { name: 'la Feria Internacional del Libro de Panamá', where: 'Panamá' },
   { name: 'Sky Experience con Smartfit', where: 'experiencia de marca' },
 ];
