@@ -1,28 +1,38 @@
 ---
 import Base from '../layouts/Base.astro';
 import Booking from '../components/Booking.astro';
-import LeadMagnet from '../components/LeadMagnet.astro';
 import { CONTACT } from '../lib/site.js';
 import { PUBLIC_BOOKING_URL } from 'astro:env/client';
 const mail = `mailto:${CONTACT.email}?subject=${encodeURIComponent('Quiero agendar una llamada')}`;
 ---
-<Base title="Agenda 30 minutos — Be like José" description="Una llamada para encontrar en qué eje está el nudo de tu marca. Por Google Meet.">
+<Base title="Agenda 30 minutos — Be like José" description="Una charla de 30 minutos, sin compromiso, para destrabar ideas y ver qué está frenando tu marca. Por Google Meet.">
 <main class="page">
 <section class="contact" id="contacto">
   <div class="film" data-scene="street" data-seed="44" data-video></div>
   <div class="mono" style="opacity:.7;margin-bottom:24px">agenda</div>
-  <h2 class="disp just" data-r>¿y si lo hablamos?</h2>
-  <p class="contact-promise" data-r>Treinta minutos, sin formularios eternos.</p>
-  <div class="cgrid">
-    <div><h6>escribe</h6><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></div>
-    <div><h6>mira</h6><a href={CONTACT.instagram} target="_blank" rel="noopener">{CONTACT.instagramHandle}</a></div>
-    <div><h6>agenda</h6><a class="hbtn" href="#agenda">Elegir horario ↓</a></div>
+  <h2 class="disp" data-r>¿y si lo hablamos?</h2>
+  <p class="contact-promise" data-r>Treinta minutos para charlar, sin compromiso. Me cuentas en qué estás, destrabamos ideas y te vas con claridad sobre qué te está frenando.</p>
+  <div class="contact-cta" data-r>
+    <a class="hbtn" href="#agenda">Elegir horario ↓</a>
+    <span class="mono">no es una llamada de ventas</span>
   </div>
 </section>
 
+<section class="charla">
+  <div class="charla-head">
+    <div class="mono" style="color:#777">cómo es la charla</div>
+    <p class="charla-who"><span class="mono">ideal si</span>Tienes una marca, quieres destrabar ideas, ya creas contenido o quieres empezar a crear.</p>
+  </div>
+  <ol class="after-steps" data-r>
+    <li><span>01</span><b>Me cuentas</b><i>En qué estás, qué te gustaría lograr y qué no te deja avanzar. No necesitas tener nada listo.</i></li>
+    <li><span>02</span><b>Destrabamos</b><i>Ordenamos tus ideas juntos y te digo con claridad qué te está frenando.</i></li>
+    <li><span>03</span><b>Te llevas claridad</b><i>Sin compromiso de comprar. Si después quieres que trabajemos juntos, lo vemos; si no, la charla ya valió la pena.</i></li>
+  </ol>
+</section>
+
 <section class="agenda" id="agenda">
-  <div class="agenda-head"><div class="mono" style="color:#777">agenda</div><h2 class="disp" data-r>Elige <em>día y hora</em></h2><p>Charlamos un rato, con café o un matecito, para destrabar ideas. Nos vemos por Google Meet.</p><p class="agenda-who"><span class="mono">ideal si</span>Tienes una marca personal, una empresa o eres creador y ya estás publicando.</p></div>
-  <Booking url={PUBLIC_BOOKING_URL} length="Llamada de 30 minutos" />
+  <div class="agenda-head"><div class="mono" style="color:#777">agenda</div><h2 class="disp" data-r>Elige <em>día y hora</em></h2><p>Trae tu café o un matecito. Nos vemos por Google Meet.</p></div>
+  <Booking url={PUBLIC_BOOKING_URL} length="Charla de 30 minutos" />
 
   <div class="code-box" id="codeBox">
     <div class="code-l"><span class="mono">¿ya eres cliente?</span><h3>Sesión de trabajo <em>de 2 horas</em></h3><p>Escribe el código que te di y se abre mi agenda de sesiones para clientes.</p></div>
@@ -34,17 +44,6 @@ const mail = `mailto:${CONTACT.email}?subject=${encodeURIComponent('Quiero agend
     <div class="code-ok" id="codeOk" hidden></div>
   </div>
 </section>
-<section class="after">
-  <div class="mono" style="color:#777">qué pasa después</div>
-  <ol class="after-steps" data-r>
-    <li><span>01</span><b>Confirmas</b><i>Te llega el link para nuestra reunión.</i></li>
-    <li><span>02</span><b>Hablamos</b><i>Revisamos lo que tienes, lo que te frena y lo que falta. Empecemos a trabajar o no, sales con claridad.</i></li>
-    <li><span>03</span><b>Definimos</b><i>Si hay encaje, elegimos la modalidad, el alcance y el tiempo en la misma llamada. Si prefieres verlo por escrito, la propuesta te llega al día siguiente.</i></li>
-  </ol>
-  <a class="lnk mono" href="/mi-sistema#proceso">ver el proceso completo →</a>
-</section>
-
-<section class="lead-sec"><LeadMagnet /></section>
 </main>
 <script>
   const form = document.getElementById('codeForm') as HTMLFormElement;

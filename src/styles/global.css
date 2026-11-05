@@ -659,3 +659,11 @@ footer{display:flex;justify-content:space-between;margin-top:90px;opacity:.65}
 }
 .code-f .wbtn[hidden]{display:none}
 .svc-time .svc-time-h{font-family:'Instrument Serif',serif;font-size:28px;line-height:1.1;color:var(--ink);margin-top:8px}
+.contact-cta{display:flex;align-items:center;gap:22px;flex-wrap:wrap;margin-top:34px}
+.contact-cta .mono{opacity:.7}
+.charla{padding:90px 34px 30px}
+.charla-head{display:grid;grid-template-columns:1fr 1fr;gap:20px 60px;align-items:end}
+.charla-who{font-family:'Instrument Serif',serif;font-size:clamp(24px,2.4vw,32px);line-height:1.15}
+.charla-who .mono{display:block;color:#777;margin-bottom:8px;font-family:'IBM Plex Mono'}
+.charla .after-steps{margin-top:30px}
+@media (max-width:900px){.charla{padding:60px 20px 10px}.charla-head{grid-template-columns:1fr}}
