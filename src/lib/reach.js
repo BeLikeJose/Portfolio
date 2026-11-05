@@ -3,7 +3,7 @@ export const COUNTRIES = [
   { code: 'PA', name: 'Panamá', city: 'Ciudad de Panamá', note: 'contenido de marca' },
   { code: 'MX', name: 'México', city: 'CDMX', note: 'eventos y cuentas' },
   { code: 'BR', name: 'Brasil', city: 'São Paulo', note: 'rodaje' },
-  { code: 'CO', name: 'Colombia', city: 'todo el país · base', note: 'donde todo empezó' },
+  { code: 'CO', name: 'Colombia', city: 'Pereira · base', note: 'Barranquilla · donde todo empezó' },
 ];
 
 // Resultados para marcas (van en Portfolio → Estratega creativo).

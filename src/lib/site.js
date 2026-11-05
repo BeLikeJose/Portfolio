@@ -7,7 +7,7 @@ export const CONTACT = {
 
 export const PAGES = [
   { n: '01', href: '/', label: 'Inicio', sub: 'qué hago y para quién' },
-  { n: '02', href: '/portfolio', label: 'La obra', sub: 'estrategia, rodaje y edición' },
-  { n: '03', href: '/mi-sistema', label: 'Mi sistema', sub: 'cómo trabajo, por dentro' },
-  { n: '04', href: '/contacto', label: 'Agenda 30 min', sub: 'una llamada por Google Meet' },
+  { n: '02', href: '/portfolio', label: 'Obra', sub: 'estrategia, cámara y edición' },
+  { n: '03', href: '/mi-sistema', label: 'Mi sistema', sub: 'cuatro sistemas, desde adentro' },
+  { n: '04', href: '/contacto', label: 'Agenda', sub: '30 minutos para empezar' },
 ];

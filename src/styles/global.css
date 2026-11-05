@@ -609,3 +609,15 @@ footer{display:flex;justify-content:space-between;margin-top:90px;opacity:.65}
 .hist-head h2{font-size:clamp(54px,6.4vw,104px);margin-top:14px;max-width:1100px}
 .prob{align-items:start}
 @media (max-width:900px){.suena ul{columns:1}.hist-head{padding:70px 20px 0}.hist-head h2{font-size:clamp(42px,11vw,70px)}}
+
+/* v7 auditoría */
+.ex-grid .by{display:block;margin:6px 0 2px}
+.ex-line{font-family:'Instrument Serif',serif;font-style:italic;font-size:20px;line-height:1.15;color:#444;margin-top:4px}
+.final-cta{padding:110px 9% 90px;border-top:1px solid var(--line)}
+.final-cta h2{font-size:clamp(54px,6vw,96px);margin-top:14px;max-width:1000px}
+.final-row{margin:34px 0 80px}
+.final-btn{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.final-btn .wbtn{margin:0}
+.final-btn .mono{color:#666}
+.state{min-height:80vh}
+@media (max-width:900px){.final-cta{padding:70px 20px}.final-cta h2{font-size:clamp(42px,11vw,70px)}.final-row{margin:24px 0 50px}}

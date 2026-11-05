@@ -3,7 +3,7 @@ import '../styles/global.css';
 import '../styles/mobile.css';
 import { PAGES, CONTACT } from '../lib/site.js';
 interface Props { title?: string; description?: string; noindex?: boolean; footer?: boolean }
-const { title = 'Be like José — estratega creativo, filmmaker y editor', description = 'Le doy dirección a lo que creas: dirección creativa, oferta, proyección y contenido en un solo sistema, del concepto al video publicado.', noindex = false, footer = true } = Astro.props;
+const { title = 'Be like José — estratega creativo', description = 'Construyo marcas con estructura de negocio. Dirección creativa, oferta de valor, proyección y contenido.', noindex = false, footer = true } = Astro.props;
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const on = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
 ---
@@ -24,7 +24,7 @@ const on = (href: string) => (href === '/' ? path === '/' : path.startsWith(href
       <div class="l">
         <button class="burger" id="menuOpen" aria-label="abrir menú" aria-expanded="false"><span></span></button>
         <a href="/" class:list={{ on: on('/') }}>Inicio</a>
-        <a href="/portfolio" class:list={{ on: on('/portfolio') }}>La obra</a>
+        <a href="/portfolio" class:list={{ on: on('/portfolio') }}>Obra</a>
       </div>
       <a class="logo" href="/">Be like José</a>
       <div class="r">
@@ -54,7 +54,7 @@ const on = (href: string) => (href === '/' ? path === '/' : path.startsWith(href
           <ul>{PAGES.map((p) => <li><a href={p.href}>{p.label}</a></li>)}</ul>
           <ul><li><a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a></li><li><a href={CONTACT.instagram} target="_blank" rel="noopener">Instagram</a></li></ul>
         </div>
-        <div class="sf-bot mono"><span>be like josé © 2026</span><span>crear es un acto colectivo</span><span>hecho a mano en Colombia</span></div>
+        <div class="sf-bot mono"><span>be like josé © 2026</span><span>crear es un acto colectivo</span><span>Latinoamérica</span></div>
       </footer>
     )}
 
