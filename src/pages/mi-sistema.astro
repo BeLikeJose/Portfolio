@@ -7,6 +7,7 @@ import EditorialCalendar from '../components/EditorialCalendar.astro';
 import Roadmap from '../components/Roadmap.astro';
 import Media from '../components/Media.astro';
 import LeadMagnet from '../components/LeadMagnet.astro';
+import Faq from '../components/Faq.astro';
 const CH = [
   ['01', 'Los cuatro ejes', '#ejes'], ['02', 'Cómo se integran', '#integracion'], ['03', 'El proceso por dentro', '#proceso'],
   ['04', 'Calendarios y roadmaps', '#por-dentro'], ['05', 'Lo que pasa sin sistema', '#sin-sistema'], ['06', 'Trabajar conmigo', '#contigo'], ['07', 'Preguntas frecuentes', '#preguntas'],
@@ -113,13 +114,7 @@ const WEEK = [['lun', 'Lectura de métricas', 'qué funcionó y por qué'], ['ma
 </section>
 <section class="sys-sec" id="preguntas">
   <div class="sys-head"><div class="mono">capítulo 07 — preguntas frecuentes</div><h2 class="disp" data-r>Antes de <em>la llamada</em></h2><p data-r>Lo que casi todos preguntan. Si tu duda no está aquí, la resolvemos en los 30 minutos.</p></div>
-  <div class="faq" data-r>
-    <details><summary>¿Cuánto cuesta?<i>+</i></summary><p>Depende del alcance. Te envío la inversión en la propuesta, en un link privado.</p></details>
-    <details><summary>¿Trabajas fuera de Colombia?<i>+</i></summary><p>Sí. Trabajo en toda Colombia y he trabajado en Panamá, México y Brasil. La estrategia es remota y los rodajes se coordinan.</p></details>
-    <details><summary>¿En cuánto tiempo veo resultados?<i>+</i></summary><p>Un ciclo dura 90 días. En la semana 2 ya tienes roadmap y calendario, y en la 12 leemos los números juntos.</p></details>
-    <details><summary>¿Qué pasa si todavía no sé bien qué vendo?<i>+</i></summary><p>Por eso empezamos por el eje 02. No hace falta tenerlo claro para llamar.</p></details>
-    <details><summary>¿Necesito tener equipo?<i>+</i></summary><p>No. Para eso existe la dirección con producción.</p></details>
-  </div>
+  <Faq />
 </section>
 
 <section class="sys-sec lead-sec"><LeadMagnet /></section>
