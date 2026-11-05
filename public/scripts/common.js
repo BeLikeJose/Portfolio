@@ -92,7 +92,7 @@
     curtain.classList.remove('go'); void curtain.offsetWidth; curtain.classList.add('go');
     setTimeout(() => {
       $$('.view').forEach(v => v.hidden = v.dataset.view !== view);
-      scrollTo(0, 0); observeAll(); $$('[data-count]').forEach(el => cio.observe(el));
+      scrollTo(0, 0); observeAll(); $$('[data-count]').forEach(el => { el.textContent = '0'; cio.observe(el); });
       document.body.dataset.view = view;
     }, 520);
     setTimeout(res, 1150);
@@ -265,7 +265,7 @@
 
   /* boot */
   addEventListener('load', () => {
-    observeAll(); $$('[data-count]').forEach(el => cio.observe(el));
+    observeAll(); $$('[data-count]').forEach(el => { el.textContent = '0'; cio.observe(el); });
     const intro = $('.intro');
     if (intro) { if (/intro/.test(location.search)) setTimeout(() => intro.classList.add('out'), 2300); else intro.remove(); }
     const h = location.hash.slice(1); if (['admin', 'propuesta'].includes(h)) { $$('.view').forEach(v => v.hidden = v.dataset.view !== h); }

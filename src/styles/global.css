@@ -260,6 +260,8 @@ body.ready .giant .m span{transform:none}
 .agenda-head .mono{grid-column:1/-1}
 .agenda-head h2{font-size:clamp(60px,6vw,96px)}
 .agenda-head p{font-size:17px;line-height:1.5;color:#333;max-width:460px}
+.agenda-head .agenda-limit{grid-column:2;font-size:12px;line-height:1.5;color:#777;margin-top:-24px}
+@media (max-width:900px){.agenda-head .agenda-limit{grid-column:auto;margin-top:0}}
 .agenda-cal{border-top:1px solid var(--ink)}
 .agenda-cal iframe{width:100%;height:760px;border:0;display:block}
 .agenda-empty{padding:40px 0;display:flex;justify-content:space-between;align-items:center;gap:40px}
@@ -573,6 +575,7 @@ footer{display:flex;justify-content:space-between;margin-top:90px;opacity:.65}
 .modes-note{margin-top:22px;font-size:16px;color:#333;display:flex;gap:16px;align-items:baseline}
 .modes-note .mono{color:#777}
 .faq{border-top:1px solid var(--ink);max-width:980px}
+.faq-more{display:inline-block;margin-top:22px}
 .faq details{border-bottom:1px solid var(--line)}
 .faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;padding:20px 0;font-family:'Instrument Serif',serif;font-size:clamp(24px,2.4vw,32px);line-height:1.1}
 .faq summary::-webkit-details-marker{display:none}

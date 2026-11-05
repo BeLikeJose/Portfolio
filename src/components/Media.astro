@@ -10,7 +10,7 @@ const isVideo = !!src && /\.(mp4|webm|mov)$/i.test(src);
     <div class="film real">{isVideo ? <video src={src} autoplay muted loop playsinline></video> : <img src={src} alt={label} loading="lazy" />}</div>
   ) : (
     <div class="film" data-scene={scene} data-seed={seed} data-tone={tone} data-video={kind === 'video' ? '' : undefined}>
-      <span class="slot-tag mono">{kind === 'video' ? '▶ ' : kind === 'screenshot' ? '▢ ' : '◎ '}aquí va: {label}</span>
+      {import.meta.env.DEV && <span class="slot-tag mono">{kind === 'video' ? '▶ ' : kind === 'screenshot' ? '▢ ' : '◎ '}aquí va: {label}</span>}
     </div>
   )}
   {cap && <figcaption class="mono">{cap}</figcaption>}

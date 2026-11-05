@@ -1,12 +1,16 @@
 ---
-// Preguntas frecuentes (Inicio y Mi sistema).
+// Preguntas frecuentes. Inicio muestra las de la charla; Mi sistema, las del servicio.
+interface Props { set: 'charla' | 'servicio' }
+const { set } = Astro.props;
 ---
 <div class="faq" data-r>
-  <details><summary>¿Cuánto cuesta la llamada?<i>+</i></summary><p>Nada. Es una charla en la que te ayudo a destrabar ideas y aclarar dudas, no una venta.</p></details>
+{set === 'charla' ? (<>
+  <details><summary>¿Cuánto cuesta la charla?<i>+</i></summary><p>Nada. Es una charla en la que te ayudo a destrabar ideas y aclarar dudas, no una venta.</p></details>
   <details><summary>¿Tengo que comprar algo después?<i>+</i></summary><p>No. No hay pitch escondido. Si más adelante quieres trabajar juntos, lo hablamos; si no, igual te llevas claridad.</p></details>
-  <details><summary>¿De qué charlamos en la llamada?<i>+</i></summary><p>De lo que tengas trabado: tu oferta, tu contenido, tu marca, tus números. Tú traes las preguntas, y a mí me encanta responderlas.</p></details>
+  <details><summary>¿De qué charlamos?<i>+</i></summary><p>De lo que tengas trabado: tu oferta, tu contenido, tu marca, tus números. Tú traes las preguntas, y a mí me encanta responderlas.</p></details>
   <details><summary>¿Y si no tengo presupuesto?<i>+</i></summary><p>Agéndate igual. Hoy puede que no sea el momento, pero ideas para destrabar siempre hay.</p></details>
   <details><summary>¿Y si no soy la persona que te puede ayudar?<i>+</i></summary><p>Te lo digo en la charla. Y si conozco a quién sí, te lo recomiendo.</p></details>
+</>) : (<>
   <details><summary>¿Cuánto cuesta trabajar contigo?<i>+</i></summary><p>Depende de lo que necesites. Si después de la charla quieres seguir, te envío la inversión por escrito, sin presión.</p></details>
   <details><summary>¿Trabajas fuera de Colombia?<i>+</i></summary><p><em>Always.</em> Trabajo con marcas en inglés y español, así que <em>don’t worry.</em></p></details>
   <details><summary>¿En cuánto tiempo veo resultados?<i>+</i></summary><p>En dos semanas ya tienes la dirección trazada. Y desde el primer mes, contenido saliendo.</p></details>
@@ -15,4 +19,5 @@
   <details><summary>¿Trabajas solo?<i>+</i></summary><p>No. Tengo un equipo creativo que me respalda. Dirijo y ejecuto contigo, y cuando el proyecto lo pide, sumamos manos para que nada se quede a medias.</p></details>
   <details><summary>¿Haces solo videos o consultorías sueltas?<i>+</i></summary><p>Sí. Cada propuesta se arma según lo que necesites. Si ya tienes equipo estratégico y solo te falta ejecución, edición o cualquier otro servicio, lo hacemos.</p></details>
   <details><summary>¿Trabajas con todo tipo de marcas?<i>+</i></summary><p>Tenemos experiencia en nichos distintos, de marcas que empiezan a empresas con trayectoria.</p></details>
+</>)}
 </div>

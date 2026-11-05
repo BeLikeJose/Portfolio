@@ -8,9 +8,9 @@ const N = [
 ];
 const LINKS = [
   'La mirada define qué vendes y cómo se siente comprarlo.',
-  'La oferta define a qué metas puedes apuntar.',
-  'Las metas deciden qué publicar y cuánto.',
-  'El contenido devuelve datos que afinan la mirada.',
+  'La oferta define las metas.',
+  'Las metas deciden qué publicar.',
+  'Los resultados afinan la mirada.',
 ];
 const arc = (a: typeof N[0], b: typeof N[0]) => { const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2; const cx = mx + (mx - 300) * .55, cy = my + (my - 300) * .55; return `M${a.x + (b.x - a.x) * .2} ${a.y + (b.y - a.y) * .2} Q${cx} ${cy} ${a.x + (b.x - a.x) * .8} ${a.y + (b.y - a.y) * .8}`; };
 ---
@@ -28,9 +28,7 @@ const arc = (a: typeof N[0], b: typeof N[0]) => { const mx = (a.x + b.x) / 2, my
       </g>))}
   </svg>
   <div class="loop-read">
-    <span class="mono" id="loopStep">01 → 02</span>
-    <p id="loopTxt">{LINKS[0]}</p>
-    <div class="loop-dots">{LINKS.map((_, i) => <button data-i={i} class:list={{ on: i === 0 }} aria-label={`paso ${i + 1}`}></button>)}</div>
+    <ol class="loop-dots">{LINKS.map((t, i) => <li><button data-i={i} class:list={{ on: i === 0 }}><span class="mono">{N[i].n} → {N[(i + 1) % 4].n}</span>{t}</button></li>)}</ol>
   </div>
 </div>
 
@@ -48,16 +46,16 @@ const arc = (a: typeof N[0], b: typeof N[0]) => { const mx = (a.x + b.x) / 2, my
   .nd.on circle { fill: var(--g1); stroke-width: 2.4; }
   .nn { font: 400 30px 'Instrument Serif', serif; fill: var(--ink); }
   .nt { font: 600 10px 'Inter Tight', sans-serif; text-transform: uppercase; letter-spacing: .04em; fill: var(--ink); }
-  .loop-read { border-top: 1px solid var(--ink); padding-top: 16px; }
-  .loop-read p { font-family: 'Instrument Serif', serif; font-size: 32px; line-height: 1.08; margin-top: 10px; min-height: 140px; }
-  .loop-dots { display: flex; gap: 8px; margin-top: 18px; }
-  .loop-dots button { width: 34px; height: 4px; border: 0; background: #ccc; padding: 0; cursor: pointer; }
-  .loop-dots button.on { background: var(--ink); }
+  .loop-read { border-top: 1px solid var(--ink); }
+  .loop-dots li:first-child button { border-top: 0; }
+  .loop-dots { list-style: none; margin: 0; padding: 0; }
+  .loop-dots button { display: flex; gap: 14px; align-items: baseline; width: 100%; text-align: left; border: 0; border-top: 1px solid var(--line); background: none; padding: 16px 0; cursor: pointer; font: 400 clamp(22px, 2.2vw, 30px)/1.1 'Instrument Serif', serif; color: #aaa; transition: color .3s; }
+  .loop-dots button .mono { flex: 0 0 74px; font-size: 11px; }
+  .loop-dots button.on { color: var(--ink); }
 
   @media (max-width: 900px) {
     .loop { grid-template-columns: 1fr; gap: 26px; }
     svg { max-width: 420px; margin: 0 auto; display: block; }
-    .loop-read p { font-size: 24px; min-height: 110px; }
   }
 </style>
 
@@ -70,8 +68,6 @@ const arc = (a: typeof N[0], b: typeof N[0]) => { const mx = (a.x + b.x) / 2, my
     lks.forEach((l, k) => l.classList.toggle('on', k === i));
     nds.forEach((n, k) => n.classList.toggle('on', k === i || k === (i + 1) % 4));
     dots.forEach((d, k) => d.classList.toggle('on', k === i));
-    document.getElementById('loopStep').textContent = `0${i + 1} → 0${(i + 1) % 4 + 1}`;
-    document.getElementById('loopTxt').textContent = LINKS[i];
   };
   const auto = () => { clearInterval(timer); timer = setInterval(() => show((cur + 1) % 4), 4200); };
   [...lks, ...nds, ...dots].forEach((el) => ['mouseenter', 'click'].forEach((ev) => el.addEventListener(ev, () => { show(+el.dataset.i); auto(); })));

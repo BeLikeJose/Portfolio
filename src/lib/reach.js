@@ -8,8 +8,8 @@ export const COUNTRIES = [
 
 // Resultados para marcas (van en Portfolio → Estratega creativo).
 export const NUMBERS = [
-  { value: 1, prefix: '+', suffix: 'M', label: 'views totales para mis clientes' },
-  { value: 10, prefix: '+', suffix: 'K', label: 'seguidores nuevos para mis clientes' },
+  { value: 1, prefix: '+', suffix: 'M', label: 'views de las marcas con las que trabajo' },
+  { value: 10, prefix: '+', suffix: 'K', label: 'seguidores nuevos de las marcas con las que trabajo' },
   { value: 12, prefix: '+', suffix: '', label: 'cuentas y equipos creativos coordinados' },
   { value: 8, prefix: '+', suffix: '', label: 'eventos nacionales e internacionales con marcas' },
 ];

@@ -6,7 +6,7 @@ import SystemLoop from '../components/SystemLoop.astro';
 import EditorialCalendar from '../components/EditorialCalendar.astro';
 import Roadmap from '../components/Roadmap.astro';
 import Media from '../components/Media.astro';
-import LeadMagnet from '../components/LeadMagnet.astro';
+// import LeadMagnet from '../components/LeadMagnet.astro'; // oculto hasta que exista el PDF
 import Faq from '../components/Faq.astro';
 const CH = [
   ['01', 'Los cuatro ejes', '#ejes'], ['02', 'Cómo se integran', '#integracion'], ['03', 'El proceso por dentro', '#proceso'],
@@ -44,10 +44,10 @@ const WEEK = [['lun', 'Lectura de métricas', 'qué funcionó y por qué'], ['ma
     </div>
   </div>
   <div class="ejes-grid" data-r>
-    <article id="eje-01"><span class="n">01</span><h3>Dirección creativa</h3><p>La mirada. Conceptos, campañas y una estética que se reconoce sin ver el logo.</p><div class="mono tags">concepto · campaña · identidad</div></article>
-    <article id="eje-02"><span class="n">02</span><h3>Operaciones y oferta de valor</h3><p>Qué vendes, a quién y el sistema que lo sostiene. Para que el negocio no dependa de que trabajes sin parar.</p><div class="mono tags">oferta · procesos · precios</div></article>
-    <article id="eje-03"><span class="n">03</span><h3>Proyección empresarial</h3><p>Hacia dónde va el negocio. Metas claras, números que puedes revisar cada mes y un roadmap de 90 días.</p><div class="mono tags">metas · roadmap · métricas</div></article>
-    <article id="eje-04"><span class="n">04</span><h3>Creación de contenidos</h3><p>Piezas que se guardan y se comparten. Film, edición y un calendario editorial con mirada propia.</p><div class="mono tags">film · edición · calendario</div></article>
+    <article id="eje-01"><span class="n">01</span><h3>Dirección creativa</h3><p>La mirada. Conceptos, campañas y una estética que se reconoce sin ver el logo.</p><div class="mono tags">identidad de marca · branding · naming · concepto creativo · lanzamientos · estrategia de contenidos</div></article>
+    <article id="eje-02"><span class="n">02</span><h3>Operaciones y oferta de valor</h3><p>Qué vendes, a quién y el sistema que lo sostiene. Para que el negocio no dependa de que trabajes sin parar.</p><div class="mono tags">propuesta de valor · pricing · proceso de compra · automatizaciones</div></article>
+    <article id="eje-03"><span class="n">03</span><h3>Proyección empresarial</h3><p>Hacia dónde va el negocio. Metas claras, números que puedes revisar cada mes y un roadmap de 90 días.</p><div class="mono tags">posicionamiento · KPIs · roadmap de 90 días · planeación comercial</div></article>
+    <article id="eje-04"><span class="n">04</span><h3>Creación de contenidos</h3><p>Piezas que se guardan y se comparten. Film, edición y un calendario editorial con mirada propia.</p><div class="mono tags">preproducción · rodaje · postproducción · diseño y publicación</div></article>
   </div>
 </section>
 
@@ -62,7 +62,7 @@ const WEEK = [['lun', 'Lectura de métricas', 'qué funcionó y por qué'], ['ma
   <p class="step-zero" data-r><span class="mono">paso 0 · la charla</span>Antes de cualquier proceso hay una charla de 30 minutos, gratis y sin compromiso: me encanta conocer a quien está creando algo. Si luego queremos trabajar juntos, empieza esto.</p>
   <ol class="steps" data-r>{STEPS.map((s) => <li><span class="sn">{s.n}</span><span class="mono sd">{s.d}</span><h3>{s.t}</h3><p>{s.p}</p><span class="mono sg">recibes → {s.g}</span></li>)}</ol>
   <div class="week" data-r>
-    <div class="mono" style="opacity:.6">una semana tipo en producción</div>
+    <div class="mono" style="opacity:.6">una semana tipo, si sumas ejecución</div>
     <div class="week-row">{WEEK.map(([d, t, p]) => <div><span class="mono">{d}</span><b>{t}</b><i>{p}</i></div>)}</div>
   </div>
 </section>
@@ -120,7 +120,7 @@ const WEEK = [['lun', 'Lectura de métricas', 'qué funcionó y por qué'], ['ma
   <div class="svc-time" data-r>
     <div><span class="mono">el tiempo</span><p class="svc-time-h">Los primeros 90 días son para construir. Lo que venga después, lo decidimos juntos.</p></div>
     <div><b>Primer ciclo · 90 días</b><p>Dirección (y ejecución, si la sumas) con roadmap, calendario y lectura de números al cierre.</p></div>
-    <div><b>Plan mensual</b><p>Si ambos estamos felices, seguimos mes a mes con tarifa fija: dirección y ejecución recurrentes, con lectura de números y ajuste del roadmap cada trimestre.</p></div>
+    <div><b>Plan mensual</b><p>Si ambos estamos felices, seguimos mes a mes: dirección y ejecución recurrentes, con lectura de números y ajuste del roadmap cada trimestre.</p></div>
   </div>
 
   <div class="svc-pieces" data-r>
@@ -138,8 +138,8 @@ const WEEK = [['lun', 'Lectura de métricas', 'qué funcionó y por qué'], ['ma
   </div>
 </section>
 <section class="sys-sec" id="preguntas">
-  <div class="sys-head"><div class="mono">capítulo 07 — preguntas frecuentes</div><h2 class="disp" data-r>Antes de <em>la llamada</em></h2><p data-r>Lo que casi todos preguntan. Si tu duda no está aquí, la resolvemos en los 30 minutos.</p></div>
-  <Faq />
+  <div class="sys-head"><div class="mono">capítulo 07 — preguntas frecuentes</div><h2 class="disp" data-r>Antes de <em>la charla</em></h2><p data-r>Lo que casi todos preguntan. Si tu duda no está aquí, la resolvemos en los 30 minutos.</p></div>
+  <Faq set="servicio" />
 </section>
 
 <section class="final-cta" id="charlemos">
@@ -147,7 +147,7 @@ const WEEK = [['lun', 'Lectura de métricas', 'qué funcionó y por qué'], ['ma
   <h2 class="disp" data-r>Charlemos 30 minutos <em>y lo averiguamos.</em></h2>
   <p class="final-sub" data-r>Gratis y sin compromiso. Crecer es más fácil en compañía.</p>
   <div class="final-row" data-r><div class="final-btn"><a class="wbtn" href="/contacto#agenda">Charlemos →</a><span class="mono cta-note">30 min · gratis · sin compromiso</span></div></div>
-  <LeadMagnet />
+  {/* <LeadMagnet /> oculto hasta que exista el PDF */}
 </section>
 </main>
 </Base>
