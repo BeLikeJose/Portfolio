@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Booking from '../components/Booking.astro';
 import { PUBLIC_BOOKING_URL } from 'astro:env/client';
 ---
-<Base title="Charlemos — Be like José" description="30 minutos para charlar, destrabar ideas y conocernos. Sin compromiso de compra.">
+<Base title="Charlemos — Be like José" description="30 minutos para conocernos y destrabar ideas.">
 <main class="page">
 <section class="contact" id="contacto">
   <div class="film" data-scene="street" data-seed="44" data-video></div>
@@ -12,7 +12,7 @@ import { PUBLIC_BOOKING_URL } from 'astro:env/client';
   <p class="contact-promise" data-r>Me gusta charlar y conectar con personas que están creciendo. Trae tus preguntas y te ayudo sin líos. Y si después quieres que trabajemos juntos, lo hablamos.</p>
   <div class="contact-cta" data-r>
     <a class="hbtn" href="#agenda">Elegir horario ↓</a>
-    <span class="mono">30 min · gratis · sin compromiso</span>
+    <span class="mono">30 minutos para conocernos y destrabar ideas</span>
   </div>
 </section>
 
@@ -24,13 +24,12 @@ import { PUBLIC_BOOKING_URL } from 'astro:env/client';
   <ol class="after-steps" data-r>
     <li><span>01</span><b>Agendas</b><i>Te llega el link, entras a la charla y listo. Nada más.</i></li>
     <li><span>02</span><b>Charlamos</b><i>Tú cuentas, yo pregunto; tú preguntas, yo respondo. Sin presentación ni pitch: ideas sobre la mesa.</i></li>
-    <li><span>03</span><b>Sales con claridad</b><i>Con una o dos ideas para aplicar desde mañana. Si ambos vemos que tiene sentido trabajar juntos, lo hablamos ahí o después, sin afán. Si no, también valió la charla.</i></li>
+    <li><span>03</span><b>Sales con claridad</b><i>Con una o dos ideas para aplicar desde mañana.</i></li>
   </ol>
-  <p class="charla-quote" data-r>Hoy no tienes que decidir algo. Si en unos meses tu negocio está más claro y quieres seguir, o que te respalde de otra manera, aquí podemos revisarlo. Todos estamos aquí para crecer y, si nos ayudamos, nos potenciamos.</p>
 </section>
 
 <section class="agenda" id="agenda">
-  <div class="agenda-head"><div class="mono" style="color:#777">agenda</div><h2 class="disp" data-r>Elige <em>día y hora</em></h2><p>Trae una idea trabada, una duda sobre tu marca o simplemente ganas de charlar. Pregúntame lo que quieras, que lo disfruto. Destrabamos lo que se pueda y sales con más claridad. No tienes que comprarme nada. Por Google Meet.</p><p class="mono agenda-limit">30 minutos dan para destrabar una idea. Si hace falta más, lo vemos.</p></div>
+  <div class="agenda-head"><div class="mono" style="color:#777">agenda</div><h2 class="disp" data-r>Elige <em>día y hora</em></h2><p>Por Google Meet. 30 minutos dan para destrabar una idea; si hace falta más, lo vemos.</p></div>
   <Booking url={PUBLIC_BOOKING_URL} length="Charla de 30 minutos" />
 
   <div class="code-box" id="codeBox">
