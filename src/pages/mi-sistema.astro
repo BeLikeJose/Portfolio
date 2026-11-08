@@ -2,15 +2,14 @@
 import Base from '../layouts/Base.astro';
 import Compass from '../components/Compass.astro';
 import Toaster from '../components/Toaster.astro';
-import SystemLoop from '../components/SystemLoop.astro';
 import EditorialCalendar from '../components/EditorialCalendar.astro';
 import Roadmap from '../components/Roadmap.astro';
 import Media from '../components/Media.astro';
 // import LeadMagnet from '../components/LeadMagnet.astro'; // oculto hasta que exista el PDF
 import Faq from '../components/Faq.astro';
 const CH = [
-  ['01', 'Los cuatro ejes', '#ejes'], ['02', 'Cómo se integran', '#integracion'], ['03', 'El proceso por dentro', '#proceso'],
-  ['04', 'Calendarios y roadmaps', '#por-dentro'], ['05', 'Lo que pasa sin sistema', '#sin-sistema'], ['06', 'Formas de trabajar', '#contigo'], ['07', 'Preguntas frecuentes', '#preguntas'],
+  ['01', 'Los cuatro ejes', '#ejes'], ['02', 'El proceso por dentro', '#proceso'], ['03', 'Calendarios y roadmaps', '#por-dentro'],
+  ['04', 'Lo que pasa sin sistema', '#sin-sistema'], ['05', 'Formas de trabajar', '#contigo'], ['06', 'Preguntas frecuentes', '#preguntas'],
 ];
 const STEPS = [
   { n: '01', t: 'Propuesta', d: 'antes de empezar', p: 'Definimos alcance, tiempos e inversión según lo que necesites.', g: 'una propuesta clara' },
@@ -50,20 +49,15 @@ const STEPS = [
   </div>
 </section>
 
-<section class="sys-sec" id="integracion">
-  <div class="sys-head"><div class="mono">capítulo 02 — cómo se integran</div><h2 class="disp" data-r>Un eje solo <em>no alcanza</em></h2><p data-r>Una marca linda sin oferta no vende. Una oferta sin contenido no se ve. Por eso trabajo los cuatro a la vez, y cada uno empuja al siguiente.</p></div>
-  <SystemLoop />
-</section>
-
 <section class="sys-sec dark" id="proceso">
   <div class="film" data-scene="lamp" data-seed="22" data-video></div>
-  <div class="sys-head"><div class="mono">capítulo 03 — el proceso por dentro</div><h2 class="disp" data-r>Así se vive <em>desde adentro</em></h2><p data-r>El primer ciclo: 12 semanas, del diagnóstico a decidir juntos cómo seguimos. Siempre sabes en qué vamos y qué viene.</p></div>
+  <div class="sys-head"><div class="mono">capítulo 02 — el proceso por dentro</div><h2 class="disp" data-r>Así se vive <em>desde adentro</em></h2><p data-r>El primer ciclo: 12 semanas, del diagnóstico a decidir juntos cómo seguimos. Siempre sabes en qué vamos y qué viene.</p></div>
   <p class="step-zero" data-r><span class="mono">paso 0 · la charla</span>Antes de cualquier proceso hay una charla de 30 minutos para conocernos: me encanta conocer a quien está creando algo. Si luego queremos trabajar juntos, empieza esto.</p>
   <ol class="steps" data-r>{STEPS.map((s) => <li><span class="sn">{s.n}</span><span class="mono sd">{s.d}</span><h3>{s.t}</h3><p>{s.p}</p><span class="mono sg">recibes → {s.g}</span></li>)}</ol>
 </section>
 
 <section class="sys-sec" id="por-dentro">
-  <div class="sys-head"><div class="mono">capítulo 04 — calendarios y roadmaps</div><h2 class="disp" data-r>Todo en papel <em>antes de grabar</em></h2><p data-r>Un mes de mi propio calendario. Lo que hago para mí es lo que hago para ti. Filtra por pilar o mueve la semana del roadmap.</p></div>
+  <div class="sys-head"><div class="mono">capítulo 03 — calendarios y roadmaps</div><h2 class="disp" data-r>Todo en papel <em>antes de grabar</em></h2><p data-r>Un mes de mi propio calendario. Lo que hago para mí es lo que hago para ti. Filtra por pilar o mueve la semana del roadmap.</p></div>
   <div class="tools">
     <EditorialCalendar />
     <Roadmap />
@@ -91,7 +85,7 @@ const STEPS = [
 <section class="sys-sec" id="sin-sistema">
   <div class="sin">
     <div>
-      <div class="mono" style="color:#777">capítulo 05 — lo que pasa sin sistema</div>
+      <div class="mono" style="color:#777">capítulo 04 — lo que pasa sin sistema</div>
       <h2 class="disp" data-r>Más horas no es <em>más dirección</em></h2>
       <p class="sys-p" data-r>La mayoría de creadores y negocios que llegan conmigo no tienen un problema de talento ni de ganas. Tienen un problema de sistema: hacen todo, todo el tiempo, y cada pieza sale distinta.</p>
     </div>
@@ -100,7 +94,7 @@ const STEPS = [
 </section>
 
 <section class="sys-sec" id="contigo">
-  <div class="sys-head"><div class="mono">capítulo 06 — formas de trabajar</div><h2 class="disp" data-r>Elige por dónde <em>empezamos</em></h2><p data-r>Todo empieza con una charla. Después, si quieres seguir: un servicio principal, una extensión para llevarlo a la práctica y dos formas de resolver una sola pieza.</p></div>
+  <div class="sys-head"><div class="mono">capítulo 05 — formas de trabajar</div><h2 class="disp" data-r>Elige por dónde <em>empezamos</em></h2><p data-r>Todo empieza con una charla. Después, si quieres seguir: un servicio principal, una extensión para llevarlo a la práctica y dos formas de resolver una sola pieza.</p></div>
 
   <div class="svc-main" data-r>
     <article class="svc-hero"><span class="mono">01 · el servicio principal</span><h3>Dirección y estrategia creativa</h3>
@@ -134,7 +128,7 @@ const STEPS = [
   </div>
 </section>
 <section class="sys-sec" id="preguntas">
-  <div class="sys-head"><div class="mono">capítulo 07 — preguntas frecuentes</div><h2 class="disp" data-r>Antes de <em>la charla</em></h2><p data-r>Lo que casi todos preguntan. Si tu duda no está aquí, la resolvemos en los 30 minutos.</p></div>
+  <div class="sys-head"><div class="mono">capítulo 06 — preguntas frecuentes</div><h2 class="disp" data-r>Antes de <em>la charla</em></h2><p data-r>Lo que casi todos preguntan. Si tu duda no está aquí, la resolvemos en los 30 minutos.</p></div>
   <Faq set="servicio" />
 </section>
 
