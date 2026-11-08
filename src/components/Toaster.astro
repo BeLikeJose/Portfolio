@@ -1,6 +1,6 @@
 ---
 // Tostadora con dos clips reales: mismo pan, misma tostadora; cambia cómo trabajas.
-// "con dirección" → sale dorada; "sin parar" → sale quemada. Videos en /media/tostadora (fondo igualado a la web).
+// "con dirección" → sale dorada; "sin dirección" → sale quemada. Videos en /media/tostadora (fondo igualado a la web).
 const M = '/media/tostadora';
 const POP_AT = 4.1; // segundo del clip en que salta la tostada
 ---
@@ -15,7 +15,7 @@ const POP_AT = 4.1; // segundo del clip en que salta la tostada
   </div>
   <div class="toast-choices" id="toastChoices">
     <button type="button" data-v="gold">con dirección</button>
-    <button type="button" data-v="burn">sin parar</button>
+    <button type="button" data-v="burn">sin dirección</button>
     <button type="button" class="obj-reset" id="toastReset" hidden>↺ otra vez</button>
   </div>
   <p class="ficha"><span class="n">fig. 003</span><br /><b>Tostadora</b>, 2026.<br />Acero, pan y demasiadas horas.<br />— Colección be like josé</p>
@@ -77,5 +77,5 @@ const POP_AT = 4.1; // segundo del clip en que salta la tostada
 
   choices.forEach((b) => b.addEventListener('click', () => { if (!resetBtn.hidden) reset(); run(b.dataset.v as 'gold' | 'burn'); }));
   resetBtn.addEventListener('click', reset);
-  document.getElementById('toastBox')!.addEventListener('click', () => { if (!busy && resetBtn.hidden) setCard('<b>Elige cómo trabajas.</b><i>abajo: con dirección o sin parar.</i>'); });
+  document.getElementById('toastBox')!.addEventListener('click', () => { if (!busy && resetBtn.hidden) setCard('<b>Elige cómo trabajas.</b><i>abajo: con dirección o sin dirección.</i>'); });
 </script>
