@@ -2,19 +2,46 @@
 import Base from '../layouts/Base.astro';
 import Suitcase from '../components/Suitcase.astro';
 import Media from '../components/Media.astro';
+import Ficha from '../components/Ficha.astro';
 import { NUMBERS } from '../lib/reach.js';
+
+// Fichas de cada caso. Campos fijos por pestaña; deja '' lo que aún no tengas y no se muestra.
+const FICHAS = {
+  strat: [
+    ['Cliente', ''],
+    ['Contexto', ''],
+    ['Decisión creativa', 'Un objeto de todos los días que dice otra cosa: el tostador que quema es el burnout.'],
+    ['Lo que construí', 'Concepto creativo · guion · dirección'],
+    ['Resultado', ''],
+  ],
+  edit: [
+    ['Cliente', ''],
+    ['Material de partida', ''],
+    ['Qué hice', 'Edición · motion'],
+    ['Herramientas', 'DaVinci Resolve · Fusion'],
+    ['Formato', 'Reel 9:16 · 0:15'],
+  ],
+  film: [
+    ['Evento', 'Zentaurus, el lanzamiento de VAOMystique (Vanessa Osorio) para sus clientes'],
+    ['Fecha y lugar', ''],
+    ['Mi rol', 'Estrategia de contenido · rodaje · edición'],
+    ['Formato', ''],
+    ['Equipo', 'Sony a7 IV · 35mm f1.2 · S-Log3'],
+    ['Mi mirada', ''],
+  ],
+} as Record<string, [string, string][]>;
 ---
-<Base title="La obra — Be like José" description="Casos de estrategia, rodaje y edición para marcas personales, empresas y creadores. Qué era, qué decidí y hasta dónde llegó.">
+<Base title="La obra — Be like José" description="Casos de estrategia, rodaje y edición para marcas personales, empresas y creadores.">
 <main class="page">
 <section class="mag" id="portfolio" data-tabs>
-  <div class="mag-head"><div><div class="mono" style="color:#777;margin-bottom:14px">la obra</div><h2 class="disp">La obra</h2><p class="mag-sub">Estrategia, rodaje y edición, contados como una revista: qué era, qué decidí y hasta dónde llegó.</p></div><a class="seeall" href="/contacto#agenda"><span>¿algo de esto te dio ideas? charlemos</span><b>→</b></a></div>
+  <div class="mag-head"><div><div class="mono" style="color:#777;margin-bottom:14px">la obra</div><h2 class="disp">La obra</h2><p class="mag-sub">Agárrate de la silla, que ahora te voy a mostrar lo que he creado. Échale un ojo, sin afán, y cualquier cosa, pregúntame por lo que no veas.</p></div><a class="seeall" href="/contacto#agenda"><span>¿algo de esto te dio ideas? charlemos</span><b>→</b></a></div>
   <div class="chips"><button data-tab="strat" class="on"><span class="film" data-scene="window" data-seed="8"></span>Estratega creativo</button><button data-tab="film"><span class="film" data-scene="street" data-seed="2"></span>Filmmaker</button><button data-tab="edit"><span class="film" data-scene="studio" data-seed="5" data-tone="bw"></span>Editor</button></div>
   <div class="mpanels">
     <div class="mpanel on" data-panel="strat">
       <p class="tab-intro">La estrategia también es obra. Conceptos, calendarios y roadmaps reales, con lo que lograron.</p>
       <div class="mgrid">
         <div class="feature"><div class="film" data-scene="window" data-seed="19" data-video><div class="demo" style="font-family:'Instrument Serif';font-size:70px;text-align:center;line-height:.95;text-transform:uppercase">el tostador<br>que quema<br><i style="font-size:36px;text-transform:none">= burnout</i></div><div class="lab">concepto — objeto resignificado</div></div>
-          <div class="cap"><div><span class="tag">concepto</span><div class="h3">El objeto que habla: conceptos que se entienden en un segundo</div></div><dl class="ficha-dl"><div><dt>La decisión creativa</dt><dd>Un objeto de todos los días que dice otra cosa: el tostador que quema es el burnout.</dd></div><div><dt>Qué hice</dt><dd>Concepto creativo · guion · dirección</dd></div></dl></div></div>
+          <div class="cap"><div><span class="tag">concepto</span><div class="h3">El objeto que habla: conceptos que se entienden en un segundo</div></div><Ficha items={FICHAS.strat} /></div></div>
         <div class="side-list">
           <div class="side-item"><div class="film" data-scene="lamp" data-seed="22"><div class="demo"><div class="cal-mini" id="calMini"></div></div></div><div><span class="tag">calendario</span><div class="h3">Mes 1 — 16 piezas, 3 pilares</div><div class="by">calendario editorial</div></div></div>
           <div class="side-item"><div class="film" data-scene="hands" data-seed="7"></div><div><span class="tag">roadmap</span><div class="h3">90 días: esencia, sistema, movimiento</div><div class="by"><a class="lnk" href="/mi-sistema#por-dentro">ver cómo se ve →</a></div></div></div>
@@ -26,15 +53,15 @@ import { NUMBERS } from '../lib/reach.js';
       <p class="tab-intro">Eventos, marcas y cuentas que se ven como cine. Rodado en Sony a7 IV y Osmo Pocket 3.</p>
       <div class="mgrid">
         <div class="feature"><div class="film" data-scene="street" data-seed="9" data-video><div class="rec"><span class="tc-dot"></span><span class="tc"></span></div><div class="lab">a7IV · S-Log3 · 35mm f1.2</div></div>
-          <div class="cap"><div><span class="tag">evento</span><span class="tag">lanzamiento</span><div class="h3">Zentaurus: el lanzamiento</div></div><dl class="ficha-dl"><div><dt>Cliente</dt><dd>VAOMystique — Vanessa Osorio</dd></div><div><dt>Qué era</dt><dd>El lanzamiento de Zentaurus, un evento para sus clientes.</dd></div><div><dt>Qué hice</dt><dd>Estrategia de contenido · rodaje · edición</dd></div></dl></div></div>
-        <div class="feature-aside"><span class="mono">cada caso, la misma ficha</span><p>Qué era, qué decidí y hasta dónde llegó. Pocos casos, completos y con su número.</p><a class="wbtn" href="/contacto#agenda">Charlemos →</a></div>
+          <div class="cap"><div><span class="tag">evento</span><span class="tag">lanzamiento</span><div class="h3">Zentaurus: el lanzamiento</div></div><Ficha items={FICHAS.film} /></div></div>
+        <div class="feature-aside"><span class="mono">cada caso, la misma ficha</span><p>Evento, fecha y lugar, mi rol, formato, equipo y mi mirada. Pocos casos, completos.</p><a class="wbtn" href="/contacto#agenda">Charlemos →</a></div>
       </div>
     </div>
     <div class="mpanel" data-panel="edit">
       <p class="tab-intro">Edito para que se queden. Los primeros 3 segundos deciden si alguien sigue mirando, y cada corte tiene una razón.</p>
       <div class="mgrid">
         <div class="feature"><div class="film" data-scene="studio" data-seed="14" data-tone="bw" data-video><div class="demo"><div class="kin"><span>mirar</span><span>cortar</span><span>sentir</span><span>mirar</span></div></div><div class="lab">kinetic type</div></div>
-          <div class="cap"><div><span class="tag">motion</span><div class="h3">Tipografía que se mueve al ritmo de la idea</div></div><dl class="ficha-dl"><div><dt>Qué hice</dt><dd>Edición · motion</dd></div></dl></div></div>
+          <div class="cap"><div><span class="tag">motion</span><div class="h3">Tipografía que se mueve al ritmo de la idea</div></div><Ficha items={FICHAS.edit} /></div></div>
         <div class="side-list">
           <div class="side-item"><div class="film" data-scene="street" data-seed="31" data-video><div class="demo"><div class="wave"></div></div><div class="cutline"></div></div><div><span class="tag">ritmo</span><div class="h3">Corte al beat</div><div class="by">cada corte con una razón</div></div></div>
           <div class="side-item"><div class="film" data-scene="sky" data-seed="17" data-video></div><div><span class="tag">estilo</span><div class="h3">Match cut — mismo encuadre, día y noche</div><div class="by">transición</div></div></div>

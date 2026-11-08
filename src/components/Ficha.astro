@@ -1,0 +1,7 @@
+---
+// Ficha de un caso en La obra. Cada pestaña tiene sus campos fijos (ver FICHAS en portfolio.astro).
+// Un campo vacío ('') no se muestra: así no aparecen textos de relleno en la web.
+interface Props { items: [string, string][] }
+const { items } = Astro.props;
+---
+<dl class="ficha-dl">{items.filter(([, v]) => v.trim()).map(([k, v]) => <div><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
