@@ -1,98 +1,76 @@
 ---
-// Compass: four cardinal points = four axes. The needle follows the cursor and settles on the axis you choose.
-const C = 160, R = 150;
+// Brújula real (foto) + aguja recortada que gira con código: sigue el cursor y se queda en el eje que eliges.
+// Imágenes en /media/brujula: brujula.jpg (centrada en su pivote, fondo blanco) y aguja.webp (centrada en su tapa).
+const M = '/media/brujula';
 const axes = [
-  { n: '01', name: 'dirección', sub: 'creativa', a: 0 },
-  { n: '02', name: 'operaciones', sub: 'y oferta de valor', a: 90 },
-  { n: '03', name: 'proyección', sub: 'empresarial', a: 180 },
-  { n: '04', name: 'contenidos', sub: 'creación de', a: 270 },
+  { n: '01', name: 'Dirección creativa', a: 0 },
+  { n: '02', name: 'Operaciones y oferta de valor', a: 90 },
+  { n: '03', name: 'Proyección empresarial', a: 180 },
+  { n: '04', name: 'Creación de contenidos', a: 270 },
 ];
-const pt = (deg: number, r: number) => { const t = (deg - 90) * Math.PI / 180; return [C + Math.cos(t) * r, C + Math.sin(t) * r]; };
-const ticks = Array.from({ length: 72 }, (_, i) => i * 5);
+const LR = 22.5; // distancia de los números al centro, en % del ancho
+const pos = (a: number) => { const t = a * Math.PI / 180; return `left:${50 + LR * Math.sin(t)}%;top:${50 - LR * Math.cos(t)}%`; };
 ---
 <div class="compass-obj" id="compass">
-  <svg class="compass" viewBox="0 0 320 320" aria-label="brújula de los cuatro ejes">
-    <defs>
-      <linearGradient id="brass" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#efe2b8" /><stop offset=".3" stop-color="#b8975a" /><stop offset=".55" stop-color="#f4e9c6" /><stop offset=".8" stop-color="#8c6c33" /><stop offset="1" stop-color="#d9c08a" />
-      </linearGradient>
-      <radialGradient id="face" cx=".45" cy=".4" r=".7"><stop offset="0" stop-color="#fbf8f1" /><stop offset=".85" stop-color="#ece6d8" /><stop offset="1" stop-color="#d6cdb9" /></radialGradient>
-      <radialGradient id="glass" cx=".3" cy=".25" r=".8"><stop offset="0" stop-color="#fff" stop-opacity=".55" /><stop offset=".35" stop-color="#fff" stop-opacity="0" /></radialGradient>
-      <filter id="csh"><feDropShadow dx="0" dy="14" stdDeviation="12" flood-opacity=".35" /></filter>
-    </defs>
-    <circle cx={C} cy={C} r={R + 6} fill="url(#brass)" filter="url(#csh)" />
-    <circle cx={C} cy={C} r={R - 6} fill="#6d5428" />
-    <circle cx={C} cy={C} r={R - 9} fill="url(#face)" />
-    {ticks.map((d) => { const [x1, y1] = pt(d, R - 12); const [x2, y2] = pt(d, R - (d % 45 === 0 ? 26 : d % 15 === 0 ? 20 : 16)); return <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#2b2620" stroke-width={d % 45 === 0 ? 1.6 : .7} />; })}
-    <g class="rose" opacity=".14">{[0, 90, 180, 270].map((d) => { const [x, y] = pt(d, 92); const [l1, l2] = pt(d - 90, 12); const [r1, r2] = pt(d + 90, 12); return <path d={`M${x} ${y} L${C + (l1 - C)} ${C + (l2 - C)} L${C} ${C} Z M${x} ${y} L${C + (r1 - C)} ${C + (r2 - C)} L${C} ${C} Z`} fill="#000" />; })}</g>
-    {axes.map((ax, i) => { const [x, y] = pt(ax.a, 92); return (
-      <g class="cpt" data-i={i}>
-        <circle cx={x} cy={y} r="34" fill="transparent" />
-        <text x={x} y={y - 8} text-anchor="middle" class="cn">{ax.n}</text>
-        <text x={x} y={y + 6} text-anchor="middle" class="cname">{ax.name}</text>
-      </g>); })}
-    <g class="needle" id="needle" style={`transform-origin:${C}px ${C}px`}>
-      <path d={`M${C} ${C - 104} L${C + 11} ${C} L${C - 11} ${C} Z`} fill="#b3261e" />
-      <path d={`M${C} ${C - 104} L${C + 11} ${C} L${C} ${C} Z`} fill="#8a1c16" />
-      <path d={`M${C} ${C + 104} L${C + 11} ${C} L${C - 11} ${C} Z`} fill="#e8e3d8" stroke="#2b2620" stroke-width=".8" />
-    </g>
-    <circle cx={C} cy={C} r="9" fill="url(#brass)" stroke="#6d5428" />
-    <circle cx={C} cy={C} r={R - 9} fill="url(#glass)" pointer-events="none" />
-  </svg>
+  <div class="cstage" id="cstage" aria-label="brújula de los cuatro ejes">
+    <img class="cbase" src={`${M}/brujula.jpg`} alt="" draggable="false" />
+    {axes.map((ax, i) => <button type="button" class="cpt" data-i={i} style={pos(ax.a)} aria-label={`eje ${ax.n}: ${ax.name}`}>{ax.n}</button>)}
+    <img class="cneedle" id="needle" src={`${M}/aguja.webp`} alt="" draggable="false" />
+    <span class="cglass" aria-hidden="true"></span>
+  </div>
   <div class="compass-read mono" id="compassRead">mueve el cursor — elige un rumbo</div>
   <p class="ficha"><span class="n">fig. 004</span><br /><b>Brújula</b>, 2026.<br />Latón, vidrio y un norte que se elige.<br />— Colección be like josé</p>
 </div>
 
 <style>
   .compass-obj { display: flex; flex-direction: column; align-items: flex-start; }
-  .compass { width: min(300px, 100%); overflow: visible; user-select: none; touch-action: none; }
-  .needle { transition: transform 1.1s cubic-bezier(.2, 1.9, .4, 1); }
-  .compass-obj.follow .needle { transition: transform .35s cubic-bezier(.2, 1.5, .4, 1); }
-  .cpt { cursor: pointer; }
-  .cn { font: 400 20px 'Instrument Serif', serif; fill: #2b2620; }
-  .cname { font: 500 7.5px 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: .08em; fill: #2b2620; }
-  .cpt.on .cn { fill: #b3261e; }
-  .cpt.on .cname { fill: #b3261e; text-decoration: underline; }
+  .cstage { position: relative; width: min(320px, 100%); aspect-ratio: 1; user-select: none; touch-action: none; cursor: crosshair; }
+  .cbase { position: absolute; inset: 0; width: 100%; height: 100%; mix-blend-mode: multiply; pointer-events: none; }
+  /* aguja: el lienzo es cuadrado y está centrado en la tapa, así gira sobre el pivote */
+  .cneedle { position: absolute; left: 31%; top: 31%; width: 38%; height: 38%; pointer-events: none;
+    filter: drop-shadow(1px 5px 3px rgba(40, 25, 5, .35)); transition: transform 1.1s cubic-bezier(.2, 1.9, .4, 1); }
+  .compass-obj.follow .cneedle { transition: transform .35s cubic-bezier(.2, 1.5, .4, 1); }
+  .cglass { position: absolute; left: 12%; top: 12%; width: 76%; height: 76%; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle at 30% 24%, rgba(255, 255, 255, .45), rgba(255, 255, 255, 0) 38%); }
+  .cpt { position: absolute; translate: -50% -50%; background: none; border: 0; padding: 4px 6px; cursor: pointer;
+    font: 400 clamp(17px, 1.6vw, 22px) 'Instrument Serif', serif; color: #3a2f22; line-height: 1; transition: color .25s, transform .25s; }
+  .cpt:hover { transform: scale(1.15); }
+  .cpt.on { color: #8e1c17; text-decoration: underline; text-underline-offset: 3px; }
   .compass-read { margin-top: 12px; padding: 8px 10px; border: 1px solid var(--ink); min-width: 260px; }
 
   @media (max-width: 900px) {
     .compass-obj { align-items: center; }
-    .compass { width: min(280px, 80vw); touch-action: manipulation; }
+    .cstage { width: min(300px, 82vw); touch-action: manipulation; }
     .compass-read { min-width: 0; width: 100%; text-align: center; }
   }
 </style>
 
 <script>
   const root = document.getElementById('compass')!;
-  const svg = root.querySelector('svg')!;
+  const stage = document.getElementById('cstage')!;
   const needle = document.getElementById('needle')!;
   const read = document.getElementById('compassRead')!;
-  const pts = [...root.querySelectorAll<SVGGElement>('.cpt')];
+  const pts = [...root.querySelectorAll<HTMLButtonElement>('.cpt')];
   const NAMES = ['Dirección creativa', 'Operaciones y oferta de valor', 'Proyección empresarial', 'Creación de contenidos'];
   const arts = ['eje-01', 'eje-02', 'eje-03', 'eje-04'].map((id) => document.getElementById(id));
   let angle = 0, sel = -1;
   if (matchMedia('(hover: none)').matches) read.textContent = 'toca un rumbo';
   const turn = (a: number) => { let d = a - (angle % 360); if (d > 180) d -= 360; if (d < -180) d += 360; angle += d; needle.style.transform = `rotate(${angle}deg)`; };
+  const bearing = (e: PointerEvent | MouseEvent) => { const b = stage.getBoundingClientRect(); return Math.atan2(e.clientY - (b.top + b.height / 2), e.clientX - (b.left + b.width / 2)) * 180 / Math.PI + 90; };
   const choose = (i: number) => {
     sel = i; root.classList.remove('follow'); turn(i * 90);
     pts.forEach((p, k) => p.classList.toggle('on', k === i));
     arts.forEach((a, k) => a?.classList.toggle('lit', k === i));
     read.textContent = `rumbo ${String(i + 1).padStart(2, '0')} — ${NAMES[i]}`;
   };
-  svg.addEventListener('pointermove', (e) => {
-    const b = svg.getBoundingClientRect();
-    const a = Math.atan2(e.clientY - (b.top + b.height / 2), e.clientX - (b.left + b.width / 2)) * 180 / Math.PI + 90;
-    root.classList.add('follow'); turn(a);
-  });
-  svg.addEventListener('pointerleave', () => { if (sel >= 0) choose(sel); else { root.classList.remove('follow'); turn(0); } });
-  svg.addEventListener('click', (e) => {
-    const p = (e.target as Element).closest('.cpt') as SVGGElement | null;
+  stage.addEventListener('pointermove', (e) => { if (e.pointerType === 'touch') return; root.classList.add('follow'); turn(bearing(e)); });
+  stage.addEventListener('pointerleave', () => { if (sel >= 0) choose(sel); else { root.classList.remove('follow'); turn(0); } });
+  stage.addEventListener('click', (e) => {
+    const p = (e.target as Element).closest('.cpt') as HTMLButtonElement | null;
     if (p) return choose(Number(p.dataset.i));
-    const b = svg.getBoundingClientRect();
-    const a = (Math.atan2(e.clientY - (b.top + b.height / 2), e.clientX - (b.left + b.width / 2)) * 180 / Math.PI + 90 + 360) % 360;
-    choose(Math.round(a / 90) % 4);
+    choose(Math.round(((bearing(e) + 360) % 360) / 90) % 4);
   });
   arts.forEach((a, i) => a?.addEventListener('mouseenter', () => choose(i)));
-  // idle: a slight tremble, like a real needle
-  setInterval(() => { if (!root.classList.contains('follow')) { needle.style.transform = `rotate(${angle + (Math.random() - .5) * 4}deg)`; } }, 1600);
+  // en reposo, un leve temblor, como una aguja de verdad
+  setInterval(() => { if (!root.classList.contains('follow')) needle.style.transform = `rotate(${angle + (Math.random() - .5) * 4}deg)`; }, 1600);
 </script>
