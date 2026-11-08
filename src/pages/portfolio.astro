@@ -12,7 +12,7 @@ const [estratega, editor, filmmaker] = await Promise.all([data('estratega'), dat
 // Campos de la ficha por pestaña: [clave en el archivo, cómo se muestra].
 const CAMPOS = {
   estratega: [['cliente', 'Cliente'], ['contexto', 'Contexto'], ['decision', 'Decisión creativa'], ['construi', 'Lo que construí'], ['resultado', 'Resultado']],
-  editor: [['cliente', 'Cliente'], ['material', 'Material de partida'], ['queHice', 'Qué hice'], ['herramientas', 'Herramientas'], ['formato', 'Formato']],
+  editor: [['cliente', 'Cliente'], ['material', 'Material de partida'], ['herramientas', 'Herramientas'], ['formato', 'Formato']],
   filmmaker: [['evento', 'Evento'], ['fechaLugar', 'Fecha y lugar'], ['rol', 'Mi rol'], ['formato', 'Formato'], ['mirada', 'Mi mirada']],
 } as Record<string, [string, string][]>;
 ---

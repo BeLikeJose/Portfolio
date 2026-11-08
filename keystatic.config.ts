@@ -9,12 +9,15 @@ const base = {
   titulo: fields.slug({ name: { label: 'Título del caso', validation: { isRequired: true } } }),
   etiquetas: fields.array(fields.text({ label: 'Etiqueta' }), { label: 'Etiquetas', description: 'Palabras cortas sobre el caso, por ejemplo: concepto, lanzamiento.', itemLabel: (p) => p.value || 'etiqueta' }),
   portada: fields.image({ label: 'Portada (foto)', description: 'Opcional. JPG o WebP, idealmente menos de 500 KB.', directory: 'public/media/obra', publicPath: '/media/obra/' }),
-  video: fields.url({ label: 'Video (link .mp4)', description: 'Opcional. Si lo pones, se muestra en lugar de la portada.' }),
+  video: fields.url({ label: 'Video (link)', description: 'Opcional. Un link .mp4 se reproduce en la página. Un link de Instagram, YouTube o Vimeo aparece como botón "ver video" sobre la portada.' }),
   orden: fields.integer({ label: 'Orden', description: 'El 1 es el caso grande de la pestaña; los demás van al lado.', defaultValue: 1 }),
 };
 
-const casos = (label: string, carpeta: string, campos: Record<string, ReturnType<typeof texto>>) =>
-  collection({ label, slugField: 'titulo', path: `src/content/obra/${carpeta}/*`, format: { data: 'yaml' }, columns: ['orden'], schema: { ...base, ...campos } });
+const casos = (label: string, carpeta: string, campos: Record<string, ReturnType<typeof texto>>, etiquetas?: { label: string; description: string }) =>
+  collection({
+    label, slugField: 'titulo', path: `src/content/obra/${carpeta}/*`, format: { data: 'yaml' }, columns: ['orden'],
+    schema: { ...base, ...(etiquetas && { etiquetas: fields.array(fields.text({ label: etiquetas.label }), { ...etiquetas, itemLabel: (p) => p.value || 'etiqueta' }) }), ...campos },
+  });
 
 export default config({
   storage: import.meta.env.DEV ? { kind: 'local' } : { kind: 'github', repo: 'BeLikeJose/Portfolio' },
@@ -46,10 +49,9 @@ export default config({
     editor: casos('Editor', 'editor', {
       cliente: texto('Cliente'),
       material: texto('Material de partida'),
-      queHice: texto('Qué hice'),
       herramientas: texto('Herramientas'),
       formato: texto('Formato'),
-    }),
+    }, { label: 'Qué hice', description: 'Cada cosa que hiciste, una por una. Se muestran como etiquetas: Color grading, Motion graphics…' }),
     filmmaker: casos('Filmmaker', 'filmmaker', {
       evento: texto('Evento'),
       fechaLugar: texto('Fecha y lugar'),

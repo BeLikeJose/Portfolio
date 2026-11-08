@@ -10,24 +10,26 @@ const ficha = (c: Caso) => campos.map(([k, label]) => [label, String(c[k] ?? '')
 const lista = campos.map(([, l]) => l.toLowerCase());
 const resumen = lista.slice(0, -1).join(', ') + ' y ' + lista.at(-1) + '.';
 const SCENES = ['street', 'sky', 'flash', 'lamp', 'park', 'hands'];
+// Un .mp4/.webm/.mov se reproduce en la página; cualquier otro link (Instagram, YouTube…) abre aparte.
+const esArchivo = (u?: string | null) => !!u && /\.(mp4|webm|mov)(\?|#|$)/i.test(u);
 ---
 {intro && <p class="tab-intro">{intro}</p>}
 {main && (
   <div class="mgrid">
     <div class="feature">
-      {main.video ? <div class="film real"><video src={main.video} autoplay muted loop playsinline></video></div>
-        : main.portada ? <div class="film real"><img src={main.portada} alt={main.titulo} loading="lazy" /></div>
-        : <div class="film" data-scene={scene} data-seed="19" data-tone={tone} data-video></div>}
+      {esArchivo(main.video) ? <div class="film real"><video src={main.video!} autoplay muted loop playsinline></video></div>
+        : main.portada ? <div class="film real"><img src={main.portada} alt={main.titulo} loading="lazy" />{main.video && <a class="ver-video mono" href={main.video} target="_blank" rel="noopener">▶ ver video</a>}</div>
+        : <div class="film" data-scene={scene} data-seed="19" data-tone={tone} data-video>{main.video && <a class="ver-video mono" href={main.video} target="_blank" rel="noopener">▶ ver video</a>}</div>}
       <div class="cap"><div>{main.etiquetas.map((t) => <span class="tag">{t}</span>)}<div class="h3">{main.titulo}</div></div><Ficha items={ficha(main)} /></div>
     </div>
     {rest.length ? (
       <div class="side-list">
         {rest.map((c, i) => (
           <div class="side-item">
-            {c.video ? <div class="film real"><video src={c.video} autoplay muted loop playsinline></video></div>
-              : c.portada ? <div class="film real"><img src={c.portada} alt={c.titulo} loading="lazy" /></div>
-              : <div class="film" data-scene={SCENES[i % SCENES.length]} data-seed={30 + i} data-tone={tone}></div>}
-            <div>{c.etiquetas[0] && <span class="tag">{c.etiquetas[0]}</span>}<div class="h3">{c.titulo}</div><Ficha items={ficha(c)} /></div>
+            {esArchivo(c.video) ? <div class="film real"><video src={c.video!} autoplay muted loop playsinline></video></div>
+              : c.portada ? <div class="film real"><img src={c.portada} alt={c.titulo} loading="lazy" />{c.video && <a class="ver-video mono" href={c.video} target="_blank" rel="noopener">▶</a>}</div>
+              : <div class="film" data-scene={SCENES[i % SCENES.length]} data-seed={30 + i} data-tone={tone}>{c.video && <a class="ver-video mono" href={c.video} target="_blank" rel="noopener">▶</a>}</div>}
+            <div>{c.etiquetas.map((t) => <span class="tag">{t}</span>)}<div class="h3">{c.titulo}</div><Ficha items={ficha(c)} /></div>
           </div>
         ))}
       </div>

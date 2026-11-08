@@ -20,6 +20,6 @@ export const collections = {
     schema: z.object({ intro: t, introEstratega: t, introFilmmaker: t, introEditor: t }),
   }),
   estratega: casos('estratega', { cliente: t, contexto: t, decision: t, construi: t, resultado: t }),
-  editor: casos('editor', { cliente: t, material: t, queHice: t, herramientas: t, formato: t }),
+  editor: casos('editor', { cliente: t, material: t, herramientas: t, formato: t }),
   filmmaker: casos('filmmaker', { evento: t, fechaLugar: t, rol: t, formato: t, mirada: t }),
 };
