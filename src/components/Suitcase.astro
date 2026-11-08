@@ -17,7 +17,7 @@ const ITEMS = [
   { id: 'flash', name: '2 × Godox iT30 Pro', use: 'La foto del evento, bien iluminada.', x: 72, y: 70, w: 132, r: 3 },
   { id: 'luz', name: 'Barra RGB Neewer', use: 'Color donde no hay luz.', x: 91, y: 64, w: 46, r: 8 },
 ];
-const OPEN_AT = 3.2; // segundo del clip en que la tapa ya dejó ver el interior
+const OPEN_AT = 3.0; // segundo del clip en que la tapa ya dejó ver el interior
 ---
 <div class="suit-obj" id="suitcase" data-open={OPEN_AT}>
   <div class="suit-stage">
@@ -41,13 +41,13 @@ const OPEN_AT = 3.2; // segundo del clip en que la tapa ya dejó ver el interior
 
 <style>
   .suit-stage { position: relative; height: 640px; max-width: 1240px; margin: 0 auto; }
-  .suit-box { position: absolute; left: 50%; bottom: 0; width: min(600px, 48%); aspect-ratio: 960 / 726; translate: -50% 0; cursor: pointer; z-index: 1; }
+  .suit-box { position: absolute; left: 50%; bottom: 0; width: min(600px, 48%); aspect-ratio: 960 / 726; translate: -50% 0; cursor: pointer; z-index: 1; mix-blend-mode: multiply; } /* el fondo blanco del video desaparece contra la página */
   .suit-obj.open .suit-box { cursor: default; }
   .sv { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity .12s; pointer-events: none;
     --fx: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); --fy: linear-gradient(to bottom, transparent, #000 6%, #000 90%, transparent);
     -webkit-mask-image: var(--fx), var(--fy); -webkit-mask-composite: source-in; mask-image: var(--fx), var(--fy); mask-composite: intersect; }
   .sv.on { opacity: 1; }
-  .sv { mix-blend-mode: multiply; } /* el fondo blanco del video desaparece contra la página */
+
   .suit-obj:not(.open) .suit-box:hover { animation: nudge .5s; }
   @keyframes nudge { 30% { transform: rotate(-.6deg); } 60% { transform: rotate(.5deg); } }
 
