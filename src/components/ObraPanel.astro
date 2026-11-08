@@ -1,0 +1,38 @@
+---
+// Una pestaña de La obra: el caso con orden más bajo va en grande; el resto, al lado.
+// Los datos salen de src/content/obra/<pestaña>/*.yaml (se editan en /keystatic).
+import Ficha from './Ficha.astro';
+interface Caso { titulo: string; etiquetas: string[]; portada?: string | null; video?: string | null; orden: number; [k: string]: unknown }
+interface Props { casos: Caso[]; campos: [string, string][]; intro?: string; scene: string; tone?: string }
+const { casos, campos, intro, scene, tone } = Astro.props;
+const [main, ...rest] = [...casos].sort((a, b) => a.orden - b.orden);
+const ficha = (c: Caso) => campos.map(([k, label]) => [label, String(c[k] ?? '')] as [string, string]);
+const lista = campos.map(([, l]) => l.toLowerCase());
+const resumen = lista.slice(0, -1).join(', ') + ' y ' + lista.at(-1) + '.';
+const SCENES = ['street', 'sky', 'flash', 'lamp', 'park', 'hands'];
+---
+{intro && <p class="tab-intro">{intro}</p>}
+{main && (
+  <div class="mgrid">
+    <div class="feature">
+      {main.video ? <div class="film real"><video src={main.video} autoplay muted loop playsinline></video></div>
+        : main.portada ? <div class="film real"><img src={main.portada} alt={main.titulo} loading="lazy" /></div>
+        : <div class="film" data-scene={scene} data-seed="19" data-tone={tone} data-video></div>}
+      <div class="cap"><div>{main.etiquetas.map((t) => <span class="tag">{t}</span>)}<div class="h3">{main.titulo}</div></div><Ficha items={ficha(main)} /></div>
+    </div>
+    {rest.length ? (
+      <div class="side-list">
+        {rest.map((c, i) => (
+          <div class="side-item">
+            {c.video ? <div class="film real"><video src={c.video} autoplay muted loop playsinline></video></div>
+              : c.portada ? <div class="film real"><img src={c.portada} alt={c.titulo} loading="lazy" /></div>
+              : <div class="film" data-scene={SCENES[i % SCENES.length]} data-seed={30 + i} data-tone={tone}></div>}
+            <div>{c.etiquetas[0] && <span class="tag">{c.etiquetas[0]}</span>}<div class="h3">{c.titulo}</div><Ficha items={ficha(c)} /></div>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div class="feature-aside"><span class="mono">cada caso, la misma ficha</span><p>{resumen.charAt(0).toUpperCase() + resumen.slice(1)}</p><a class="wbtn" href="/contacto#agenda">Charlemos →</a></div>
+    )}
+  </div>
+)}

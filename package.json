@@ -11,8 +11,13 @@
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.4.4",
+    "@astrojs/react": "^7.1.4",
+    "@keystatic/astro": "^6.0.0",
+    "@keystatic/core": "^0.6.9",
     "@supabase/supabase-js": "^2.118.0",
-    "astro": "^7.4.5"
+    "astro": "^7.4.5",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
   },
   "devDependencies": {
     "wrangler": "^4.156.2"

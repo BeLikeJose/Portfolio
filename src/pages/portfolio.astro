@@ -2,72 +2,29 @@
 import Base from '../layouts/Base.astro';
 import Suitcase from '../components/Suitcase.astro';
 import Media from '../components/Media.astro';
-import Ficha from '../components/Ficha.astro';
+import ObraPanel from '../components/ObraPanel.astro';
 import { NUMBERS } from '../lib/reach.js';
+import { getCollection, getEntry } from 'astro:content';
 
-// Fichas de cada caso. Campos fijos por pestaña; deja '' lo que aún no tengas y no se muestra.
-const FICHAS = {
-  strat: [
-    ['Cliente', ''],
-    ['Contexto', ''],
-    ['Decisión creativa', 'Un objeto de todos los días que dice otra cosa: el tostador que quema es el burnout.'],
-    ['Lo que construí', 'Concepto creativo · guion · dirección'],
-    ['Resultado', ''],
-  ],
-  edit: [
-    ['Cliente', ''],
-    ['Material de partida', ''],
-    ['Qué hice', 'Edición · motion'],
-    ['Herramientas', 'DaVinci Resolve · Fusion'],
-    ['Formato', 'Reel 9:16 · 0:15'],
-  ],
-  film: [
-    ['Evento', 'Zentaurus, el lanzamiento de VAOMystique (Vanessa Osorio) para sus clientes'],
-    ['Fecha y lugar', ''],
-    ['Mi rol', 'Estrategia de contenido · rodaje · edición'],
-    ['Formato', ''],
-    ['Mi mirada', ''],
-  ],
+const pagina = (await getEntry('obraPagina', 'pagina'))?.data;
+const data = async (c: 'estratega' | 'editor' | 'filmmaker') => (await getCollection(c)).map((e) => e.data);
+const [estratega, editor, filmmaker] = await Promise.all([data('estratega'), data('editor'), data('filmmaker')]);
+// Campos de la ficha por pestaña: [clave en el archivo, cómo se muestra].
+const CAMPOS = {
+  estratega: [['cliente', 'Cliente'], ['contexto', 'Contexto'], ['decision', 'Decisión creativa'], ['construi', 'Lo que construí'], ['resultado', 'Resultado']],
+  editor: [['cliente', 'Cliente'], ['material', 'Material de partida'], ['queHice', 'Qué hice'], ['herramientas', 'Herramientas'], ['formato', 'Formato']],
+  filmmaker: [['evento', 'Evento'], ['fechaLugar', 'Fecha y lugar'], ['rol', 'Mi rol'], ['formato', 'Formato'], ['mirada', 'Mi mirada']],
 } as Record<string, [string, string][]>;
 ---
 <Base title="La obra — Be like José" description="Casos de estrategia, rodaje y edición para marcas personales, empresas y creadores.">
 <main class="page">
 <section class="mag" id="portfolio" data-tabs>
-  <div class="mag-head"><div><div class="mono" style="color:#777;margin-bottom:14px">la obra</div><h2 class="disp">La obra</h2><p class="mag-sub">Agárrate de la silla, que ahora te voy a mostrar lo que he creado. Échale un ojo, sin afán, y cualquier cosa, pregúntame por lo que no veas.</p></div><a class="seeall" href="/contacto#agenda"><span>¿algo de esto te dio ideas? charlemos</span><b>→</b></a></div>
+  <div class="mag-head"><div><div class="mono" style="color:#777;margin-bottom:14px">la obra</div><h2 class="disp">La obra</h2>{pagina?.intro && <p class="mag-sub">{pagina.intro}</p>}</div><a class="seeall" href="/contacto#agenda"><span>¿algo de esto te dio ideas? charlemos</span><b>→</b></a></div>
   <div class="chips"><button data-tab="strat" class="on"><span class="film" data-scene="window" data-seed="8"></span>Estratega creativo</button><button data-tab="film"><span class="film" data-scene="street" data-seed="2"></span>Filmmaker</button><button data-tab="edit"><span class="film" data-scene="studio" data-seed="5" data-tone="bw"></span>Editor</button></div>
   <div class="mpanels">
-    <div class="mpanel on" data-panel="strat">
-      <p class="tab-intro">La estrategia también es obra. Conceptos, calendarios y roadmaps reales, con lo que lograron.</p>
-      <div class="mgrid">
-        <div class="feature"><div class="film" data-scene="window" data-seed="19" data-video><div class="demo" style="font-family:'Instrument Serif';font-size:70px;text-align:center;line-height:.95;text-transform:uppercase">el tostador<br>que quema<br><i style="font-size:36px;text-transform:none">= burnout</i></div><div class="lab">concepto — objeto resignificado</div></div>
-          <div class="cap"><div><span class="tag">concepto</span><div class="h3">El objeto que habla: conceptos que se entienden en un segundo</div></div><Ficha items={FICHAS.strat} /></div></div>
-        <div class="side-list">
-          <div class="side-item"><div class="film" data-scene="lamp" data-seed="22"><div class="demo"><div class="cal-mini" id="calMini"></div></div></div><div><span class="tag">calendario</span><div class="h3">Mes 1 — 16 piezas, 3 pilares</div><div class="by">calendario editorial</div></div></div>
-          <div class="side-item"><div class="film" data-scene="hands" data-seed="7"></div><div><span class="tag">roadmap</span><div class="h3">90 días: esencia, sistema, movimiento</div><div class="by"><a class="lnk" href="/mi-sistema#por-dentro">ver cómo se ve →</a></div></div></div>
-          <div class="side-item"><div class="film" data-scene="park" data-seed="5"></div><div><span class="tag">resultados</span><div class="h3">Lo que hemos construido con las marcas</div><div class="by"><a class="lnk" href="#metricas">ver números ↓</a></div></div></div>
-        </div>
-      </div>
-    </div>
-    <div class="mpanel" data-panel="film">
-      <p class="tab-intro">Eventos, marcas y cuentas que se ven como cine. Rodado en Sony a7 IV y Osmo Pocket 3.</p>
-      <div class="mgrid">
-        <div class="feature"><div class="film" data-scene="street" data-seed="9" data-video><div class="rec"><span class="tc-dot"></span><span class="tc"></span></div><div class="lab">a7IV · S-Log3 · 35mm f1.2</div></div>
-          <div class="cap"><div><span class="tag">evento</span><span class="tag">lanzamiento</span><div class="h3">Zentaurus: el lanzamiento</div></div><Ficha items={FICHAS.film} /></div></div>
-        <div class="feature-aside"><span class="mono">cada caso, la misma ficha</span><p>Evento, fecha y lugar, mi rol, formato y mi mirada. Pocos casos, completos.</p><a class="wbtn" href="/contacto#agenda">Charlemos →</a></div>
-      </div>
-    </div>
-    <div class="mpanel" data-panel="edit">
-      <p class="tab-intro">Edito para que se queden. Los primeros 3 segundos deciden si alguien sigue mirando, y cada corte tiene una razón.</p>
-      <div class="mgrid">
-        <div class="feature"><div class="film" data-scene="studio" data-seed="14" data-tone="bw" data-video><div class="demo"><div class="kin"><span>mirar</span><span>cortar</span><span>sentir</span><span>mirar</span></div></div><div class="lab">kinetic type</div></div>
-          <div class="cap"><div><span class="tag">motion</span><div class="h3">Tipografía que se mueve al ritmo de la idea</div></div><Ficha items={FICHAS.edit} /></div></div>
-        <div class="side-list">
-          <div class="side-item"><div class="film" data-scene="street" data-seed="31" data-video><div class="demo"><div class="wave"></div></div><div class="cutline"></div></div><div><span class="tag">ritmo</span><div class="h3">Corte al beat</div><div class="by">cada corte con una razón</div></div></div>
-          <div class="side-item"><div class="film" data-scene="sky" data-seed="17" data-video></div><div><span class="tag">estilo</span><div class="h3">Match cut — mismo encuadre, día y noche</div><div class="by">transición</div></div></div>
-          <div class="side-item"><div class="film" data-scene="flash" data-seed="8" data-video></div><div><span class="tag">color</span><div class="h3">Etalonaje S-Log3 → film</div><div class="by">color</div></div></div>
-        </div>
-      </div>
-    </div>
+    <div class="mpanel on" data-panel="strat"><ObraPanel casos={estratega} campos={CAMPOS.estratega} intro={pagina?.introEstratega} scene="window" /></div>
+    <div class="mpanel" data-panel="film"><ObraPanel casos={filmmaker} campos={CAMPOS.filmmaker} intro={pagina?.introFilmmaker} scene="street" /></div>
+    <div class="mpanel" data-panel="edit"><ObraPanel casos={editor} campos={CAMPOS.editor} intro={pagina?.introEditor} scene="studio" tone="bw" /></div>
   </div>
 </section>
 
@@ -119,8 +76,6 @@ const FICHAS = {
   const one = i => '<div class="frame"><div class="film" data-scene="' + sc[i % sc.length] + '" data-seed="' + (50 + i) + '" ' + (i % 3 === 0 ? 'data-video' : '') + ' ' + (i % 4 === 1 ? 'data-tone="bw"' : '') + '></div><span class="no">▸ ' + String(i + 1).padStart(2, '0') + 'A &nbsp; KODAK 5219</span></div>';
   const set = Array.from({length: 10}, (_, i) => one(i)).join('');
   document.getElementById('reel').innerHTML = set + set;
-  $$('.wave').forEach(w => { w.innerHTML = Array.from({length: 14}, (_, i) => '<i style="animation-delay:' + ((i * 0.07) % 1) + 's;animation-duration:' + (.5 + (i % 5) * .12) + 's"></i>').join(''); });
-  $('#calMini').innerHTML = Array.from({length: 28}, (_, i) => '<i class="' + ([1,3,4,8,10,12,15,17,18,22,24,26].includes(i) ? 'f' : '') + '"></i>').join('');
   // /portfolio#film, #edit, #strat open that tab
   const openTab = () => { const h = location.hash.slice(1); if (['film', 'edit', 'strat'].includes(h)) { setTab('#portfolio', h); setTimeout(() => window.renderFilms && renderFilms(), 60); document.getElementById('portfolio').scrollIntoView(); } };
   addEventListener('load', openTab); addEventListener('hashchange', openTab);
