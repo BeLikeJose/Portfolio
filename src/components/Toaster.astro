@@ -28,6 +28,7 @@ const POP_AT = 4.1; // segundo del clip en que salta la tostada
     --fx: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); --fy: linear-gradient(to bottom, transparent, #000 6%, #000 94%, transparent);
     -webkit-mask-image: var(--fx), var(--fy); -webkit-mask-composite: source-in; mask-image: var(--fx), var(--fy); mask-composite: intersect; }
   .tv.on { opacity: 1; }
+  .tv { mix-blend-mode: multiply; } /* el fondo blanco del video desaparece contra la página */
   #toastCard { right: 0; bottom: 8%; }
   .toast-choices { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 6px; }
   .toast-choices button[data-v] { font: 500 11px 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: .05em; background: none; border: 1px solid var(--ink); border-radius: 999px; padding: 10px 16px; cursor: pointer; color: var(--ink); transition: background .2s, color .2s; }

@@ -1,108 +1,128 @@
 ---
-// Suitcase: open it and the gear comes out. Each item has its tag. Edit ITEMS with your real kit.
+// La maleta: un clip real (se abren los cierres y la tapa) y, al abrirse, sale el equipo real.
+// Video en /media/maleta (fondo igualado a la web); fotos recortadas en /media/maleta/equipo.
+// Para cambiar el equipo: edita ITEMS (x/y = posición en % del escenario, w = ancho en px en escritorio).
+const M = '/media/maleta';
 const ITEMS = [
-  { id: 'cam', name: 'Sony a7 IV', use: 'S-Log3. El ojo principal.', x: -310, y: -110, r: -8 },
-  { id: 'pocket', name: 'DJI Osmo Pocket 3', use: 'Para lo que pasa sin aviso.', x: -330, y: 40, r: 6 },
-  { id: 'lens', name: 'Lente 35 mm f1.2', use: 'La distancia de una conversación.', x: -160, y: -195, r: 4 },
-  { id: 'zoom', name: 'Zoom 28-70 mm f3.5-5.6', use: 'Del plano abierto al detalle.', x: 0, y: -250, r: -3 },
-  { id: 'mic', name: 'Micrófono', use: 'La voz pesa tanto como la imagen.', x: 330, y: -110, r: 7 },
-  { id: 'laptop', name: 'DaVinci Resolve + Fusion', use: 'Donde nace el ritmo.', x: 300, y: 50, r: -4 },
-  { id: 'book', name: 'Libreta', use: 'Donde empieza todo: la idea.', x: 160, y: -195, r: -6 },
+  { id: 'tripode', name: 'Trípode K&F Concept', use: 'Entrevistas y planos quietos.', x: 2, y: 2, w: 104, r: -4 },
+  { id: 'a7iv', name: 'Sony a7 IV', use: 'Full frame. El ojo principal.', x: 13, y: 4, w: 168, r: -3 },
+  { id: '35mm', name: 'Viltrox 35 mm f1.2 LAB', use: 'La distancia de una conversación.', x: 4, y: 40, w: 66, r: 3 },
+  { id: 'zoom', name: 'Sony 28-70 mm f3.5-5.6', use: 'Del plano abierto al detalle.', x: 14, y: 40, w: 104, r: -6 },
+  { id: 'gimbal', name: 'DJI RS4 mini', use: 'Movimiento sin temblor.', x: 3, y: 66, w: 96, r: 2 },
+  { id: 'pocket', name: 'DJI Osmo Pocket 3', use: 'Para lo que pasa sin aviso.', x: 17, y: 68, w: 40, r: -4 },
+  { id: 'mic', name: 'Hollyland Lark M2 Duo', use: 'La voz pesa tanto como la imagen.', x: 75, y: 4, w: 118, r: 4 },
+  { id: 'inear', name: 'KZ ZSN Pro', use: 'Escucho lo que de verdad se grabó.', x: 88, y: 3, w: 92, r: -3 },
+  { id: 'nd', name: 'K&F ND + CPL Nano-X', use: 'Para filmar a pleno sol.', x: 75, y: 38, w: 92, r: -5 },
+  { id: 'diffusion', name: 'K&F Black Diffusion 1/4', use: 'Suaviza la luz, look de cine.', x: 87, y: 40, w: 92, r: 6 },
+  { id: 'flash', name: '2 × Godox iT30 Pro', use: 'La foto del evento, bien iluminada.', x: 72, y: 70, w: 132, r: 3 },
+  { id: 'luz', name: 'Barra RGB Neewer', use: 'Color donde no hay luz.', x: 91, y: 64, w: 46, r: 8 },
 ];
+const OPEN_AT = 3.2; // segundo del clip en que la tapa ya dejó ver el interior
 ---
-<div class="suit-obj" id="suitcase">
+<div class="suit-obj" id="suitcase" data-open={OPEN_AT}>
   <div class="suit-stage">
-    <div class="gear">
+    <div class="suit-box" id="suitBox" role="button" tabindex="0" aria-label="abrir la maleta">
+      <img class="sv on" id="svClosed" src={`${M}/cerrada.jpg`} alt="" />
+      <video class="sv" id="svClip" src={`${M}/maleta.mp4`} poster={`${M}/cerrada.jpg`} playsinline preload="auto"></video>
+    </div>
+    <div class="gear" id="gear">
       {ITEMS.map((it, i) => (
-        <div class="item" data-id={it.id} style={`--x:${it.x}px;--y:${it.y}px;--r:${it.r}deg;--d:${i * 70}ms`}>
-          <svg viewBox="0 0 120 90" class="ico">
-            {it.id === 'cam' && <g><rect x="12" y="28" width="96" height="52" rx="8" fill="#1b1b1a" /><path d="M36 28 L44 16 H74 L82 28 Z" fill="#1b1b1a" /><circle cx="62" cy="54" r="22" fill="#2c2c2b" stroke="#555" stroke-width="3" /><circle cx="62" cy="54" r="13" fill="#0c0c0c" /><circle cx="57" cy="49" r="4" fill="#fff" opacity=".35" /><rect x="18" y="34" width="14" height="8" rx="2" fill="#3a3a39" /><circle cx="96" cy="22" r="5" fill="#2a2a29" /></g>}
-            {it.id === 'pocket' && <g><rect x="48" y="30" width="24" height="56" rx="7" fill="#1b1b1a" /><rect x="52" y="44" width="16" height="22" rx="2" fill="#2f3b44" /><circle cx="60" cy="20" r="14" fill="#1b1b1a" /><circle cx="60" cy="20" r="7" fill="#0b0b0b" stroke="#555" stroke-width="2" /><circle cx="58" cy="18" r="2" fill="#fff" opacity=".4" /></g>}
-            {(it.id === 'lens' || it.id === 'zoom') && <g><rect x="30" y="18" width="60" height="62" rx="6" fill="#1b1b1a" /><rect x="30" y="34" width="60" height="10" fill="#2e2e2d" /><rect x="30" y="50" width="60" height="4" fill="#c8c8c4" opacity=".5" /><ellipse cx="60" cy="18" rx="30" ry="6" fill="#0c0c0c" stroke="#444" stroke-width="2" /><text x="60" y="72" text-anchor="middle" font-size="9" fill="#ddd" font-family="IBM Plex Mono">{it.id === 'zoom' ? '28-70mm' : '35mm f1.2'}</text></g>}
-            {it.id === 'mic' && <g><rect x="22" y="38" width="80" height="16" rx="8" fill="#1b1b1a" /><rect x="22" y="38" width="22" height="16" rx="8" fill="#3a3a39" /><path d="M24 40 h18 M24 46 h18 M24 52 h18" stroke="#666" stroke-width="1" /><rect x="90" y="54" width="6" height="22" fill="#1b1b1a" /><rect x="80" y="74" width="26" height="6" rx="2" fill="#1b1b1a" /></g>}
-            {it.id === 'laptop' && <g><rect x="22" y="14" width="76" height="50" rx="4" fill="#1b1b1a" /><rect x="27" y="19" width="66" height="40" fill="#20262c" /><rect x="31" y="44" width="58" height="4" fill="#7a5ab8" /><rect x="31" y="50" width="40" height="4" fill="#3a79c4" /><rect x="31" y="24" width="30" height="16" fill="#3c4a55" /><path d="M12 64 H108 L102 74 H18 Z" fill="#2c2c2b" /></g>}
-            {it.id === 'book' && <g><rect x="30" y="12" width="60" height="72" rx="3" fill="#2a2522" /><rect x="34" y="12" width="4" height="72" fill="#1a1614" /><rect x="76" y="12" width="6" height="72" fill="#c9b27a" /><text x="62" y="50" text-anchor="middle" font-size="11" font-style="italic" fill="#e9e1cf" font-family="Instrument Serif">ideas</text></g>}
-          </svg>
-          <div class="itag"><b>{it.name}</b><span>{it.use}</span></div>
-        </div>
+        <figure class="item" data-i={i} style={`--x:${it.x}%;--y:${it.y}%;--w:${it.w}px;--r:${it.r}deg;--d:${i * 55}ms`} tabindex="0">
+          <img src={`${M}/equipo/${it.id}.webp`} alt={it.name} loading="lazy" />
+          <figcaption class="itag"><b>{it.name}</b><span>{it.use}</span></figcaption>
+        </figure>
       ))}
     </div>
-
-    <svg class="suit" viewBox="0 0 360 260" aria-label="maleta interactiva">
-      <defs>
-        <linearGradient id="leather" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a36b3f" /><stop offset=".5" stop-color="#8a5530" /><stop offset="1" stop-color="#6b3f22" /></linearGradient>
-        <linearGradient id="gold" x1="0" x2="1"><stop offset="0" stop-color="#8c6c33" /><stop offset=".5" stop-color="#f1dfae" /><stop offset="1" stop-color="#9c7b3c" /></linearGradient>
-        <filter id="lgrain"><feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="2" /><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .22 0" /><feComposite in2="SourceGraphic" operator="in" /></filter>
-      </defs>
-      <ellipse cx="180" cy="248" rx="160" ry="10" fill="rgba(0,0,0,.3)" filter="blur(6px)" />
-      <!-- interior (visible when open) -->
-      <rect x="22" y="84" width="316" height="40" rx="8" fill="#2a1c13" />
-      <!-- base -->
-      <g class="base">
-        <rect x="20" y="104" width="320" height="140" rx="16" fill="url(#leather)" />
-        <rect x="20" y="104" width="320" height="140" rx="16" filter="url(#lgrain)" />
-        <rect x="28" y="112" width="304" height="124" rx="12" fill="none" stroke="#e9cfa8" stroke-opacity=".5" stroke-dasharray="4 4" />
-        <rect x="88" y="104" width="30" height="140" fill="#5b3419" /><rect x="242" y="104" width="30" height="140" fill="#5b3419" />
-        <rect x="86" y="200" width="34" height="22" rx="3" fill="none" stroke="url(#gold)" stroke-width="4" /><rect x="240" y="200" width="34" height="22" rx="3" fill="none" stroke="url(#gold)" stroke-width="4" />
-      </g>
-      <!-- lid -->
-      <g class="lid">
-        <rect x="20" y="40" width="320" height="70" rx="16" fill="url(#leather)" />
-        <rect x="20" y="40" width="320" height="70" rx="16" filter="url(#lgrain)" />
-        <rect x="28" y="48" width="304" height="54" rx="12" fill="none" stroke="#e9cfa8" stroke-opacity=".5" stroke-dasharray="4 4" />
-        <rect x="88" y="40" width="30" height="70" fill="#5b3419" /><rect x="242" y="40" width="30" height="70" fill="#5b3419" />
-        <path d="M150 40 V24 Q150 12 162 12 H198 Q210 12 210 24 V40" fill="none" stroke="#3d2412" stroke-width="10" stroke-linecap="round" />
-        <rect x="160" y="96" width="40" height="22" rx="4" fill="url(#gold)" /><rect x="176" y="104" width="8" height="10" rx="2" fill="#5a4320" />
-      </g>
-      <!-- luggage tag -->
-      <g class="ltag"><path d="M262 30 Q276 22 292 30" fill="none" stroke="#444" stroke-width="1.5" /><g transform="rotate(14 300 52)"><rect x="284" y="30" width="58" height="34" rx="3" fill="#f3efe6" stroke="#bfb8aa" /><circle cx="291" cy="47" r="3" fill="#bfb8aa" /><text x="318" y="45" text-anchor="middle" font-size="8" font-family="IBM Plex Mono">J. — BOG</text><text x="318" y="56" text-anchor="middle" font-size="8" font-style="italic" font-family="Instrument Serif">frágil</text></g></g>
-    </svg>
     <div class="obj-card suit-card" id="suitCard"><b>Ábreme.</b><i>es lo que llevo a cada rodaje.</i></div>
   </div>
-  <p class="ficha"><span class="n">fig. 005</span><br /><b>Maleta</b>, 2026.<br />Cuero, hebillas y todo lo que cabe para crear.<br />— Colección be like josé</p>
+  <p class="ficha"><span class="n">fig. 005</span><br /><b>Maleta</b>, 2026.<br />Polímero, espuma y todo lo que cabe para crear.<br />— Colección be like josé</p>
   <button class="obj-reset" id="suitReset" hidden>↺ cerrar la maleta</button>
 </div>
 
 <style>
-  .suit-stage { position: relative; height: 560px; display: grid; place-items: center; }
-  .suit { width: 360px; overflow: visible; cursor: pointer; position: relative; z-index: 2; }
-  .lid { transform-box: fill-box; transform-origin: 50% 100%; transition: transform .6s cubic-bezier(.3, 1.5, .5, 1); }
-  .suit-obj.open .lid { transform: translateY(-26px) rotate(-7deg); }
-  .suit-obj.open .suit { cursor: default; }
-  .suit-obj:not(.open) .suit:hover .lid { transform: translateY(-3px) rotate(-1deg); }
-  .gear { position: absolute; left: 50%; top: 50%; width: 0; height: 0; z-index: 3; }
-  .item { position: absolute; width: 150px; left: -75px; top: -70px; opacity: 0; transform: translate(0, 40px) scale(.3) rotate(0); transition: transform .8s cubic-bezier(.2, 1.4, .4, 1) var(--d), opacity .3s var(--d); pointer-events: none; }
-  .suit-obj.open .item { opacity: 1; transform: translate(var(--x), var(--y)) scale(1) rotate(var(--r)); pointer-events: auto; }
-  .ico { width: 110px; display: block; margin: 0 auto; filter: drop-shadow(0 10px 10px rgba(0, 0, 0, .3)); transition: transform .3s; }
-  .item:hover .ico { transform: translateY(-6px) scale(1.06); }
-  .itag { background: #f7f5f0; padding: 7px 10px; box-shadow: 0 10px 18px -10px rgba(0, 0, 0, .5); margin-top: 4px; }
-  .itag b { display: block; font-weight: 700; font-size: 11px; text-transform: uppercase; }
-  .itag span { display: block; font-family: 'Instrument Serif', serif; font-size: 15px; line-height: 1.05; margin-top: 2px; }
-  .suit-card { left: 50%; bottom: 40px; translate: 120px 0; }
+  .suit-stage { position: relative; height: 640px; max-width: 1240px; margin: 0 auto; }
+  .suit-box { position: absolute; left: 50%; bottom: 0; width: min(600px, 48%); aspect-ratio: 960 / 726; translate: -50% 0; cursor: pointer; z-index: 1; }
+  .suit-obj.open .suit-box { cursor: default; }
+  .sv { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0; transition: opacity .12s; pointer-events: none;
+    --fx: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); --fy: linear-gradient(to bottom, transparent, #000 6%, #000 90%, transparent);
+    -webkit-mask-image: var(--fx), var(--fy); -webkit-mask-composite: source-in; mask-image: var(--fx), var(--fy); mask-composite: intersect; }
+  .sv.on { opacity: 1; }
+  .sv { mix-blend-mode: multiply; } /* el fondo blanco del video desaparece contra la página */
+  .suit-obj:not(.open) .suit-box:hover { animation: nudge .5s; }
+  @keyframes nudge { 30% { transform: rotate(-.6deg); } 60% { transform: rotate(.5deg); } }
+
+  .gear { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+  .item { position: absolute; left: var(--x); top: var(--y); width: var(--w); margin: 0; opacity: 0; transform: var(--from, translate(0, 40px)) scale(.2); pointer-events: none; outline: 0; }
+  .suit-obj.open .item { opacity: 1; transform: rotate(var(--r)); pointer-events: auto; transition: transform .9s cubic-bezier(.2, 1.25, .4, 1) var(--d), opacity .25s var(--d); }
+  .item img { display: block; width: 100%; height: auto; filter: drop-shadow(0 14px 14px rgba(0, 0, 0, .28)); transition: transform .3s; }
+  .item:hover img, .item:focus img { transform: translateY(-6px) scale(1.05); }
+  .itag { position: absolute; left: 50%; top: calc(100% + 6px); translate: -50% 0; width: max-content; max-width: 190px; background: #f7f5f0; padding: 6px 9px; box-shadow: 0 10px 18px -10px rgba(0, 0, 0, .5); rotate: calc(var(--r) * -1); z-index: 3; }
+  .itag b { display: block; font: 500 10px/1.2 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: .03em; }
+  .itag span { display: none; font-family: 'Instrument Serif', serif; font-size: 16px; line-height: 1.05; margin-top: 3px; }
+  .item:hover .itag span, .item:focus .itag span { display: block; }
+  .item:hover, .item:focus { z-index: 5; }
+  .suit-card { left: 50%; top: 6%; translate: -50% 0; z-index: 4; }
 
   @media (max-width: 900px) {
-    .suit-stage { height: auto; display: flex; flex-direction: column; align-items: center; gap: 20px; padding-bottom: 10px; }
-    .suit { width: min(300px, 86vw); }
-    .gear { position: relative; left: auto; top: auto; width: 100%; height: auto; order: 2; display: none; grid-template-columns: 1fr 1fr; gap: 16px 12px; }
+    .suit-stage { height: auto; display: flex; flex-direction: column; gap: 18px; }
+    .suit-box { position: relative; left: auto; translate: none; width: 100%; }
+    .gear { position: relative; inset: auto; display: none; grid-template-columns: repeat(3, 1fr); gap: 22px 12px; }
     .suit-obj.open .gear { display: grid; }
-    .item { position: relative; left: auto; top: auto; width: auto; transform: translateY(20px) scale(.9); }
+    .item { position: relative; left: auto; top: auto; width: auto; transform: translateY(20px) scale(.9); display: flex; flex-direction: column; align-items: center; }
     .suit-obj.open .item { transform: none; }
-    .ico { width: 80px; }
-    .itag span { font-size: 14px; }
-    .suit-card { position: relative; left: auto; bottom: auto; translate: none; order: 3; align-self: flex-end; }
+    .item img { width: auto; max-width: 100%; height: 86px; object-fit: contain; }
+    .itag { position: static; translate: none; rotate: none; max-width: none; width: 100%; margin-top: 8px; padding: 6px 7px; }
+    .itag b { font-size: 9px; }
+    .itag span { display: block; font-size: 14px; }
+    .suit-card { position: relative; left: auto; top: auto; translate: none; align-self: flex-end; order: 3; }
   }
 </style>
 
 <script>
   const root = document.getElementById('suitcase')!;
+  const OPEN_AT = Number(root.dataset.open);
+  const box = document.getElementById('suitBox')!;
+  const closed = document.getElementById('svClosed')!;
+  const clip = document.getElementById('svClip') as HTMLVideoElement;
+  const items = [...root.querySelectorAll<HTMLElement>('.item')];
   const card = document.getElementById('suitCard')!;
   const reset = document.getElementById('suitReset')!;
   const setCard = (h: string) => { card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap'); setTimeout(() => (card.innerHTML = h), 180); };
-  const latch = () => { try { const A = ((window as any).__ac ||= new AudioContext()), t = A.currentTime; [0, .09].forEach((dt) => { const o = A.createOscillator(), g = A.createGain(); o.type = 'square'; o.frequency.value = 900; g.gain.setValueAtTime(.08, t + dt); g.gain.exponentialRampToValueAtTime(.0001, t + dt + .04); o.connect(g).connect(A.destination); o.start(t + dt); o.stop(t + dt + .05); }); } catch (e) {} };
-  root.querySelector('.suit')!.addEventListener('click', () => {
-    if (root.classList.contains('open')) return;
-    latch(); root.classList.add('open'); reset.hidden = false;
+  const desktop = () => matchMedia('(min-width: 901px)').matches;
+  let state: 'closed' | 'opening' | 'open' = 'closed';
+
+  // Each item starts at the mouth of the case and flies to its place.
+  const aim = () => {
+    if (!desktop()) { items.forEach((it) => it.style.removeProperty('--from')); return; }
+    const b = box.getBoundingClientRect(), cx = b.left + b.width / 2, cy = b.top + b.height * .55;
+    items.forEach((it) => { it.style.transition = 'none'; it.style.transform = 'none'; });
+    const rects = items.map((it) => it.getBoundingClientRect());
+    items.forEach((it, i) => { const r = rects[i]; it.style.setProperty('--from', `translate(${cx - (r.left + r.width / 2)}px, ${cy - (r.top + r.height / 2)}px)`); it.style.transform = ''; });
+    void root.offsetWidth; items.forEach((it) => (it.style.transition = ''));
+  };
+  const popOut = () => {
+    if (state === 'open') return;
+    state = 'open'; root.classList.add('open'); reset.hidden = false;
     setCard(matchMedia('(hover: none)').matches ? '<b>Con esto produzco.</b><i>mi equipo, pieza por pieza.</i>' : '<b>Con esto produzco.</b><i>pasa el cursor por cada cosa.</i>');
+  };
+
+  function open() {
+    if (state !== 'closed') return;
+    state = 'opening'; aim();
+    clip.currentTime = 0; clip.muted = false; clip.volume = 0.6;
+    const go = () => { clip.classList.add('on'); closed.classList.remove('on'); };
+    clip.play().then(go).catch(() => { clip.muted = true; clip.play().then(go).catch(() => { clip.currentTime = clip.duration || 5; go(); popOut(); }); });
+    setCard('<b>Clic, clic…</b><i>un momento.</i>');
+  }
+  clip.addEventListener('timeupdate', () => { if (state === 'opening' && clip.currentTime >= OPEN_AT) popOut(); });
+  clip.addEventListener('ended', () => { if (state === 'opening') popOut(); });
+
+  box.addEventListener('click', open);
+  box.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+  reset.addEventListener('click', () => {
+    clip.pause(); clip.currentTime = 0; closed.classList.add('on'); clip.classList.remove('on');
+    root.classList.remove('open'); state = 'closed'; reset.hidden = true;
+    setCard('<b>Ábreme.</b><i>es lo que llevo a cada rodaje.</i>');
   });
-  reset.addEventListener('click', () => { root.classList.remove('open'); reset.hidden = true; setCard('<b>Ábreme.</b><i>es lo que llevo a cada rodaje.</i>'); });
+  addEventListener('resize', () => { if (state !== 'open') aim(); });
 </script>
