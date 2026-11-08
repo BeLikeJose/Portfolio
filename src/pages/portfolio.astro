@@ -32,6 +32,7 @@ const CAMPOS = {
   <div class="ex-head"><div><div class="mono" style="color:#777">estratega creativo — resultados para marcas</div><h2 class="disp" data-r>Números <em>que se ven</em></h2></div><p class="maleta-p">Lo que hemos construido con las marcas. Solo números reales.</p></div>
   <div class="big-nums" data-r>{NUMBERS.map((n) => <div><b>{n.prefix}<span data-count={n.value}>{n.value}</span>{n.suffix}</b><span class="mono">{n.label}</span></div>)}</div>
 
+  <p class="swipe-hint mono">desliza →</p>
   <div class="phones" data-r>
     {[['insights de Instagram — cuenta 01', 'alcance 30 días'], ['reel con más vistas', 'vistas · guardados'], ['crecimiento de seguidores', 'antes → después'], ['estadísticas de TikTok / YouTube', 'retención']].map(([l, c], i) => (
       <div class="phone"><Media label={l} kind="screenshot" scene={['bokeh', 'street', 'window', 'lamp'][i]} seed={i + 3} cap={c} /></div>

@@ -49,10 +49,11 @@ const rot = [-6, 4, -2, 6];
   @media (max-width: 900px) {
     .reach { padding: 70px 20px; }
     .reach-head h2 { font-size: clamp(44px, 11.5vw, 72px); }
-    .stamps { grid-template-columns: 1fr 1fr; gap: 26px 18px; padding: 6px 4px; margin-bottom: 40px; }
-    .stamp { padding: 12px; border-radius: 10px; }
-    .stamp b { font-size: clamp(24px, 7vw, 36px); }
-    .stamp i { font-size: 14px; }
+    .stamps { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 14px; padding: 6px 4px; margin-bottom: 40px; }
+    .stamp { padding: 10px 8px; border-radius: 10px; min-width: 0; }
+    .stamp b { font-size: clamp(20px, 6.2vw, 34px); max-width: 100%; overflow-wrap: anywhere; }
+    .stamp i { font-size: 13px; line-height: 1.05; }
+    .stamp .mono { font-size: 9.5px; }
     .st-code { font-size: 11px; }
     .reached p { font-size: clamp(24px, 6.6vw, 34px); }
   }

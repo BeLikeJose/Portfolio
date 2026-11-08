@@ -28,6 +28,7 @@ const byDay = Object.fromEntries(PIECES.map((x) => [x.day, x]));
       {Object.entries(P).map(([k, v]) => <button data-f={k}><i class={`dot ${k}`}></i>{v}</button>)}
     </div>
   </div>
+  <p class="swipe-hint mono">desliza para ver el mes →</p>
   <div class="ecal-scroll"><div class="ecal-grid">
     {['lun', 'mar', 'mié', 'jue', 'vie', 'sáb', 'dom'].map((d) => <span class="mono wd">{d}</span>)}
     {cells.map((day) => {
@@ -60,7 +61,7 @@ const byDay = Object.fromEntries(PIECES.map((x) => [x.day, x]));
   .cell.empty { background: repeating-linear-gradient(45deg, transparent 0 6px, rgba(0, 0, 0, .03) 6px 7px); }
   .n { font: 500 10px 'IBM Plex Mono', monospace; color: #888; }
   .chip { margin-top: 4px; font-size: 11px; line-height: 1.2; padding: 5px 6px; border-left: 3px solid; background: #f4f4f2; cursor: default; transition: opacity .3s, transform .2s; }
-  .chip b { display: block; font: 500 8.5px 'IBM Plex Mono', monospace; text-transform: uppercase; opacity: .6; }
+  .chip b { display: block; font: 500 9.5px 'IBM Plex Mono', monospace; text-transform: uppercase; opacity: .6; }
   .chip:hover { transform: translateY(-2px); box-shadow: 0 8px 14px -8px rgba(0, 0, 0, .4); }
   .f, .dot.f { border-color: #b3261e; } .dot.f { background: #b3261e; }
   .k, .dot.k { border-color: #2c5d8a; } .dot.k { background: #2c5d8a; }

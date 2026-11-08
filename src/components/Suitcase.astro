@@ -23,7 +23,7 @@ const OPEN_AT = 3.0; // segundo del clip en que la tapa ya dejó ver el interior
   <div class="suit-stage">
     <div class="suit-box" id="suitBox" role="button" tabindex="0" aria-label="abrir la maleta">
       <img class="sv on" id="svClosed" src={`${M}/cerrada.jpg`} alt="" />
-      <video class="sv" id="svClip" src={`${M}/maleta.mp4`} poster={`${M}/cerrada.jpg`} playsinline preload="auto"></video>
+      <video class="sv" id="svClip" src={`${M}/maleta.mp4`} poster={`${M}/cerrada.jpg`} playsinline preload="none" data-lazy-video></video>
     </div>
     <div class="gear" id="gear">
       {ITEMS.map((it, i) => (

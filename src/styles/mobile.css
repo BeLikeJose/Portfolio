@@ -226,3 +226,22 @@ img,video,svg,iframe{max-width:100%}
   .ex-grid a:hover .film{transform:none}
   .chapters a:hover,.book [data-n]:hover{padding-left:0}
 }
+
+/* ── revisión móvil ── */
+.swipe-hint{display:none}
+@media (max-width:900px){
+  .swipe-hint{display:block;font-size:10px;color:#888;text-align:right;margin:0 0 8px}
+  .sys-sec.dark .swipe-hint{color:#9a9a96}
+  /* área táctil más grande sin mover el diseño */
+  .lnk,.faq-more,.obj-link,.sf-top ul a,.menu-foot a{padding-block:10px;margin-block:-10px}
+  nav .burger{position:relative}
+  nav .burger::after{content:"";position:absolute;inset:-10px}
+  nav .agenda{padding-block:9px}
+  .menu-close{padding:12px;margin:-12px}
+  .ecal-f button{padding-block:9px}
+}
+@media (max-width:560px){
+  .tag,.by,.lab,.hero-meta p{font-size:10px}
+  .cl-tag{font-size:9.5px}
+  .itag b{font-size:10px}
+}

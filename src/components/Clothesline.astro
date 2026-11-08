@@ -6,7 +6,7 @@ const TAGS = ['Matemáticas', 'Música', 'Ingeniería'];
 ---
 <div class="cl" id="cl" role="button" tabindex="0" aria-label="tendedero: haz clic para dejar caer cada carrera">
   <div class="cl-stage">
-    <video id="clVid" src={`${M}/tendedero.mp4`} poster={`${M}/poster.jpg`} playsinline preload="auto"></video>
+    <video id="clVid" src={`${M}/tendedero.mp4`} poster={`${M}/poster.jpg`} playsinline preload="none" data-lazy-video></video>
     {TAGS.map((t, i) => <span class="cl-tag" data-i={i} style={`--x:${[25, 50.3, 75.8][i]}%;--r:${[-5, 3, -2][i]}deg`}>{t}</span>)}
     <span class="cl-bog">Santa Marta<i>sin amigos, sin casa, sin familia</i></span>
   </div>

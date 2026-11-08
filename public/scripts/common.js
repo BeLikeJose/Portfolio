@@ -271,3 +271,13 @@
     const h = location.hash.slice(1); if (['admin', 'propuesta'].includes(h)) { $$('.view').forEach(v => v.hidden = v.dataset.view !== h); }
   });
 })();
+
+/* videos lejos de la pantalla: se descargan solo cuando la sección se acerca */
+(function () {
+  const vids = document.querySelectorAll('video[data-lazy-video]');
+  if (!vids.length) return;
+  const go = (v) => { v.preload = 'auto'; try { v.load(); } catch (e) {} };
+  if (!('IntersectionObserver' in window)) { vids.forEach(go); return; }
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { go(e.target); io.unobserve(e.target); } }), { rootMargin: '900px 0px' });
+  vids.forEach((v) => io.observe(v));
+})();

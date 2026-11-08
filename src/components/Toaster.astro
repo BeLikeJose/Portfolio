@@ -8,8 +8,8 @@ const POP_AT = 4.1; // segundo del clip en que salta la tostada
   <div class="obj-stage">
     <div class="toast-box" id="toastBox" role="img" aria-label="tostadora">
       <img class="tv on" id="tvRest" src={`${M}/reposo.jpg`} alt="" />
-      <video class="tv" id="tvGold" src={`${M}/dorada.mp4`} poster={`${M}/reposo.jpg`} playsinline preload="auto"></video>
-      <video class="tv" id="tvBurn" src={`${M}/quemada.mp4`} poster={`${M}/reposo.jpg`} playsinline preload="auto"></video>
+      <video class="tv" id="tvGold" src={`${M}/dorada.mp4`} poster={`${M}/reposo.jpg`} playsinline preload="none" data-lazy-video></video>
+      <video class="tv" id="tvBurn" src={`${M}/quemada.mp4`} poster={`${M}/reposo.jpg`} playsinline preload="none" data-lazy-video></video>
     </div>
     <div class="obj-card" id="toastCard"><b>Elige cómo trabajas.</b><i>y baja la palanca.</i></div>
   </div>
