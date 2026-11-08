@@ -22,7 +22,7 @@ const byDay = Object.fromEntries(PIECES.map((x) => [x.day, x]));
 ---
 <div class="ecal" id="ecal">
   <div class="ecal-top">
-    <div><span class="mono">mi calendario editorial</span><h4>Noviembre <em>· 12 piezas</em></h4></div>
+    <div><span class="mono">mi calendario editorial</span><h4>Un mes <em>· 12 piezas</em></h4></div>
     <div class="ecal-f">
       <button data-f="all" class="on">todo</button>
       {Object.entries(P).map(([k, v]) => <button data-f={k}><i class={`dot ${k}`}></i>{v}</button>)}

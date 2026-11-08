@@ -13,11 +13,11 @@ const CH = [
   ['04', 'Calendarios y roadmaps', '#por-dentro'], ['05', 'Lo que pasa sin sistema', '#sin-sistema'], ['06', 'Formas de trabajar', '#contigo'], ['07', 'Preguntas frecuentes', '#preguntas'],
 ];
 const STEPS = [
-  { n: '01', t: 'Diagnóstico', d: 'semana 1', p: 'Entro a tu negocio: cuentas, clientes, procesos, lo que dices y lo que vendes.', g: 'diagnóstico por eje' },
-  { n: '02', t: 'Propuesta', d: 'semana 1', p: 'Definimos alcance, tiempos e inversión según lo que necesites. En la charla, por escrito o en un link privado, como prefieras.', g: 'una propuesta clara, sin sorpresas' },
-  { n: '03', t: 'Dirección', d: 'semana 2', p: 'Diseño la dirección creativa, la oferta y la estructura: los cuatro sistemas, listos para ejecutar.', g: 'la dirección por escrito' },
-  { n: '04', t: 'Roadmap', d: 'semana 2', p: 'Ordenamos el roadmap de 90 días: metas, oferta, pilares y calendario. Todo en papel antes de grabar.', g: 'roadmap y calendario' },
-  { n: '05', t: 'Ejecución', d: 'semanas 3 – 10', p: 'Si sumas ejecución, la dirijo y la coordino, con mi equipo creativo o con el tuyo. Cada semana sabes en qué vamos.', g: 'piezas listas y publicadas' },
+  { n: '01', t: 'Propuesta', d: 'antes de empezar', p: 'Definimos alcance, tiempos e inversión según lo que necesites.', g: 'una propuesta clara' },
+  { n: '02', t: 'Diagnóstico', d: 'semana 1', p: 'Entro a tu negocio: métricas, alcance, dirección, procesos y lo que vendes.', g: 'diagnóstico por eje' },
+  { n: '03', t: 'Dirección', d: 'semana 2', p: 'Diseño la dirección creativa, la oferta y la estructura: los cuatro ejes, listos para ejecutar.', g: 'roadmap de lo que vamos a ejecutar y llevar a cabo' },
+  { n: '04', t: 'Roadmap', d: 'semana 2', p: 'Ordenamos el roadmap de 90 días: metas, oferta, pilares y calendario.', g: 'roadmap y calendario' },
+  { n: '05', t: 'Ejecución o acompañamiento', d: 'semanas 3 – 10', p: 'Si sumas ejecución, la dirijo y la coordino, con mi equipo creativo o con el tuyo. Si la ejecuta tu equipo, la acompaño con sesiones de seguimiento a convenir. Cada semana sabes en qué vamos.', g: 'piezas publicadas o acompañamiento semanal' },
   { n: '06', t: 'Lectura', d: 'semanas 11 – 12', p: 'Leemos los números de verdad, ajustamos y decidimos juntos cómo seguimos.', g: 'reporte y siguiente paso' },
 ];
 const WEEK = [['lun', 'Lectura de métricas', 'qué funcionó y por qué'], ['mar', 'Guiones', 'conceptos y ganchos de la semana'], ['mié', 'Rodaje', 'una jornada, varias piezas'], ['jue', 'Edición', 'ritmo, motion y subtítulos'], ['vie', 'Entrega', 'revisión, aprobación y programación']];
@@ -29,7 +29,7 @@ const WEEK = [['lun', 'Lectura de métricas', 'qué funcionó y por qué'], ['ma
   <div class="mono" style="color:#777">03 — mi sistema</div>
   <h1 class="disp" data-r>Mi <em>sistema</em></h1>
   <div class="sys-hero-row">
-    <p class="sys-lead" data-r>Cuatro áreas que casi nunca trabajan juntas, en una sola dirección. Esta página es la cocina: cómo pienso, cómo trabajamos y cómo se ve tu negocio por dentro mientras lo construimos.</p>
+    <p class="sys-lead" data-r>Cuatro ejes que casi nunca trabajan juntos, en una sola dirección. Esta página es la cocina: cómo pienso, cómo trabajamos y cómo se ve tu negocio por dentro mientras lo construimos.</p>
     <ol class="chapters" data-r>{CH.map(([n, t, h]) => <li><a href={h}><span class="mono">{n}</span>{t}<em>↓</em></a></li>)}</ol>
   </div>
 </section>
@@ -39,15 +39,15 @@ const WEEK = [['lun', 'Lectura de métricas', 'qué funcionó y por qué'], ['ma
     <div class="mono" style="color:#777">capítulo 01 — los cuatro ejes</div>
     <h2 class="disp" data-r>Cuatro ejes,<br><em>una sola dirección</em></h2>
     <div class="ejes-side">
-      <p data-r>Desde esa visión de cuatro ejes construyo todo: lo que tu marca dice, lo que vende, hacia dónde va y cómo se sostiene sin quemarte.</p>
+      <p data-r>Con estos cuatro ejes construyo todo: lo que tu marca dice, lo que vende, hacia dónde va y cómo se sostiene sin quemarte la cabeza.</p>
       <Compass />
     </div>
   </div>
   <div class="ejes-grid" data-r>
-    <article id="eje-01"><span class="n">01</span><h3>Dirección creativa</h3><p>La mirada. Conceptos, campañas y una estética que se reconoce sin ver el logo.</p><div class="mono tags">identidad de marca · branding · naming · concepto creativo · lanzamientos · estrategia de contenidos</div></article>
-    <article id="eje-02"><span class="n">02</span><h3>Operaciones y oferta de valor</h3><p>Qué vendes, a quién y el sistema que lo sostiene. Para que el negocio no dependa de que trabajes sin parar.</p><div class="mono tags">propuesta de valor · pricing · proceso de compra · automatizaciones</div></article>
-    <article id="eje-03"><span class="n">03</span><h3>Proyección empresarial</h3><p>Hacia dónde va el negocio. Metas claras, números que puedes revisar cada mes y un roadmap de 90 días.</p><div class="mono tags">posicionamiento · KPIs · roadmap de 90 días · planeación comercial</div></article>
-    <article id="eje-04"><span class="n">04</span><h3>Creación de contenidos</h3><p>Piezas que se guardan y se comparten. Film, edición y un calendario editorial con mirada propia.</p><div class="mono tags">preproducción · rodaje · postproducción · diseño y publicación</div></article>
+    <article id="eje-01"><span class="n">01</span><h3>Dirección creativa</h3><p>La mirada. Conceptos, campañas y una estética que se reconoce sin ver el logo.</p><div class="mono tags">identidad de marca · branding · naming · concepto creativo · tono y voz · campañas</div></article>
+    <article id="eje-02"><span class="n">02</span><h3>Operaciones y oferta de valor</h3><p>Qué vendes, a quién y el sistema que lo sostiene. Para que el negocio no dependa de que trabajes sin parar.</p><div class="mono tags">propuesta de valor · pricing · proceso de compra · onboarding de clientes · automatizaciones</div></article>
+    <article id="eje-03"><span class="n">03</span><h3>Proyección empresarial</h3><p>Hacia dónde va el negocio. Metas claras, números que puedes revisar cada mes y un roadmap de 90 días.</p><div class="mono tags">posicionamiento · KPIs · roadmap de 90 días · planeación comercial · lanzamientos</div></article>
+    <article id="eje-04"><span class="n">04</span><h3>Creación de contenidos</h3><p>Piezas que se guardan y se comparten. Film, edición y un calendario editorial con mirada propia.</p><div class="mono tags">estrategia de contenidos · calendario editorial · guiones · rodaje · edición · publicación</div></article>
   </div>
 </section>
 
@@ -68,7 +68,7 @@ const WEEK = [['lun', 'Lectura de métricas', 'qué funcionó y por qué'], ['ma
 </section>
 
 <section class="sys-sec" id="por-dentro">
-  <div class="sys-head"><div class="mono">capítulo 04 — calendarios y roadmaps</div><h2 class="disp" data-r>Todo en papel <em>antes de grabar</em></h2><p data-r>Mi propio calendario de noviembre. Lo que hago para mí es lo que hago para ti. Filtra por pilar o mueve la semana del roadmap.</p></div>
+  <div class="sys-head"><div class="mono">capítulo 04 — calendarios y roadmaps</div><h2 class="disp" data-r>Todo en papel <em>antes de grabar</em></h2><p data-r>Un mes de mi propio calendario. Lo que hago para mí es lo que hago para ti. Filtra por pilar o mueve la semana del roadmap.</p></div>
   <div class="tools">
     <EditorialCalendar />
     <Roadmap />
@@ -109,7 +109,8 @@ const WEEK = [['lun', 'Lectura de métricas', 'qué funcionó y por qué'], ['ma
 
   <div class="svc-main" data-r>
     <article class="svc-hero"><span class="mono">01 · el servicio principal</span><h3>Dirección y estrategia creativa</h3>
-      <p>Diseño la dirección creativa, la oferta y la estructura de negocio de tu marca: los cuatro sistemas, listos para ejecutar.</p>
+      <p>Diseño la dirección creativa, la oferta y la estructura de negocio de tu marca: los cuatro ejes, listos para ejecutar.</p>
+      <div class="svc-gets"><span class="mono">recibes</span><ul><li>Dirección creativa: identidad, tono, conceptos, lanzamientos y territorio visual</li><li>Oferta de valor y pricing</li><li>Roadmap de 90 días con metas y KPIs</li><li>Pilares y calendario editorial</li></ul></div>
       <p class="for">Para ti si necesitas saber qué decir, qué vender y hacia dónde ir.</p>
       <span class="mono svc-note">no incluye ejecución</span></article>
     <article class="svc-plus"><span class="mono">+ ejecución · se suma a la dirección</span><h3>Ejecución</h3>
@@ -126,14 +127,14 @@ const WEEK = [['lun', 'Lectura de métricas', 'qué funcionó y por qué'], ['ma
   <div class="svc-pieces" data-r>
     <span class="mono">¿solo necesitas una pieza?</span>
     <div class="svc-row">
-      <article><span class="mono">02 · sesión individual o paquete</span><h3>Consultorías</h3><p>Destrabamos lo que te frena: oferta, marca, contenido, números. Tú ejecutas.</p><p class="for">Para ti si ya sabes hacer, pero algo te frena.</p></article>
+      <article><span class="mono">02 · sesión individual o paquete</span><h3>Consultorías</h3><p>Destrabamos lo que te frena: oferta, marca, contenido, números. Tú ejecutas.</p><p class="for">Para ti si ya sabes qué hacer y necesitas una segunda mirada.</p></article>
       <article><span class="mono">03 · filmmaking y edición</span><h3>Producción audiovisual</h3><p>Filmmaking de eventos y edición de contenido, sin estrategia incluida.</p><p class="for">Para ti si ya sabes qué comunicar y necesitas quien lo grabe y lo edite bien.</p></article>
     </div>
   </div>
 
   <div class="svc-foot" data-r>
-    <p><span class="mono">inversión</span>Dirección y ejecución arrancan con un primer ciclo de 90 días y siguen con Plan mensual. Consultorías y producción se cotizan por proyecto. Si después de la charla quieres seguir, te envío la inversión por escrito.</p>
-    <p><span class="mono">lo que te pido</span>Tiempo para la inmersión, decisiones a tiempo y ganas de ser cara dura.</p>
+    <p><span class="mono">inversión</span>Consultorías y producción se cotizan por proyecto. Para dirección y ejecución, si después de la charla quieres seguir, te envío la inversión por escrito.</p>
+    <p><span class="mono">lo que te pido</span>Ganas de charlar, decisiones a tiempo y ganas de comerte el mundo.</p>
     <a class="wbtn" href="/contacto#agenda">Charlemos →</a>
   </div>
 </section>

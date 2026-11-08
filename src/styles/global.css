@@ -632,6 +632,10 @@ footer{display:flex;justify-content:space-between;margin-top:90px;opacity:.65}
 .svc-hero{background:var(--ink);color:#fafafa}
 .svc-hero p{color:#d6d6d2!important}.svc-hero .for{color:#fafafa!important}
 .svc-hero .mono{opacity:.65}
+.svc-gets{margin-top:18px;border-top:1px solid rgba(250,250,250,.2);padding-top:14px}
+.svc-gets ul{list-style:none;margin:8px 0 0;padding:0}
+.svc-gets li{font-size:15px;line-height:1.4;color:#e8e8e4;padding:7px 0 7px 20px;position:relative;border-bottom:1px solid rgba(250,250,250,.1)}
+.svc-gets li::before{content:"→";position:absolute;left:0;opacity:.55}
 .svc-note{display:inline-block;margin-top:18px;border:1px solid rgba(250,250,250,.4);padding:5px 10px;border-radius:20px}
 .svc-plus{border-bottom:1px solid var(--line)}
 .svc-plus .mono{color:#777}
