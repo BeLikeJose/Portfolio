@@ -43,9 +43,8 @@ const esArchivo = (u?: string | null) => !!u && /\.(mp4|webm|mov)(\?|#|$)/i.test
 
 <style is:global>
   /* un video propio con portada: se ve la portada y, al tocar, se reproduce con sonido (el video puede ser vertical) */
-  .film.playable video { display: none; background: #111; }
-  .mgrid .film.real.playable video { object-fit: contain; }
-  .film.playable.playing video { display: block; }
+  .mgrid .film.real.playable:not(.playing) video { display: none; }
+  .mgrid .film.real.playable.playing video { display: block; width: auto; max-width: 100%; }
   .film.playable.playing img, .film.playable.playing [data-play] { display: none; }
   .film.playable [data-play] { border: 0; cursor: pointer; font-family: 'IBM Plex Mono', monospace; }
 </style>
