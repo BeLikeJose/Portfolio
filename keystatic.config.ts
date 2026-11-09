@@ -8,6 +8,7 @@ const texto = (label: string, description?: string) => fields.text({ label, desc
 const base = {
   titulo: fields.slug({ name: { label: 'Título del caso', validation: { isRequired: true } } }),
   etiquetas: fields.array(fields.text({ label: 'Etiqueta' }), { label: 'Etiquetas', description: 'Palabras cortas sobre el caso, por ejemplo: concepto, lanzamiento.', itemLabel: (p) => p.value || 'etiqueta' }),
+  resumen: fields.text({ label: 'Resumen', description: 'Una o dos líneas. Se ve en la portada del caso en La obra y debajo del título en su página.', multiline: true }),
   portada: fields.image({ label: 'Portada (foto)', description: 'Opcional. JPG o WebP, idealmente menos de 500 KB.', directory: 'public/media/obra', publicPath: '/media/obra/' }),
   video: fields.url({ label: 'Video (link)', description: 'Opcional. Un link .mp4 se reproduce en la página. Un link de Instagram, YouTube o Vimeo aparece como botón "ver video" sobre la portada.' }),
   galeria: fields.array(
@@ -17,9 +18,14 @@ const base = {
       poster: fields.image({ label: 'Imagen de portada del video', description: 'Opcional. Si no la pones, se ve el primer cuadro del video.', directory: 'public/media/obra', publicPath: '/media/obra/' }),
       nota: fields.text({ label: 'Nota (opcional)', description: 'Una línea debajo de la pieza.' }),
     }),
-    { label: 'Galería', description: 'Capturas, fotos y videos del caso. Cada uno se ve con su proporción original.', itemLabel: (p) => p.fields.nota.value || p.fields.video.value || (p.fields.imagen.value ? 'foto' : 'pieza') },
+    { label: 'Galería', description: 'Capturas, fotos y videos del caso, en su página. Cada uno se ve con su proporción original y se abre en grande al tocarlo.', itemLabel: (p) => p.fields.nota.value || p.fields.video.value || (p.fields.imagen.value ? 'foto' : 'pieza') },
   ),
-  orden: fields.integer({ label: 'Orden', description: 'El 1 es el caso grande de la pestaña; los demás van al lado.', defaultValue: 1 }),
+  relato: fields.text({
+    label: 'Relato del caso',
+    description: 'La historia completa, en la página del caso. Deja una línea en blanco entre párrafos. "## " al inicio de una línea = subtítulo · "- " = punto de una lista · "> " = cita destacada · **texto** = negrita.',
+    multiline: true,
+  }),
+  orden: fields.integer({ label: 'Orden', description: 'El 1 va destacado en La obra; los demás siguen en ese orden.', defaultValue: 1 }),
 };
 
 const casos = (label: string, carpeta: string, campos: Record<string, ReturnType<typeof texto>>, etiquetas?: { label: string; description: string }) =>

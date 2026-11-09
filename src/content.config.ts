@@ -6,6 +6,8 @@ import { z } from 'astro/zod';
 const t = z.string().nullish().transform((v) => (v ?? '').trim());
 const base = {
   titulo: z.string(),
+  resumen: z.string().nullish().transform((v) => (v ?? '').trim()),
+  relato: z.string().nullish().transform((v) => v ?? ''),
   etiquetas: z.array(z.string()).nullish().transform((v) => v ?? []),
   portada: z.string().nullish(),
   video: z.string().nullish(),

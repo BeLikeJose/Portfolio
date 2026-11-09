@@ -1,0 +1,120 @@
+---
+// La página de un caso de La obra: portada o video, ficha, relato, galería y el siguiente caso.
+// Se genera sola para cada archivo en src/content/obra/<pestaña>/ (se editan en /keystatic).
+import Base from '../../../layouts/Base.astro';
+import Ficha from '../../../components/Ficha.astro';
+import Relato from '../../../components/Relato.astro';
+import Galeria from '../../../components/Galeria.astro';
+import { TABS, casos, esArchivo, vt, type Caso, type Tab } from '../../../lib/obra';
+
+export async function getStaticPaths() {
+  const tabs = Object.keys(TABS) as Tab[];
+  const paths = [];
+  for (const tab of tabs) {
+    const list = await casos(tab);
+    list.forEach((c, i) => paths.push({ params: { tab, slug: c.slug }, props: { caso: c, prev: list[i - 1] ?? null, next: list[i + 1] ?? null } }));
+  }
+  return paths;
+}
+
+interface Props { caso: Caso; prev: Caso | null; next: Caso | null }
+const { caso: c, prev, next } = Astro.props;
+const T = TABS[c.tab];
+const ficha = T.campos.map(([k, label]) => [label, String(c[k] ?? '')] as [string, string]);
+const hayFicha = ficha.some(([, v]) => v.trim());
+const back = `/portfolio#${T.hash}`;
+const desc = c.resumen || String(c[T.campos[1][0]] ?? '') || `${T.label} — La obra de Be like José.`;
+---
+<Base title={`${c.titulo} — Be like José`} description={desc}>
+<main class="page caso">
+  <header class="caso-head">
+    <a class="caso-back mono" href={back}>← La obra · {T.label}</a>
+    <div class="caso-tags">{c.etiquetas.map((t) => <span class="tag">{t}</span>)}</div>
+    <h1 class="caso-title">{c.titulo}</h1>
+    {c.resumen && <p class="caso-sub">{c.resumen}</p>}
+  </header>
+
+  {(c.portada || c.video) && (
+    <div class="caso-hero" style={`view-transition-name:${vt(c)}`}>
+      {esArchivo(c.video) && c.portada ? (
+        <div class="hero-play" id="heroPlay">
+          <img src={c.portada} alt={c.titulo} />
+          <video src={c.video!} playsinline preload="none"></video>
+          <button type="button" class="hero-btn mono" id="heroBtn">▶ ver video</button>
+        </div>
+      ) : esArchivo(c.video) ? (
+        <video src={`${c.video}#t=0.1`} controls playsinline preload="metadata"></video>
+      ) : (
+        <div class="hero-play">
+          <img src={c.portada!} alt={c.titulo} />
+          {c.video && <a class="hero-btn mono" href={c.video} target="_blank" rel="noopener">▶ ver video</a>}
+        </div>
+      )}
+    </div>
+  )}
+
+  <div class:list={['caso-body', { solo: !c.relato.trim() || !hayFicha }]}>
+    {hayFicha && <aside class="caso-ficha"><span class="mono caso-lab">ficha</span><Ficha items={ficha} /></aside>}
+    <Relato texto={c.relato} />
+  </div>
+
+  <Galeria piezas={c.galeria} />
+
+  <div class="caso-nav" role="navigation" aria-label="otros casos">
+    {prev ? <a href={prev.url} class="caso-prev"><span class="mono">← caso anterior</span><b>{prev.titulo}</b></a> : <span></span>}
+    {next ? <a href={next.url} class="caso-next"><span class="mono">siguiente caso →</span><b>{next.titulo}</b></a> : <a href={back} class="caso-next"><span class="mono">volver →</span><b>Toda la obra de {T.label.toLowerCase()}</b></a>}
+  </div>
+</main>
+<section class="next-cta"><span class="mono">¿te dieron ganas de crear algo parecido?</span><div class="cta-stack"><a class="wbtn" href="/contacto#agenda">Charlemos →</a><span class="mono cta-note">30 minutos para conocernos y destrabar ideas</span></div></section>
+</Base>
+
+<style is:global>
+  .caso { padding: 130px 9% 40px; }
+  .caso-back { display: inline-block; font-size: 10px; text-transform: uppercase; letter-spacing: .05em; color: #555; text-decoration: none; margin-bottom: 34px; padding-block: 8px; }
+  .caso-back:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+  .caso-title { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(40px, 5.4vw, 84px); line-height: .98; letter-spacing: -.01em; max-width: 18ch; margin-top: 8px; }
+  .caso-sub { font-size: 18px; line-height: 1.5; color: #444; max-width: 52ch; margin-top: 20px; }
+  .caso-hero { margin-top: 50px; display: flex; justify-content: center; background: var(--paper); }
+  .caso-hero img, .caso-hero video { display: block; max-width: 100%; max-height: 82vh; width: auto; height: auto; }
+  .hero-play { position: relative; }
+  .hero-play video { display: none; }
+  .hero-play.playing img, .hero-play.playing .hero-btn { display: none; }
+  .hero-play.playing video { display: block; }
+  .hero-btn { position: absolute; left: 16px; bottom: 16px; background: #fafafa; color: var(--ink); border: 0; border-radius: 999px; padding: 10px 15px; font-size: 11px; line-height: 1.2; cursor: pointer; text-decoration: none; text-transform: uppercase; }
+  .caso-body { display: grid; grid-template-columns: minmax(260px, 1fr) 1.7fr; gap: 70px; margin-top: 70px; align-items: start; }
+  .caso-body.solo { grid-template-columns: 1fr; max-width: 900px; }
+  .caso-ficha { position: sticky; top: 90px; }
+  .caso-lab { display: block; font-size: 10px; text-transform: uppercase; color: #777; margin-bottom: 4px; }
+  .caso-ficha .ficha-dl div { grid-template-columns: 1fr; gap: 4px; padding: 12px 0; }
+  .caso-ficha .ficha-dl dd { font-size: 14px; }
+  .caso-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 100px; border-top: 1px solid var(--ink); padding-top: 22px; }
+  .caso-nav a { color: inherit; text-decoration: none; display: flex; flex-direction: column; gap: 8px; }
+  .caso-nav .mono { font-size: 10px; text-transform: uppercase; color: #777; }
+  .caso-nav b { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(20px, 2vw, 28px); line-height: 1.1; }
+  .caso-nav a:hover b { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+  .caso-next { text-align: right; align-items: flex-end; }
+  @media (max-width: 900px) {
+    .caso { padding: 100px 22px 30px; }
+    .caso-body { grid-template-columns: 1fr; gap: 40px; margin-top: 44px; }
+    .caso-ficha { position: static; }
+    .caso-hero { margin: 34px -22px 0; }
+    .caso-hero img, .caso-hero video { max-height: 78vh; }
+  }
+  @media (max-width: 560px) {
+    .caso-sub { font-size: 16px; }
+    .caso-nav { grid-template-columns: 1fr; gap: 26px; margin-top: 70px; }
+  }
+</style>
+
+<script>
+  const box = document.getElementById('heroPlay');
+  const btn = document.getElementById('heroBtn');
+  if (box && btn && btn.tagName === 'BUTTON') {
+    btn.addEventListener('click', () => {
+      const v = box.querySelector('video')!;
+      box.classList.add('playing'); v.controls = true; v.muted = false; v.volume = 0.8;
+      v.play().catch(() => { v.muted = true; v.play().catch(() => {}); });
+      v.addEventListener('ended', () => { box.classList.remove('playing'); v.controls = false; v.currentTime = 0; }, { once: true });
+    });
+  }
+</script>

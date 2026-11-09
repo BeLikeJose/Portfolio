@@ -4,17 +4,11 @@ import Suitcase from '../components/Suitcase.astro';
 import Media from '../components/Media.astro';
 import ObraPanel from '../components/ObraPanel.astro';
 import { NUMBERS } from '../lib/reach.js';
-import { getCollection, getEntry } from 'astro:content';
+import { getEntry } from 'astro:content';
+import { casos } from '../lib/obra';
 
 const pagina = (await getEntry('obraPagina', 'pagina'))?.data;
-const data = async (c: 'estratega' | 'editor' | 'filmmaker') => (await getCollection(c)).map((e) => e.data);
-const [estratega, editor, filmmaker] = await Promise.all([data('estratega'), data('editor'), data('filmmaker')]);
-// Campos de la ficha por pestaña: [clave en el archivo, cómo se muestra].
-const CAMPOS = {
-  estratega: [['cliente', 'Cliente'], ['contexto', 'Contexto'], ['decision', 'Decisión creativa'], ['construi', 'Lo que construí'], ['resultado', 'Resultado']],
-  editor: [['cliente', 'Cliente'], ['material', 'Material de partida'], ['herramientas', 'Herramientas'], ['formato', 'Formato']],
-  filmmaker: [['evento', 'Evento'], ['fechaLugar', 'Fecha y lugar'], ['rol', 'Mi rol'], ['formato', 'Formato'], ['mirada', 'Mi mirada']],
-} as Record<string, [string, string][]>;
+const [estratega, editor, filmmaker] = await Promise.all([casos('estratega'), casos('editor'), casos('filmmaker')]);
 ---
 <Base title="La obra — Be like José" description="Casos de estrategia, rodaje y edición para marcas personales, empresas y creadores.">
 <main class="page">
@@ -22,9 +16,9 @@ const CAMPOS = {
   <div class="mag-head"><div><div class="mono" style="color:#777;margin-bottom:14px">la obra</div><h2 class="disp">La obra</h2>{pagina?.intro && <p class="mag-sub">{pagina.intro}</p>}</div><a class="seeall" href="/contacto#agenda"><span>¿algo de esto te dio ideas? charlemos</span><b>→</b></a></div>
   <div class="chips"><button data-tab="strat" class="on"><span class="film" data-scene="window" data-seed="8"></span>Estratega creativo</button><button data-tab="film"><span class="film" data-scene="street" data-seed="2"></span>Filmmaker</button><button data-tab="edit"><span class="film" data-scene="studio" data-seed="5" data-tone="bw"></span>Editor</button></div>
   <div class="mpanels">
-    <div class="mpanel on" data-panel="strat"><ObraPanel casos={estratega} campos={CAMPOS.estratega} intro={pagina?.introEstratega} scene="window" /></div>
-    <div class="mpanel" data-panel="film"><ObraPanel casos={filmmaker} campos={CAMPOS.filmmaker} intro={pagina?.introFilmmaker} scene="street" /></div>
-    <div class="mpanel" data-panel="edit"><ObraPanel casos={editor} campos={CAMPOS.editor} intro={pagina?.introEditor} scene="studio" tone="bw" /></div>
+    <div class="mpanel on" data-panel="strat"><ObraPanel casos={estratega} tab="estratega" intro={pagina?.introEstratega} /></div>
+    <div class="mpanel" data-panel="film"><ObraPanel casos={filmmaker} tab="filmmaker" intro={pagina?.introFilmmaker} /></div>
+    <div class="mpanel" data-panel="edit"><ObraPanel casos={editor} tab="editor" intro={pagina?.introEditor} /></div>
   </div>
 </section>
 

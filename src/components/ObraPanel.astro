@@ -1,85 +1,73 @@
 ---
-// Una pestaña de La obra: el caso con orden más bajo va en grande; el resto, al lado.
-// Los datos salen de src/content/obra/<pestaña>/*.yaml (se editan en /keystatic).
-import Ficha from './Ficha.astro';
-interface Pieza { imagen?: string | null; video?: string | null; poster?: string | null; nota?: string | null }
-interface Caso { galeria?: Pieza[]; titulo: string; etiquetas: string[]; portada?: string | null; video?: string | null; orden: number; [k: string]: unknown }
-interface Props { casos: Caso[]; campos: [string, string][]; intro?: string; scene: string; tone?: string }
-const { casos, campos, intro, scene, tone } = Astro.props;
-const [main, ...rest] = [...casos].sort((a, b) => a.orden - b.orden);
-const ficha = (c: Caso) => campos.map(([k, label]) => [label, String(c[k] ?? '')] as [string, string]);
-const lista = campos.map(([, l]) => l.toLowerCase());
-const resumen = lista.slice(0, -1).join(', ') + ' y ' + lista.at(-1) + '.';
-const SCENES = ['street', 'sky', 'flash', 'lamp', 'park', 'hands'];
-// Un .mp4/.webm/.mov se reproduce en la página; cualquier otro link (Instagram, YouTube…) abre aparte.
-const esArchivo = (u?: string | null) => !!u && /\.(mp4|webm|mov)(\?|#|$)/i.test(u);
+// Una pestaña de La obra: un índice de portadas. Cada tarjeta abre la página del caso.
+// El caso con orden más bajo va destacado; los demás, en columnas (cada portada con su proporción).
+import { TABS, esArchivo, vt, type Caso, type Tab } from '../lib/obra';
+interface Props { casos: Caso[]; tab: Tab; intro?: string }
+const { casos, tab, intro } = Astro.props;
+const { scene, tone } = TABS[tab];
+const [main, ...rest] = casos;
+const tieneVideo = (c: Caso) => !!c.video || c.galeria.some((g) => g.video);
+const piezas = (c: Caso) => c.galeria.length + (c.portada || c.video ? 1 : 0);
 ---
 {intro && <p class="tab-intro">{intro}</p>}
-{main && (
-  <div class="mgrid">
-    <div class="feature">
-      {esArchivo(main.video) && main.portada ? <div class="film real playable"><img src={main.portada} alt={main.titulo} loading="lazy" /><video src={main.video!} playsinline preload="none"></video><button type="button" class="ver-video mono" data-play>▶ ver video</button></div>
-        : esArchivo(main.video) ? <div class="film real"><video src={main.video!} autoplay muted loop playsinline></video></div>
-        : main.portada ? <div class="film real"><img src={main.portada} alt={main.titulo} loading="lazy" />{main.video && <a class="ver-video mono" href={main.video} target="_blank" rel="noopener">▶ ver video</a>}</div>
-        : <div class="film" data-scene={scene} data-seed="19" data-tone={tone} data-video>{main.video && <a class="ver-video mono" href={main.video} target="_blank" rel="noopener">▶ ver video</a>}</div>}
-      <div class="cap"><div>{main.etiquetas.map((t) => <span class="tag">{t}</span>)}<div class="h3">{main.titulo}</div></div><Ficha items={ficha(main)} /></div>
-      {main.galeria?.length ? (
-        <div class="galeria">
-          <span class="mono galeria-lab">galería</span>
-          <div class="galeria-grid">
-            {main.galeria.map((g) => (
-              <figure class="gitem">
-                {g.video && g.poster ? <div class="film real playable"><img src={g.poster} alt={g.nota ?? ''} loading="lazy" /><video src={g.video} playsinline preload="none"></video><button type="button" class="ver-video mono" data-play>▶ ver video</button></div>
-                  : g.video ? <div class="film real"><video src={`${g.video}#t=0.1`} controls playsinline preload="metadata"></video></div>
-                  : g.imagen ? <div class="film real"><img src={g.imagen} alt={g.nota ?? ''} loading="lazy" /></div> : null}
-                {g.nota && <figcaption class="mono">{g.nota}</figcaption>}
-              </figure>
-            ))}
-          </div>
-        </div>
-      ) : null}
-    </div>
-    {rest.length ? (
-      <div class="side-list">
+{main ? (
+  <div class="obra-index">
+    <a class="ccard ccard-main" href={main.url}>
+      <div class="cmedia" style={`view-transition-name:${vt(main)}`}>
+        {main.portada ? <img src={main.portada} alt={main.titulo} loading="lazy" />
+          : esArchivo(main.video) ? <video src={`${main.video}#t=0.1`} muted playsinline preload="metadata"></video>
+          : <div class="film" data-scene={scene} data-seed="19" data-tone={tone}></div>}
+        {tieneVideo(main) && <span class="cbadge mono">▶ video</span>}
+      </div>
+      <div class="ctext">
+        <div>{main.etiquetas.map((t) => <span class="tag">{t}</span>)}</div>
+        <h3 class="ctitle">{main.titulo}</h3>
+        {main.resumen && <p class="cres">{main.resumen}</p>}
+        <span class="cmore mono">ver el caso{piezas(main) > 1 ? ` · ${piezas(main)} piezas` : ''} →</span>
+      </div>
+    </a>
+    {rest.length > 0 && (
+      <div class="cgrid">
         {rest.map((c, i) => (
-          <div class="side-item">
-            {esArchivo(c.video) && c.portada ? <div class="film real playable"><img src={c.portada} alt={c.titulo} loading="lazy" /><video src={c.video!} playsinline preload="none"></video><button type="button" class="ver-video mono" data-play>▶</button></div>
-              : esArchivo(c.video) ? <div class="film real"><video src={c.video!} autoplay muted loop playsinline></video></div>
-              : c.portada ? <div class="film real"><img src={c.portada} alt={c.titulo} loading="lazy" />{c.video && <a class="ver-video mono" href={c.video} target="_blank" rel="noopener">▶</a>}</div>
-              : <div class="film" data-scene={SCENES[i % SCENES.length]} data-seed={30 + i} data-tone={tone}>{c.video && <a class="ver-video mono" href={c.video} target="_blank" rel="noopener">▶</a>}</div>}
-            <div>{c.etiquetas.map((t) => <span class="tag">{t}</span>)}<div class="h3">{c.titulo}</div><Ficha items={ficha(c)} /></div>
-          </div>
+          <a class="ccard" href={c.url}>
+            <div class="cmedia" style={`view-transition-name:${vt(c)}`}>
+              {c.portada ? <img src={c.portada} alt={c.titulo} loading="lazy" />
+                : esArchivo(c.video) ? <video src={`${c.video}#t=0.1`} muted playsinline preload="metadata"></video>
+                : <div class="film" data-scene={['street', 'sky', 'flash', 'lamp', 'park', 'hands'][i % 6]} data-seed={30 + i} data-tone={tone}></div>}
+              {tieneVideo(c) && <span class="cbadge mono">▶</span>}
+            </div>
+            <div>{c.etiquetas.map((t) => <span class="tag">{t}</span>)}</div>
+            <h3 class="ctitle">{c.titulo}</h3>
+            <span class="cmore mono">ver el caso →</span>
+          </a>
         ))}
       </div>
-    ) : (
-      <div class="feature-aside"><span class="mono">cada caso, la misma ficha</span><p>{resumen.charAt(0).toUpperCase() + resumen.slice(1)}</p><a class="wbtn" href="/contacto#agenda">Charlemos →</a></div>
     )}
   </div>
-)}
+) : null}
 
 <style is:global>
-  /* galería: cada pieza con su proporción; las verticales y horizontales conviven en columnas */
-  .galeria { margin-top: 36px; }
-  .galeria-lab { display: block; font-size: 10px; text-transform: uppercase; color: #777; margin-bottom: 12px; }
-  .galeria-grid { columns: 2; column-gap: 16px; }
-  .gitem { break-inside: avoid; margin: 0 0 16px; }
-  .gitem figcaption { font-size: 10px; color: #666; margin-top: 6px; line-height: 1.4; text-transform: uppercase; }
-  @media (max-width: 560px) { .galeria-grid { columns: 1; } }
-  /* un video propio con portada: se ve la portada y, al tocar, se reproduce con sonido (el video puede ser vertical) */
-  .mgrid .film.real.playable:not(.playing) video { display: none; }
-  .mgrid .film.real.playable.playing video { display: block; width: auto; max-width: 100%; }
-  .film.playable.playing img, .film.playable.playing [data-play] { display: none; }
-  .film.playable [data-play] { border: 0; cursor: pointer; font-family: 'IBM Plex Mono', monospace; }
+  .obra-index { display: flex; flex-direction: column; gap: 56px; }
+  .ccard { display: block; color: inherit; text-decoration: none; }
+  .ccard-main { display: grid; grid-template-columns: 1.6fr 1fr; gap: 36px; align-items: end; }
+  .cmedia { position: relative; overflow: hidden; background: var(--paper); }
+  .cmedia img, .cmedia video { display: block; width: 100%; height: auto; max-height: 72vh; object-fit: contain; transition: transform .7s cubic-bezier(.16, 1, .3, 1); }
+  .ccard:hover .cmedia img, .ccard:hover .cmedia video { transform: scale(1.025); }
+  .cmedia .film { height: 300px; }
+  .ccard-main .cmedia .film { height: 460px; }
+  .cbadge { position: absolute; left: 12px; bottom: 12px; background: #fafafa; color: var(--ink); padding: 6px 10px; border-radius: 999px; font-size: 10px; line-height: 1.2; }
+  .ctext { border-top: 1px solid var(--ink); padding-top: 16px; }
+  .ctitle { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(22px, 1.9vw, 28px); line-height: 1.05; margin: 6px 0 10px; }
+  .ccard-main .ctitle { font-size: clamp(30px, 3vw, 46px); }
+  .cres { font-size: 14px; line-height: 1.5; color: #444; margin-bottom: 18px; max-width: 46ch; }
+  .cmore { font-size: 10px; text-transform: uppercase; letter-spacing: .05em; text-decoration: underline; text-underline-offset: 3px; }
+  .cgrid { columns: 3; column-gap: 28px; }
+  .cgrid .ccard { break-inside: avoid; margin-bottom: 40px; }
+  .cgrid .cmedia { margin-bottom: 14px; }
+  @media (max-width: 900px) {
+    .ccard-main { grid-template-columns: 1fr; gap: 18px; }
+    .ccard-main .cmedia .film { height: 70vw; }
+    .cgrid { columns: 2; column-gap: 16px; }
+  }
+  @media (max-width: 560px) { .cgrid { columns: 1; } .cmedia .film { height: 60vw; } }
 </style>
-
-<script>
-  document.addEventListener('click', (e) => {
-    const btn = (e.target as Element).closest('[data-play]');
-    if (!btn) return;
-    const box = btn.closest('.playable') as HTMLElement;
-    const v = box.querySelector('video') as HTMLVideoElement;
-    box.classList.add('playing'); v.controls = true; v.muted = false; v.volume = 0.8;
-    v.play().catch(() => { v.muted = true; v.play().catch(() => {}); });
-    v.addEventListener('ended', () => { box.classList.remove('playing'); v.controls = false; v.currentTime = 0; }, { once: true });
-  });
-</script>
