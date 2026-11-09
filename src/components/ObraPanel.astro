@@ -17,7 +17,8 @@ const esArchivo = (u?: string | null) => !!u && /\.(mp4|webm|mov)(\?|#|$)/i.test
 {main && (
   <div class="mgrid">
     <div class="feature">
-      {esArchivo(main.video) ? <div class="film real"><video src={main.video!} autoplay muted loop playsinline></video></div>
+      {esArchivo(main.video) && main.portada ? <div class="film real playable"><img src={main.portada} alt={main.titulo} loading="lazy" /><video src={main.video!} playsinline preload="none"></video><button type="button" class="ver-video mono" data-play>▶ ver video</button></div>
+        : esArchivo(main.video) ? <div class="film real"><video src={main.video!} autoplay muted loop playsinline></video></div>
         : main.portada ? <div class="film real"><img src={main.portada} alt={main.titulo} loading="lazy" />{main.video && <a class="ver-video mono" href={main.video} target="_blank" rel="noopener">▶ ver video</a>}</div>
         : <div class="film" data-scene={scene} data-seed="19" data-tone={tone} data-video>{main.video && <a class="ver-video mono" href={main.video} target="_blank" rel="noopener">▶ ver video</a>}</div>}
       <div class="cap"><div>{main.etiquetas.map((t) => <span class="tag">{t}</span>)}<div class="h3">{main.titulo}</div></div><Ficha items={ficha(main)} /></div>
@@ -26,7 +27,8 @@ const esArchivo = (u?: string | null) => !!u && /\.(mp4|webm|mov)(\?|#|$)/i.test
       <div class="side-list">
         {rest.map((c, i) => (
           <div class="side-item">
-            {esArchivo(c.video) ? <div class="film real"><video src={c.video!} autoplay muted loop playsinline></video></div>
+            {esArchivo(c.video) && c.portada ? <div class="film real playable"><img src={c.portada} alt={c.titulo} loading="lazy" /><video src={c.video!} playsinline preload="none"></video><button type="button" class="ver-video mono" data-play>▶</button></div>
+              : esArchivo(c.video) ? <div class="film real"><video src={c.video!} autoplay muted loop playsinline></video></div>
               : c.portada ? <div class="film real"><img src={c.portada} alt={c.titulo} loading="lazy" />{c.video && <a class="ver-video mono" href={c.video} target="_blank" rel="noopener">▶</a>}</div>
               : <div class="film" data-scene={SCENES[i % SCENES.length]} data-seed={30 + i} data-tone={tone}>{c.video && <a class="ver-video mono" href={c.video} target="_blank" rel="noopener">▶</a>}</div>}
             <div>{c.etiquetas.map((t) => <span class="tag">{t}</span>)}<div class="h3">{c.titulo}</div><Ficha items={ficha(c)} /></div>
@@ -38,3 +40,24 @@ const esArchivo = (u?: string | null) => !!u && /\.(mp4|webm|mov)(\?|#|$)/i.test
     )}
   </div>
 )}
+
+<style is:global>
+  /* un video propio con portada: se ve la portada y, al tocar, se reproduce con sonido (el video puede ser vertical) */
+  .film.playable video { display: none; background: #111; }
+  .mgrid .film.real.playable video { object-fit: contain; }
+  .film.playable.playing video { display: block; }
+  .film.playable.playing img, .film.playable.playing [data-play] { display: none; }
+  .film.playable [data-play] { border: 0; cursor: pointer; font-family: 'IBM Plex Mono', monospace; }
+</style>
+
+<script>
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as Element).closest('[data-play]');
+    if (!btn) return;
+    const box = btn.closest('.playable') as HTMLElement;
+    const v = box.querySelector('video') as HTMLVideoElement;
+    box.classList.add('playing'); v.controls = true; v.muted = false; v.volume = 0.8;
+    v.play().catch(() => { v.muted = true; v.play().catch(() => {}); });
+    v.addEventListener('ended', () => { box.classList.remove('playing'); v.controls = false; v.currentTime = 0; }, { once: true });
+  });
+</script>
