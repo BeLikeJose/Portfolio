@@ -10,6 +10,15 @@ const base = {
   etiquetas: fields.array(fields.text({ label: 'Etiqueta' }), { label: 'Etiquetas', description: 'Palabras cortas sobre el caso, por ejemplo: concepto, lanzamiento.', itemLabel: (p) => p.value || 'etiqueta' }),
   portada: fields.image({ label: 'Portada (foto)', description: 'Opcional. JPG o WebP, idealmente menos de 500 KB.', directory: 'public/media/obra', publicPath: '/media/obra/' }),
   video: fields.url({ label: 'Video (link)', description: 'Opcional. Un link .mp4 se reproduce en la página. Un link de Instagram, YouTube o Vimeo aparece como botón "ver video" sobre la portada.' }),
+  galeria: fields.array(
+    fields.object({
+      imagen: fields.image({ label: 'Foto o captura', description: 'Una imagen. Se muestra completa, sin recortar. Si esta pieza es un video, deja esto vacío.', directory: 'public/media/obra', publicPath: '/media/obra/' }),
+      video: fields.url({ label: 'Video (link .mp4)', description: 'Opcional. Link directo a un .mp4; se reproduce en la página con el reproductor nativo, con su proporción.' }),
+      poster: fields.image({ label: 'Imagen de portada del video', description: 'Opcional. Si no la pones, se ve el primer cuadro del video.', directory: 'public/media/obra', publicPath: '/media/obra/' }),
+      nota: fields.text({ label: 'Nota (opcional)', description: 'Una línea debajo de la pieza.' }),
+    }),
+    { label: 'Galería', description: 'Capturas, fotos y videos del caso. Cada uno se ve con su proporción original.', itemLabel: (p) => p.fields.nota.value || p.fields.video.value || (p.fields.imagen.value ? 'foto' : 'pieza') },
+  ),
   orden: fields.integer({ label: 'Orden', description: 'El 1 es el caso grande de la pestaña; los demás van al lado.', defaultValue: 1 }),
 };
 

@@ -2,7 +2,8 @@
 // Una pestaña de La obra: el caso con orden más bajo va en grande; el resto, al lado.
 // Los datos salen de src/content/obra/<pestaña>/*.yaml (se editan en /keystatic).
 import Ficha from './Ficha.astro';
-interface Caso { titulo: string; etiquetas: string[]; portada?: string | null; video?: string | null; orden: number; [k: string]: unknown }
+interface Pieza { imagen?: string | null; video?: string | null; poster?: string | null; nota?: string | null }
+interface Caso { galeria?: Pieza[]; titulo: string; etiquetas: string[]; portada?: string | null; video?: string | null; orden: number; [k: string]: unknown }
 interface Props { casos: Caso[]; campos: [string, string][]; intro?: string; scene: string; tone?: string }
 const { casos, campos, intro, scene, tone } = Astro.props;
 const [main, ...rest] = [...casos].sort((a, b) => a.orden - b.orden);
@@ -22,6 +23,21 @@ const esArchivo = (u?: string | null) => !!u && /\.(mp4|webm|mov)(\?|#|$)/i.test
         : main.portada ? <div class="film real"><img src={main.portada} alt={main.titulo} loading="lazy" />{main.video && <a class="ver-video mono" href={main.video} target="_blank" rel="noopener">▶ ver video</a>}</div>
         : <div class="film" data-scene={scene} data-seed="19" data-tone={tone} data-video>{main.video && <a class="ver-video mono" href={main.video} target="_blank" rel="noopener">▶ ver video</a>}</div>}
       <div class="cap"><div>{main.etiquetas.map((t) => <span class="tag">{t}</span>)}<div class="h3">{main.titulo}</div></div><Ficha items={ficha(main)} /></div>
+      {main.galeria?.length ? (
+        <div class="galeria">
+          <span class="mono galeria-lab">galería</span>
+          <div class="galeria-grid">
+            {main.galeria.map((g) => (
+              <figure class="gitem">
+                {g.video && g.poster ? <div class="film real playable"><img src={g.poster} alt={g.nota ?? ''} loading="lazy" /><video src={g.video} playsinline preload="none"></video><button type="button" class="ver-video mono" data-play>▶ ver video</button></div>
+                  : g.video ? <div class="film real"><video src={`${g.video}#t=0.1`} controls playsinline preload="metadata"></video></div>
+                  : g.imagen ? <div class="film real"><img src={g.imagen} alt={g.nota ?? ''} loading="lazy" /></div> : null}
+                {g.nota && <figcaption class="mono">{g.nota}</figcaption>}
+              </figure>
+            ))}
+          </div>
+        </div>
+      ) : null}
     </div>
     {rest.length ? (
       <div class="side-list">
@@ -42,6 +58,13 @@ const esArchivo = (u?: string | null) => !!u && /\.(mp4|webm|mov)(\?|#|$)/i.test
 )}
 
 <style is:global>
+  /* galería: cada pieza con su proporción; las verticales y horizontales conviven en columnas */
+  .galeria { margin-top: 36px; }
+  .galeria-lab { display: block; font-size: 10px; text-transform: uppercase; color: #777; margin-bottom: 12px; }
+  .galeria-grid { columns: 2; column-gap: 16px; }
+  .gitem { break-inside: avoid; margin: 0 0 16px; }
+  .gitem figcaption { font-size: 10px; color: #666; margin-top: 6px; line-height: 1.4; text-transform: uppercase; }
+  @media (max-width: 560px) { .galeria-grid { columns: 1; } }
   /* un video propio con portada: se ve la portada y, al tocar, se reproduce con sonido (el video puede ser vertical) */
   .mgrid .film.real.playable:not(.playing) video { display: none; }
   .mgrid .film.real.playable.playing video { display: block; width: auto; max-width: 100%; }

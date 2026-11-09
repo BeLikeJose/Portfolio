@@ -131,9 +131,10 @@ body.ready .giant .m span{transform:none}
 .chips button{display:flex;align-items:center;gap:10px;border:1px solid var(--ink);border-radius:40px;padding:4px 18px 4px 4px;background:none;font-family:'Inter Tight';font-size:19px;text-transform:uppercase;letter-spacing:.02em;transition:.3s}
 .chips button .film{width:58px;height:34px;border-radius:30px}
 .chips button.on{background:var(--ink);color:#fafafa}
-.mpanels{position:relative;min-height:800px}
-.mpanel{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .6s}
-.mpanel.on{opacity:1;pointer-events:auto}
+.mpanels{position:relative}
+.mpanel{display:none}
+.mpanel.on{display:block;animation:mpIn .6s}
+@keyframes mpIn{from{opacity:0}to{opacity:1}}
 .mgrid{display:grid;grid-template-columns:1.6fr 1fr;gap:28px}
 .feature .film{height:480px}
 .side-list{display:flex;flex-direction:column;gap:22px}
@@ -449,7 +450,7 @@ footer{display:flex;justify-content:space-between;margin-top:90px;opacity:.65}
 .media .film{width:100%;height:100%;min-height:inherit}
 .media .film.real video,.media .film.real img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
 /* fotos y videos propios: se ven completos, con su proporción, sin recortar */
-.mgrid .film.real{position:relative;height:auto!important;background:none;line-height:0}
+.mgrid .film.real{position:relative;height:auto!important;background:none;line-height:0}.mgrid .film.real canvas{display:none}
 .mgrid .film.real img,.mgrid .film.real video{position:static;display:block;width:100%;height:auto;max-height:80vh;object-fit:contain;margin:0 auto}
 .side-item .ficha-dl{margin-top:8px}
 .ver-video{line-height:1.2;position:absolute;left:14px;bottom:14px;z-index:2;background:#fafafa;color:var(--ink);padding:8px 12px;border-radius:999px;font-size:11px;text-decoration:none}.side-item .ver-video{left:8px;bottom:8px;padding:5px 9px}

@@ -10,6 +10,9 @@ const base = {
   portada: z.string().nullish(),
   video: z.string().nullish(),
   orden: z.number().nullish().transform((v) => v ?? 99),
+  galeria: z.array(z.object({
+    imagen: z.string().nullish(), video: z.string().nullish(), poster: z.string().nullish(), nota: z.string().nullish(),
+  })).nullish().transform((v) => v ?? []),
 };
 const casos = (carpeta: string, campos: Record<string, typeof t>) =>
   defineCollection({ loader: glob({ pattern: '*.yaml', base: `./src/content/obra/${carpeta}` }), schema: z.object({ ...base, ...campos }) });
